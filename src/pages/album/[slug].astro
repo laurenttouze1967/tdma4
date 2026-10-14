@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { countryRubriques, articlesOf, urls, formatDate, type Rubrique } from '../../lib/data';
+import Film from '../../components/Film.astro';
 
 export function getStaticPaths() {
   const list = countryRubriques.filter((r) => r.photoCount > 0);
@@ -9,6 +10,7 @@ export function getStaticPaths() {
 interface Props { r: Rubrique; prev?: Rubrique; next?: Rubrique }
 const { r, prev, next } = Astro.props;
 const list = articlesOf(r.slug).filter((a) => a.photos.length);
+const filmsOf = (a: (typeof list)[number]) => a.body.filter((p) => p.type === 'film').map((p) => (p as { file: string }).file);
 ---
 <Base title={`Album : ${r.name}`} description={`${r.photoCount} photos de notre passage en ${r.name} pendant notre tour du monde.`} image={r.cover?.src}>
   <div class="container head">
@@ -30,6 +32,7 @@ const list = articlesOf(r.slug).filter((a) => a.photos.length);
           ))}
           <span class="filler" aria-hidden="true"></span>
         </div>
+        {filmsOf(a).length > 0 && <div class="films">{filmsOf(a).map((f) => <Film file={f} />)}</div>}
       </section>
     ))}
   </div>
@@ -59,6 +62,8 @@ const list = articlesOf(r.slug).filter((a) => a.photos.length);
   .justified img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
   .justified .ph:hover img { transform: scale(1.04); }
   .filler { flex: 1000 1 0; }
+  .films { display: grid; gap: 0 1.5rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr)); margin-top: .5rem; }
+  .films :global(.film) { width: 100%; margin: 1rem 0 0; }
   @media (max-width: 520px) { .justified { --h: 6.5rem; gap: .25rem; } }
   .pager { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; margin-top: 1rem; padding-top: 1.5rem; border-top: 1px solid var(--line); font-weight: 600; }
   .pager a { text-decoration: none; }

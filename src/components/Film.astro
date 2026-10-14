@@ -1,34 +1,37 @@
 ---
-import fs from 'node:fs';
-import path from 'node:path';
+import films from '../data/films.json';
 interface Props { file: string }
 const { file } = Astro.props;
-// Les films sont déposés dans public/films/ (convertis en MP4 H.264)
-const base = file.replace(/\.[a-z0-9]+$/i, '');
-const exists = fs.existsSync(path.join(process.cwd(), 'public', 'films', base + '.mp4'));
-const poster = fs.existsSync(path.join(process.cwd(), 'public', 'films', base + '.jpg')) ? `/films/${base}.jpg` : undefined;
-const src = `/films/${encodeURIComponent(base)}.mp4`;
+// repère « Insérer film … » des fichiers Word -> film converti dans public/films/
+type FilmInfo = { src: string; poster: string; title: string; w: number; h: number; duration: number };
+const f = (films as Record<string, FilmInfo>)[file];
+const dur = f ? `${Math.floor(f.duration / 60)} min ${String(f.duration % 60).padStart(2, '0')} s`.replace(/^0 min /, '') : '';
+// vidéos de 2008 en petite définition : on ne les agrandit pas plus de 2 fois
+const maxW = f ? Math.min(f.w * 2, 720) : 720;
 ---
-<figure class="film">
-  {exists ? (
-    <video controls preload="none" playsinline poster={poster} src={src}>
-      <a href={src}>Télécharger le film</a>
+<figure class="film" style={`--maxw: ${maxW}px`}>
+  {f ? (
+    <video controls preload="none" playsinline poster={f.poster} width={f.w} height={f.h} style={`aspect-ratio: ${f.w} / ${f.h}`}>
+      <source src={f.src} type="video/mp4" />
+      <a href={f.src}>Télécharger le film « {f.title} »</a>
     </video>
   ) : (
-    <div class="placeholder" role="img" aria-label={`Film à venir : ${base}`}>
+    <div class="placeholder" role="img" aria-label="Film à venir">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
       <span>Film à venir</span>
     </div>
   )}
-  <figcaption>🎬 {base}</figcaption>
+  <figcaption><span class="tag">Film</span> {f ? f.title : file.replace(/\.[a-z0-9]+$/i, '')}{dur && <span class="dur"> · {dur}</span>}</figcaption>
 </figure>
 
 <style>
-  .film { clear: both; width: min(100% - 2 * var(--gutter), 46rem); margin: 2rem auto; }
-  video, .placeholder { width: 100%; aspect-ratio: 16 / 9; border-radius: 8px; background: #1d1714; }
-  .placeholder { display: grid; place-content: center; justify-items: center; gap: .5rem; color: #f6c8ac;
+  .film { clear: both; width: min(100% - 2 * var(--gutter), var(--maxw)); margin: 2.2rem auto; }
+  video { width: 100%; height: auto; border-radius: 8px; background: #1d1714; box-shadow: 0 10px 30px -14px rgb(40 20 10 / .5); }
+  .placeholder { width: 100%; aspect-ratio: 4 / 3; border-radius: 8px; display: grid; place-content: center; justify-items: center; gap: .5rem; color: #f6c8ac;
     background: repeating-linear-gradient(135deg, #2b221d 0 14px, #33281f 14px 28px); }
   .placeholder svg { width: 3rem; height: 3rem; fill: currentColor; opacity: .8; }
   .placeholder span { font-size: .85rem; letter-spacing: .1em; text-transform: uppercase; }
-  figcaption { margin-top: .5rem; font-size: .9rem; color: var(--ink-soft); text-align: center; }
+  figcaption { margin-top: .6rem; font-size: .92rem; color: var(--ink-soft); text-align: center; }
+  .tag { display: inline-block; font: 600 .68rem/1 var(--sans); letter-spacing: .1em; text-transform: uppercase; color: #fff; background: var(--terracotta); padding: .28rem .45rem; border-radius: 3px; vertical-align: .12em; margin-right: .3rem; }
+  .dur { color: var(--ink-soft); }
 </style>

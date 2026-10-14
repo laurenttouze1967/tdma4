@@ -1,0 +1,74 @@
+{
+ "Interview le projet.mp4": {
+  "src": "/films/interview-le-projet.mp4",
+  "poster": "/films/interview-le-projet.jpg",
+  "title": "Interview avant le départ",
+  "w": 320,
+  "h": 240,
+  "duration": 155
+ },
+ "Presentation vill Bali.mp4": {
+  "src": "/films/villa-bali.mp4",
+  "poster": "/films/villa-bali.jpg",
+  "title": "Présentation de la villa à Bali, par Garance",
+  "w": 320,
+  "h": 240,
+  "duration": 195
+ },
+ "visite kokomo Whitsunday escape.mp4": {
+  "src": "/films/visite-kokomo.mp4",
+  "poster": "/films/visite-kokomo.jpg",
+  "title": "Visite du Kokomo, par Antoine",
+  "w": 320,
+  "h": 240,
+  "duration": 240
+ },
+ "Danse polynésienne Les îles du vent.mp4": {
+  "src": "/films/danse-polynesienne.mp4",
+  "poster": "/films/danse-polynesienne.jpg",
+  "title": "Danse polynésienne",
+  "w": 320,
+  "h": 240,
+  "duration": 29
+ },
+ "Sceance dauphin Les îles du vent.mp4": {
+  "src": "/films/seance-dauphins.mp4",
+  "poster": "/films/seance-dauphins.jpg",
+  "title": "Séance avec les dauphins",
+  "w": 320,
+  "h": 240,
+  "duration": 76
+ },
+ "Perito Merino Cap Horn.mp4": {
+  "src": "/films/perito-moreno.mp4",
+  "poster": "/films/perito-moreno.jpg",
+  "title": "Le glacier Perito Moreno",
+  "w": 320,
+  "h": 240,
+  "duration": 66
+ },
+ "Sandboard Antoine la cordillère des Andes.mp4": {
+  "src": "/films/sandboard-antoine.mp4",
+  "poster": "/films/sandboard-antoine.jpg",
+  "title": "Sandboard : Antoine",
+  "w": 512,
+  "h": 384,
+  "duration": 18
+ },
+ "Sandboard Garance la cordillère des Andes.mp4": {
+  "src": "/films/sandboard-garance.mp4",
+  "poster": "/films/sandboard-garance.jpg",
+  "title": "Sandboard : Garance",
+  "w": 512,
+  "h": 384,
+  "duration": 17
+ },
+ "Machu Picchu Sur la route des incas.mp4": {
+  "src": "/films/machu-picchu.mp4",
+  "poster": "/films/machu-picchu.jpg",
+  "title": "Machu Picchu",
+  "w": 512,
+  "h": 384,
+  "duration": 21
+ }
+}

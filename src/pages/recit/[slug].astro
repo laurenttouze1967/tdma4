@@ -11,6 +11,7 @@ export function getStaticPaths() {
 interface Props { article: Article; prev?: Article; next?: Article }
 const { article: a, prev, next } = Astro.props;
 const r = rubriqueBySlug(a.rubrique);
+const filmCount = a.body.filter((p) => p.type === 'film').length;
 const siblings = articlesOf(a.rubrique);
 const travelling = a.date >= '2007-09-17' && a.date <= '2008-07-29';
 const cover = a.photos[0]?.src;
@@ -45,6 +46,7 @@ const jsonLd = {
         <time datetime={a.date}>{a.dateApprox ? 'vers le ' : ''}{formatDate(a.date)}</time>
         <span>{a.readingMinutes} min de lecture</span>
         {a.photos.length > 0 && <span>{a.photos.length} photos</span>}
+        {filmCount > 0 && <span>{filmCount} film{filmCount > 1 ? 's' : ''}</span>}
       </p>
     </header>
 
