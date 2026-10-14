@@ -1,0 +1,80 @@
+---
+import Base from '../layouts/Base.astro';
+// Clé publique Cloudflare Turnstile (anti-robots). La clé de test ci-dessous laisse tout passer :
+// elle est remplacée par la vraie clé via la variable PUBLIC_TURNSTILE_SITEKEY au moment du déploiement.
+const sitekey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY || '1x00000000000000000000AA';
+---
+<Base title="Nous écrire" description="Une question sur notre tour du monde ou sur un pays que nous avons traversé ? Écrivez-nous.">
+  <div class="measure page">
+    <nav class="crumbs" aria-label="Fil d'Ariane"><ol><li><a href="/">Accueil</a></li><li aria-current="page">Contact</li></ol></nav>
+    <p class="eyebrow">Contact</p>
+    <h1>Nous écrire</h1>
+    <p class="lead">Vous préparez un voyage et vous avez une question sur un pays, un itinéraire ou l'organisation d'un tour du monde en famille ? Laissez-nous un message, nous vous répondrons par e-mail.</p>
+
+    <form id="contact" method="post" action="/api/contact" novalidate>
+      <div class="row2">
+        <label>Votre nom<input name="name" autocomplete="name" required maxlength="100" /></label>
+        <label>Votre e-mail<input name="email" type="email" autocomplete="email" required maxlength="200" /></label>
+      </div>
+      <label>Sujet <span class="opt">(facultatif)</span><input name="subject" maxlength="150" /></label>
+      <label>Message<textarea name="message" rows="7" required maxlength="5000"></textarea></label>
+      <label class="hp" aria-hidden="true">Ne pas remplir<input name="website" tabindex="-1" autocomplete="off" /></label>
+      <div class="cf-turnstile" data-sitekey={sitekey} data-language="fr" data-theme="light"></div>
+      <button class="btn" type="submit">Envoyer le message</button>
+      <p class="status" role="status" aria-live="polite"></p>
+      <p class="muted small">Votre adresse ne sert qu'à vous répondre. Elle n'est ni publiée ni conservée sur ce site.</p>
+    </form>
+  </div>
+  <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</Base>
+
+<script>
+  const form = document.getElementById('contact') as HTMLFormElement;
+  const status = form.querySelector('.status') as HTMLElement;
+  const btn = form.querySelector('button') as HTMLButtonElement;
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    status.className = 'status';
+    if (!form.checkValidity()) {
+      status.textContent = 'Merci de remplir votre nom, une adresse e-mail valide et votre message.';
+      status.classList.add('err');
+      form.reportValidity();
+      return;
+    }
+    btn.disabled = true; btn.textContent = 'Envoi…';
+    try {
+      const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.ok) throw new Error(data.error || 'Erreur');
+      form.reset();
+      status.textContent = 'Merci ! Votre message est bien parti. Nous vous répondrons dès que possible.';
+      status.classList.add('ok');
+    } catch (err) {
+      status.textContent = (err as Error).message === 'Erreur'
+        ? "Le message n'a pas pu être envoyé. Réessayez dans un instant."
+        : (err as Error).message;
+      status.classList.add('err');
+    } finally {
+      btn.disabled = false; btn.textContent = 'Envoyer le message';
+      (window as any).turnstile?.reset?.();
+    }
+  });
+</script>
+
+<style>
+  .page { padding-top: clamp(1.5rem, 4vw, 3rem); }
+  .lead { color: var(--ink-soft); }
+  form { display: grid; gap: 1rem; margin-top: 2rem; background: var(--card); padding: clamp(1.2rem, 3vw, 2rem); border-radius: var(--radius); box-shadow: 0 0 0 1px var(--line); }
+  .row2 { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); }
+  label { display: grid; gap: .35rem; font-weight: 600; font-size: .92rem; }
+  .opt { font-weight: 400; color: var(--ink-soft); }
+  input, textarea { font: inherit; font-weight: 400; padding: .7rem .8rem; border: 1.5px solid var(--line); border-radius: 8px; background: var(--paper); color: var(--ink); width: 100%; }
+  input:focus, textarea:focus { outline: none; border-color: var(--terracotta); box-shadow: 0 0 0 3px rgb(226 115 63 / .18); }
+  textarea { resize: vertical; min-height: 9rem; }
+  .hp { position: absolute; left: -9999px; }
+  button { justify-self: start; }
+  button:disabled { opacity: .6; cursor: wait; }
+  .status { margin: 0; font-weight: 600; min-height: 1.5em; }
+  .status.ok { color: #2e6b2e; } .status.err { color: #a32020; }
+  .small { font-size: .85rem; margin: 0; }
+</style>

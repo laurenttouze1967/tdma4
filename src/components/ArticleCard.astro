@@ -1,0 +1,19 @@
+---
+import { formatDate, urls, type Article } from '../lib/data';
+interface Props { a: Article; showRubrique?: boolean }
+const { a, showRubrique = false } = Astro.props;
+const p = a.photos[0];
+---
+<a class="card" href={urls.article(a.slug)}>
+  {p ? (
+    <div class="thumb"><img src={p.src} width={p.w} height={p.h} alt="" loading="lazy" decoding="async" /></div>
+  ) : (
+    <div class="thumb empty" aria-hidden="true"><span>{a.title.charAt(0)}</span></div>
+  )}
+  <div class="body">
+    {showRubrique && <p class="eyebrow">{a.rubriqueName}</p>}
+    <h3>{a.title}</h3>
+    <p>{a.excerpt}</p>
+    <p class="meta">{a.place ? `${a.place} · ` : ''}{formatDate(a.date)} · {a.readingMinutes} min</p>
+  </div>
+</a>

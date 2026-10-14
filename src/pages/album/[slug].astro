@@ -1,0 +1,65 @@
+---
+import Base from '../../layouts/Base.astro';
+import { countryRubriques, articlesOf, urls, formatDate, type Rubrique } from '../../lib/data';
+
+export function getStaticPaths() {
+  const list = countryRubriques.filter((r) => r.photoCount > 0);
+  return list.map((r, i) => ({ params: { slug: r.slug }, props: { r, prev: list[i - 1], next: list[i + 1] } }));
+}
+interface Props { r: Rubrique; prev?: Rubrique; next?: Rubrique }
+const { r, prev, next } = Astro.props;
+const list = articlesOf(r.slug).filter((a) => a.photos.length);
+---
+<Base title={`Album : ${r.name}`} description={`${r.photoCount} photos de notre passage en ${r.name} pendant notre tour du monde.`} image={r.cover?.src}>
+  <div class="container head">
+    <nav class="crumbs" aria-label="Fil d'Ariane"><ol><li><a href="/">Accueil</a></li><li><a href="/album/">Album photos</a></li><li aria-current="page">{r.name}</li></ol></nav>
+    <p class="eyebrow">Album photos · {r.photoCount} photos</p>
+    <h1>{r.name}</h1>
+  </div>
+
+  <div class="container pswp-gallery">
+    {list.map((a) => (
+      <section class="set">
+        <h2><a href={urls.article(a.slug)}>{a.title}</a> <small>{formatDate(a.date)}</small></h2>
+        <div class="justified">
+          {a.photos.map((p, i) => (
+            <a class="ph" href={p.src} data-pswp-width={p.w} data-pswp-height={p.h} data-cap={p.alt || a.title}
+               style={`--r: ${(p.w / p.h).toFixed(4)}`}>
+              <img src={p.src} width={p.w} height={p.h} alt={p.alt || `${a.title}, photo ${i + 1}`} loading="lazy" decoding="async" />
+            </a>
+          ))}
+          <span class="filler" aria-hidden="true"></span>
+        </div>
+      </section>
+    ))}
+  </div>
+
+  <nav class="pager container" aria-label="Albums voisins">
+    {prev ? <a href={urls.album(prev.slug)}>← {prev.name}</a> : <span />}
+    <a href={urls.rubrique(r.slug)}>Lire les récits : {r.name}</a>
+    {next ? <a href={urls.album(next.slug)}>{next.name} →</a> : <span />}
+  </nav>
+</Base>
+
+<script>
+  import { initLightbox } from '../../scripts/lightbox';
+  initLightbox();
+</script>
+
+<style>
+  .head { padding: clamp(1.5rem, 4vw, 3rem) 0 1rem; }
+  .set { margin-bottom: 2.5rem; }
+  .set h2 { font-size: 1.3rem; margin: 0 0 .8rem; display: flex; flex-wrap: wrap; align-items: baseline; gap: .2rem .8rem; }
+  .set h2 a { color: inherit; text-decoration: none; }
+  .set h2 a:hover { color: var(--terracotta-ink); text-decoration: underline; }
+  .set h2 small { font-family: var(--sans); font-size: .82rem; font-weight: 400; color: var(--ink-soft); }
+  /* grille « justifiée » : chaque photo garde ses proportions, les lignes ont la même hauteur */
+  .justified { --h: clamp(8rem, 18vw, 13rem); display: flex; flex-wrap: wrap; gap: .4rem; }
+  .justified .ph { flex: calc(var(--r) * 100) 1 calc(var(--r) * var(--h)); aspect-ratio: var(--r); border-radius: 4px; overflow: hidden; background: var(--sand-soft); cursor: zoom-in; }
+  .justified img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+  .justified .ph:hover img { transform: scale(1.04); }
+  .filler { flex: 1000 1 0; }
+  @media (max-width: 520px) { .justified { --h: 6.5rem; gap: .25rem; } }
+  .pager { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; margin-top: 1rem; padding-top: 1.5rem; border-top: 1px solid var(--line); font-weight: 600; }
+  .pager a { text-decoration: none; }
+</style>

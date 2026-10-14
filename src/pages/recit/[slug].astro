@@ -1,0 +1,143 @@
+---
+import Base from '../../layouts/Base.astro';
+import PhotoGroup from '../../components/PhotoGroup.astro';
+import Film from '../../components/Film.astro';
+import RouteMap from '../../components/RouteMap.astro';
+import { articles, articlesOf, rubriqueBySlug, formatDate, dayOfTrip, urls, SITE, type Article } from '../../lib/data';
+
+export function getStaticPaths() {
+  return articles.map((a, i) => ({ params: { slug: a.slug }, props: { article: a, prev: articles[i - 1], next: articles[i + 1] } }));
+}
+interface Props { article: Article; prev?: Article; next?: Article }
+const { article: a, prev, next } = Astro.props;
+const r = rubriqueBySlug(a.rubrique);
+const siblings = articlesOf(a.rubrique);
+const travelling = a.date >= '2007-09-17' && a.date <= '2008-07-29';
+const cover = a.photos[0]?.src;
+// côté de chaque photo seule (la première du récit reste en grand)
+let flip = false;
+const sides = a.body.map((part, i) => {
+  if (part.type !== 'photos' || part.items.length !== 1) return undefined;
+  if (a.body.findIndex((p) => p.type === 'photos') === i) return undefined;
+  const next = a.body[i + 1];
+  const textAfter = next && next.type === 'html' ? next.html.replace(/<[^>]+>/g, '').length : 0;
+  if (textAfter < 120) return undefined; // pas de texte à côté : la photo reste centrée
+  flip = !flip;
+  return flip ? 'right' : 'left';
+});
+const jsonLd = {
+  '@context': 'https://schema.org', '@type': 'BlogPosting', headline: a.title, inLanguage: 'fr-FR',
+  datePublished: a.date, author: { '@type': 'Person', name: 'Famille Touzé' },
+  image: cover ? new URL(cover, Astro.site).href : undefined, description: a.excerpt,
+  isPartOf: { '@type': 'Blog', name: SITE.title },
+};
+---
+<Base title={a.title} description={a.excerpt} image={cover} type="article" jsonLd={jsonLd}>
+  <article class="pswp-gallery">
+    <header class="art-head measure">
+      <nav class="crumbs" aria-label="Fil d'Ariane">
+        <ol><li><a href="/">Accueil</a></li><li><a href={urls.rubrique(r.slug)}>{r.name}</a></li><li aria-current="page">{a.title}</li></ol>
+      </nav>
+      <p class="eyebrow">{r.name}{travelling && <> · Jour {dayOfTrip(a.date)}</>}</p>
+      <h1>{a.title}</h1>
+      <p class="meta">
+        {a.place && <span>📍 {a.place}</span>}
+        <time datetime={a.date}>{a.dateApprox ? 'vers le ' : ''}{formatDate(a.date)}</time>
+        <span>{a.readingMinutes} min de lecture</span>
+        {a.photos.length > 0 && <span>{a.photos.length} photos</span>}
+      </p>
+    </header>
+
+    <div class="prose-flow">
+      {a.body.map((part, i) => {
+        if (i > 0 && sides[i - 1]) return null; // déjà rendu avec la photo qui le précède
+        if (part.type === 'html') return <div class="prose measure" set:html={part.html} />;
+        if (part.type === 'film') return <Film file={part.file} />;
+        const group = <PhotoGroup photos={part.items.map((k) => a.photos[k])} caption={part.caption} title={a.title} eager={i < 2} side={sides[i] as 'left' | 'right' | undefined} />;
+        if (!sides[i]) return group;
+        const text = a.body[i + 1] as { html: string };
+        // la photo et le texte qui la suit forment un bloc : le texte habille la photo
+        return <div class="pair">{group}<div class="prose measure" set:html={text.html} /></div>;
+      })}
+    </div>
+
+    {a.slug === 'itineraire' && (
+      <section class="container itin-map" aria-labelledby="map-title">
+        <h2 id="map-title">L'itinéraire réellement parcouru</h2>
+        <RouteMap />
+      </section>
+    )}
+  </article>
+
+  <aside class="measure after">
+    {siblings.length > 1 && (
+      <section class="siblings">
+        <h2 class="h-small">Dans la rubrique {r.name}</h2>
+        <ol>
+          {siblings.map((s) => (
+            <li>{s.slug === a.slug ? <strong aria-current="page">{s.title}</strong> : <a href={urls.article(s.slug)}>{s.title}</a>}</li>
+          ))}
+        </ol>
+      </section>
+    )}
+    {a.photos.length > 0 && r.continent && (
+      <p><a class="btn ghost" href={urls.album(r.slug)}>Toutes les photos : {r.name} →</a></p>
+    )}
+  </aside>
+
+  <nav class="pager container" aria-label="Récit précédent et suivant">
+    {prev ? (
+      <a class="prev" href={urls.article(prev.slug)}><small>← Récit précédent</small><span>{prev.title}</span></a>
+    ) : <span />}
+    {next ? (
+      <a class="next" href={urls.article(next.slug)}><small>Récit suivant →</small><span>{next.title}</span></a>
+    ) : <span />}
+  </nav>
+</Base>
+
+<script>
+  import { initLightbox } from '../../scripts/lightbox';
+  initLightbox();
+</script>
+
+<style>
+  .art-head { padding-top: clamp(1.5rem, 5vw, 3.5rem); padding-bottom: 1rem; }
+  .art-head h1 { margin-bottom: .6rem; }
+  .meta { display: flex; flex-wrap: wrap; gap: .3rem 1.1rem; color: var(--ink-soft); font-size: .92rem; margin: 0; }
+  .meta > * + *::before { content: none; }
+  .itin-map { margin-top: 2.5rem; clear: both; }
+  .pair { display: flow-root; }
+  .prose-flow::after { content: ''; display: table; clear: both; }
+  .after { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--line); }
+  .h-small { font-size: 1.2rem; }
+  .siblings ol { padding-left: 1.3rem; margin: 0 0 1.5rem; }
+  .siblings li { margin: .3rem 0; }
+  .pager { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2.5rem; }
+  .pager a { display: flex; flex-direction: column; gap: .2rem; padding: 1rem 1.2rem; border-radius: var(--radius); background: var(--card);
+    box-shadow: 0 0 0 1px var(--line); text-decoration: none; color: var(--ink); transition: box-shadow .2s; }
+  .pager a:hover { box-shadow: 0 0 0 2px var(--terracotta); }
+  .pager small { color: var(--terracotta-ink); font-weight: 600; }
+  .pager span { font-family: var(--serif); font-size: 1.1rem; color: var(--bordeaux); }
+  .pager .next { text-align: right; }
+  @media (max-width: 560px) { .pager { grid-template-columns: 1fr; } .pager .next { text-align: left; } }
+</style>
+
+<style is:global>
+  .prose { font-size: clamp(1.03rem, 1.2vw, 1.12rem); line-height: 1.75; }
+  .prose p { margin: 0 0 1.1em; hyphens: auto; -webkit-hyphens: auto; }
+  .prose h3 { margin: 2em 0 .6em; font-size: 1.35rem; }
+  .prose ul, .prose ol { padding-left: 1.4em; margin: 0 0 1.2em; }
+  .prose li { margin: .35em 0; }
+  .prose li > p { margin: 0; }
+  .prose sup { line-height: 0; }
+  .prose table { display: block; overflow-x: auto; border-collapse: collapse; margin: 1.5em 0 2em; font-size: .92rem; line-height: 1.4;
+    width: min(100vw - 2 * var(--gutter), var(--wide)); max-width: none; position: relative; left: 50%; transform: translateX(-50%); }
+  .prose th, .prose td { padding: .55em .8em; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; min-width: 8.5em; }
+  .prose thead th { background: var(--sand-soft); color: var(--bordeaux); font-family: var(--serif); font-size: 1.02rem; }
+  .prose td:first-child { white-space: nowrap; min-width: 0; color: var(--bordeaux); }
+  .prose tbody tr:nth-child(even) { background: rgb(255 255 255 / .6); }
+  .prose em strong, .prose strong em { font-style: normal; }
+  .prose-flow > .prose:first-child > p:first-child::first-letter {
+    float: left; font-family: var(--serif); font-size: 3.6em; line-height: .85; padding: .08em .1em 0 0; color: var(--terracotta);
+  }
+</style>

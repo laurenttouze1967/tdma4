@@ -1,0 +1,34 @@
+---
+import Base from '../../layouts/Base.astro';
+import { countryRubriques, articles, urls, rubriquePeriod } from '../../lib/data';
+const albums = countryRubriques.filter((r) => r.photoCount > 0);
+const total = articles.reduce((n, a) => n + a.photos.length, 0);
+---
+<Base title="Album photos" description={`L'album photo de notre tour du monde : ${total} photos, pays par pays.`}>
+  <div class="container head">
+    <nav class="crumbs" aria-label="Fil d'Ariane"><ol><li><a href="/">Accueil</a></li><li aria-current="page">Album photos</li></ol></nav>
+    <p class="eyebrow">Album photos</p>
+    <h1>{total} photos, pays par pays</h1>
+  </div>
+  <div class="container albums">
+    {albums.map((r) => (
+      <a class="album" href={urls.album(r.slug)}>
+        {r.cover && <img src={r.cover.src} width={r.cover.w} height={r.cover.h} alt="" loading="lazy" decoding="async" />}
+        <span class="label"><strong>{r.name}</strong><small>{r.photoCount} photos · {rubriquePeriod(r.slug)}</small></span>
+      </a>
+    ))}
+  </div>
+</Base>
+
+<style>
+  .head { padding: clamp(1.5rem, 4vw, 3rem) 0 1.5rem; }
+  .albums { display: grid; gap: clamp(.6rem, 1.5vw, 1rem); grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); }
+  .album { position: relative; aspect-ratio: 4 / 3; border-radius: var(--radius); overflow: hidden; display: block; background: var(--sand-soft); color: #fff; text-decoration: none; }
+  .album img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+  .album:hover img { transform: scale(1.05); }
+  .album::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgb(25 12 6 / .75), transparent 55%); }
+  .label { position: absolute; left: 1rem; right: 1rem; bottom: .9rem; z-index: 1; display: flex; flex-direction: column; }
+  .label strong { font-family: var(--serif); font-size: 1.45rem; font-weight: 600; }
+  .label small { font-size: .82rem; opacity: .9; }
+  .album:hover { color: #fff; }
+</style>

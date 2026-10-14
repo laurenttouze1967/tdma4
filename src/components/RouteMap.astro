@@ -1,0 +1,235 @@
+---
+import { WIDTH, HEIGHT, sphere, graticule, land, borderPath, legs, points } from '../lib/map';
+import { formatDate, dayOfTrip, urls, articleBySlug } from '../lib/data';
+
+interface Props { compact?: boolean }
+const { compact = false } = Astro.props;
+const PAD = 8;
+const data = points.map((p) => ({
+  name: p.name, country: p.country, date: formatDate(p.date), approx: p.dateApprox, day: dayOfTrip(p.date),
+  mode: p.mode, note: p.note, x: p.x, y: p.y,
+  article: p.article ? { url: urls.article(p.article), title: articleBySlug(p.article).title } : null,
+}));
+const modeLabel = { avion: 'en avion', bateau: 'en bateau', route: 'par la route', train: 'en train' } as const;
+---
+<div class:list={['routemap', { compact }]} data-routemap>
+  <div class="map-scroll">
+    <svg viewBox={`${-PAD} ${-PAD} ${WIDTH + 2 * PAD} ${HEIGHT + 2 * PAD}`} role="img"
+         aria-label="Carte du monde en projection Equal Earth montrant l'itinéraire du tour du monde, de Paris à Paris en passant par 61 étapes.">
+      <defs>
+        <clipPath id="sphere-clip"><path d={sphere} /></clipPath>
+      </defs>
+      <path class="sea" d={sphere} />
+      <g clip-path="url(#sphere-clip)">
+        <path class="grat" d={graticule} />
+        {land.map((c: any) => <path class:list={['land', { visited: c.visited }]} d={c.d} />)}
+        <path class="borders" d={borderPath} />
+        <g class="legs">
+          {legs.map((l) => <path class={`leg ${l.mode}`} d={l.d} data-i={l.index} />)}
+        </g>
+      </g>
+      <path class="outline" d={sphere} />
+      <g class="stops">
+        {points.map((p, i) => (
+          <g class:list={['stop', { home: i === 0 || i === points.length - 1 }]} data-i={i} transform={`translate(${p.x} ${p.y})`}
+             tabindex={compact ? undefined : 0} role={compact ? undefined : 'button'} aria-label={compact ? undefined : `${p.name}, ${data[i].date}`}>
+            <circle class="hit" r="11" />
+            <circle class="dot" r={i === 0 ? 5.5 : 3.6} />
+          </g>
+        ))}
+      </g>
+    </svg>
+  </div>
+
+  {!compact && (
+    <div class="panel" aria-live="polite">
+      <div class="controls">
+        <button type="button" class="btn play" data-play aria-label="Lancer l'animation">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path class="i-play" d="M8 5v14l11-7z" /><path class="i-pause" d="M7 5h4v14H7zM13 5h4v14h-4z" /></svg>
+          <span>Rejouer le voyage</span>
+        </button>
+        <button type="button" class="btn ghost icon" data-prev aria-label="Étape précédente">‹</button>
+        <button type="button" class="btn ghost icon" data-next aria-label="Étape suivante">›</button>
+        <div class="progress" aria-hidden="true"><span data-bar></span></div>
+        <span class="day" data-day>Jour 1 / 317</span>
+      </div>
+      <div class="info" data-info>
+        <p class="eyebrow" data-step>Étape 1 / {data.length}</p>
+        <h3 data-name>{data[0].name}</h3>
+        <p class="when" data-when>{data[0].date}</p>
+        <p class="note" data-note>{data[0].note}</p>
+        <a data-link href={data[0].article?.url ?? '#'}>Lire le récit<span data-link-title></span> →</a>
+      </div>
+      <ul class="legend" aria-label="Légende">
+        <li><i class="l avion"></i>avion</li>
+        <li><i class="l route"></i>route ou train</li>
+        <li><i class="l bateau"></i>bateau</li>
+      </ul>
+    </div>
+  )}
+  <script type="application/json" data-stops set:html={JSON.stringify({ data, modeLabel })} />
+</div>
+
+<style>
+  .routemap { --leg: var(--terracotta); }
+  .map-scroll { border-radius: var(--radius); overflow-x: auto; overscroll-behavior-x: contain; -webkit-overflow-scrolling: touch; background: var(--sea); scrollbar-width: thin; }
+  .routemap:not(.compact) .map-scroll svg { min-width: 760px; }
+  .map-scroll svg { width: 100%; }
+  .sea { fill: #dfe8ec; }
+  .outline { fill: none; stroke: #b9c8cf; stroke-width: 1; }
+  .grat { fill: none; stroke: #fff; stroke-width: .5; opacity: .7; }
+  .land { fill: #ece2cc; }
+  .land.visited { fill: var(--terracotta-soft); }
+  .borders { fill: none; stroke: #fff; stroke-width: .5; stroke-linejoin: round; }
+  .leg { fill: none; stroke: var(--bordeaux); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .leg.avion { stroke-dasharray: 5 4; stroke-width: 1.4; }
+  .leg.bateau { stroke: #1f6f8b; stroke-dasharray: 1 3.5; stroke-width: 2.2; }
+  .stop .hit { fill: transparent; }
+  .stop .dot { fill: #fff; stroke: var(--bordeaux); stroke-width: 1.8; transition: r .25s, fill .25s; }
+  .stop.home .dot { fill: var(--bordeaux); stroke: #fff; }
+  .routemap:not(.compact) .stop { cursor: pointer; outline: none; }
+  .stop:hover .dot, .stop:focus-visible .dot { fill: var(--terracotta); }
+  .stop.current .dot { fill: var(--terracotta); stroke: var(--bordeaux); r: 7; }
+  .stop.future { opacity: 0; }
+  .leg.future { opacity: 0; }
+  .compact .stop .dot { r: 3; }
+
+  .panel { display: grid; gap: 1rem 2rem; margin-top: 1rem; grid-template-columns: 1fr; }
+  @media (min-width: 900px) { .panel { grid-template-columns: 1fr 1fr; align-items: start; } .legend { grid-column: 1; } .info { grid-row: span 2; } }
+  .controls { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem .6rem; }
+  .btn.icon { width: 2.6rem; height: 2.6rem; padding: 0; justify-content: center; font-size: 1.4rem; line-height: 1; }
+  .btn svg { width: 1.1rem; height: 1.1rem; fill: currentColor; }
+  .i-pause { display: none; }
+  .playing .i-pause { display: inline; } .playing .i-play { display: none; }
+  .progress { flex: 1 1 8rem; height: 6px; border-radius: 3px; background: var(--line); overflow: hidden; min-width: 6rem; }
+  .progress span { display: block; height: 100%; width: 0; background: var(--terracotta); transition: width .4s ease; }
+  .day { font-size: .85rem; color: var(--ink-soft); font-variant-numeric: tabular-nums; min-width: 7.5rem; }
+  .info { background: var(--card); border-radius: var(--radius); padding: 1.1rem 1.3rem; box-shadow: 0 0 0 1px var(--line); min-height: 11rem; }
+  .info h3 { margin: 0 0 .2rem; font-size: 1.6rem; }
+  .info .when { margin: 0 0 .6rem; color: var(--ink-soft); font-size: .92rem; }
+  .info .note { margin: 0 0 .8rem; }
+  .info a { font-weight: 600; }
+  .legend { list-style: none; display: flex; flex-wrap: wrap; gap: .4rem 1.2rem; margin: 0; padding: 0; font-size: .85rem; color: var(--ink-soft); }
+  .legend .l { display: inline-block; width: 2rem; height: 0; border-top: 2px solid var(--bordeaux); vertical-align: middle; margin-right: .4rem; }
+  .legend .l.avion { border-top-style: dashed; }
+  .legend .l.bateau { border-top: 3px dotted #1f6f8b; }
+</style>
+
+<script>
+  type StopData = { name: string; country: string; date: string; approx: boolean; day: number; mode: string | null;
+    note: string; x: number; y: number; article: { url: string; title: string } | null };
+
+  document.querySelectorAll<HTMLElement>('[data-routemap]').forEach((root) => {
+    if (root.classList.contains('compact')) return;
+    const { data, modeLabel } = JSON.parse(root.querySelector('[data-stops]')!.textContent!) as
+      { data: StopData[]; modeLabel: Record<string, string> };
+    const legs = [...root.querySelectorAll<SVGPathElement>('.leg')];
+    const stops = [...root.querySelectorAll<SVGGElement>('.stop')];
+    const scroller = root.querySelector<HTMLElement>('.map-scroll')!;
+    const svg = root.querySelector('svg')!;
+    const $ = (s: string) => root.querySelector<HTMLElement>(s)!;
+    const playBtn = $('[data-play]');
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const lastDay = data[data.length - 1].day;
+    let current = data.length - 1;
+    let playing = false;
+    let token = 0;
+
+    const lengths = legs.map((l) => l.getTotalLength());
+
+    function render(i: number, drawnUpTo = i) {
+      current = i;
+      legs.forEach((l, k) => {
+        const idx = k + 1;
+        l.classList.toggle('future', idx > drawnUpTo);
+        if (idx <= drawnUpTo) { l.style.strokeDashoffset = ''; l.style.removeProperty('stroke-dasharray'); }
+      });
+      stops.forEach((s, k) => {
+        s.classList.toggle('future', k > i);
+        s.classList.toggle('current', k === i);
+      });
+      const d = data[i];
+      $('[data-step]').textContent = `Étape ${i + 1} / ${data.length}${d.mode ? ' · ' + modeLabel[d.mode] : ''}`;
+      $('[data-name]').textContent = d.name + (d.country && d.name !== d.country ? ` — ${d.country}` : '');
+      $('[data-when]').textContent = `${d.approx ? 'vers le ' : ''}${d.date} · jour ${d.day}`;
+      $('[data-note]').textContent = d.note;
+      const link = $('[data-link]') as HTMLAnchorElement;
+      if (d.article) { link.hidden = false; link.href = d.article.url; $('[data-link-title]').textContent = ` « ${d.article.title} »`; }
+      else link.hidden = true;
+      $('[data-bar]').style.width = `${(d.day / lastDay) * 100}%`;
+      $('[data-day]').textContent = `Jour ${d.day} / ${lastDay}`;
+      follow(d);
+    }
+
+    function follow(d: StopData) {
+      if (scroller.scrollWidth <= scroller.clientWidth) return;
+      const vb = svg.viewBox.baseVal;
+      const scale = svg.getBoundingClientRect().width / vb.width;
+      const x = (d.x - vb.x) * scale - scroller.clientWidth / 2;
+      scroller.scrollTo({ left: x, behavior: reduce ? 'auto' : 'smooth' });
+    }
+
+    const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+    async function drawLeg(k: number, my: number) {
+      const leg = legs[k - 1];
+      if (!leg) return;
+      const len = lengths[k - 1] || 1;
+      const dash = getComputedStyle(leg).strokeDasharray;
+      leg.classList.remove('future');
+      // on trace le tronçon progressivement, puis on remet son style (pointillés pour l'avion)
+      leg.style.strokeDasharray = `${len} ${len}`;
+      const dur = Math.min(1400, Math.max(450, len * 4));
+      const anim = leg.animate([{ strokeDashoffset: len }, { strokeDashoffset: 0 }], { duration: dur, easing: 'ease-in-out' });
+      await anim.finished.catch(() => {});
+      if (my !== token) return;
+      leg.style.removeProperty('stroke-dasharray');
+      void dash;
+    }
+
+    async function play(from = 0) {
+      const my = ++token;
+      playing = true; root.classList.add('playing'); playBtn.querySelector('span')!.textContent = 'Pause';
+      if (from === 0) render(0, 0);
+      for (let i = from; i < data.length; i++) {
+        if (i > 0) { stops[i].classList.remove('future'); await drawLeg(i, my); }
+        if (my !== token) return;
+        render(i);
+        await wait(i === 0 ? 900 : 650);
+        if (my !== token) return;
+      }
+      stop('Rejouer le voyage');
+    }
+
+    function stop(label = 'Reprendre') {
+      token++; playing = false; root.classList.remove('playing');
+      playBtn.querySelector('span')!.textContent = label;
+    }
+
+    playBtn.addEventListener('click', () => {
+      if (playing) return stop();
+      play(current >= data.length - 1 ? 0 : current + 1);
+    });
+    $('[data-prev]').addEventListener('click', () => { stop(); render(Math.max(0, current - 1)); });
+    $('[data-next]').addEventListener('click', () => { stop(); render(Math.min(data.length - 1, current + 1)); });
+    stops.forEach((s, i) => {
+      const go = () => { stop(); render(i, data.length); stops.forEach((x, k) => x.classList.remove('future')); };
+      s.addEventListener('click', go);
+      s.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
+    });
+    root.addEventListener('keydown', (e) => {
+      if ((e.target as HTMLElement).closest('input,textarea')) return;
+      if (e.key === 'ArrowRight') { stop(); render(Math.min(data.length - 1, current + 1)); }
+      if (e.key === 'ArrowLeft') { stop(); render(Math.max(0, current - 1)); }
+    });
+
+    render(data.length - 1);
+    // L'animation démarre d'elle-même la première fois que la carte apparaît à l'écran
+    if (!reduce && 'IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        if (entries.some((e) => e.isIntersecting)) { io.disconnect(); play(0); }
+      }, { threshold: 0.35 });
+      io.observe(svg);
+    }
+  });
+</script>

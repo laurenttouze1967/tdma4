@@ -1,0 +1,152 @@
+---
+import Base from '../layouts/Base.astro';
+import RouteMap from '../components/RouteMap.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import { SITE, articles, rubriques, countryRubriques, articlesOf, itinerary, rubriquePeriod, urls, articleBySlug } from '../lib/data';
+import hero from '../data/hero.json';
+
+const totalPhotos = articles.reduce((n, a) => n + a.photos.length, 0);
+const countries = new Set(itinerary.map((s) => s.country)).size - 1; // sans la France
+const projet = articlesOf('le-projet');
+const first = articles.find((a) => a.rubrique === 'tanzanie')!;
+const heroPhotos = hero.map((src: string) => articles.flatMap((a) => a.photos).find((p) => p.src === src)!).filter(Boolean);
+---
+<Base>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <p class="eyebrow">Septembre 2007 – juillet 2008</p>
+        <h1>Tout autour <span>de la terre…</span></h1>
+        <p class="lead">316 jours pour faire le tour du monde, à quatre : {SITE.family}. Sac au dos, de la savane tanzanienne aux rues de New York, en passant par les temples d'Angkor, les îles polynésiennes et l'altiplano bolivien.</p>
+        <div class="cta">
+          <a class="btn" href={urls.article(projet[0].slug)}>Commencer par le début</a>
+          <a class="btn ghost" href="/carte/">Voir l'itinéraire</a>
+        </div>
+      </div>
+      <div class="polaroids" aria-hidden="true">
+        {heroPhotos.map((p, i) => (
+          <figure class={`pol p${i}`}><img src={p.src} width={p.w} height={p.h} alt="" loading={i < 2 ? 'eager' : 'lazy'} /></figure>
+        ))}
+      </div>
+    </div>
+    <dl class="container stats">
+      <div><dt>jours</dt><dd>316</dd></div>
+      <div><dt>pays</dt><dd>{countries}</dd></div>
+      <div><dt>étapes</dt><dd>{itinerary.length - 2}</dd></div>
+      <div><dt>récits</dt><dd>{articles.length}</dd></div>
+      <div><dt>photos</dt><dd>{totalPhotos}</dd></div>
+    </dl>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">L'itinéraire</p>
+          <h2>Un tour du monde vers l'est</h2>
+        </div>
+        <a href="/carte/">Carte animée et détail des étapes →</a>
+      </div>
+      <a href="/carte/" class="map-link" aria-label="Ouvrir la carte animée de l'itinéraire"><RouteMap compact /></a>
+      <p class="muted small map-note">Carte en projection <em>Equal Earth</em>, qui respecte la taille réelle des continents.</p>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Les récits</p>
+          <h2>Pays par pays</h2>
+        </div>
+      </div>
+      <div class="cards countries">
+        {countryRubriques.map((r, i) => (
+          <a class="card country" href={urls.rubrique(r.slug)}>
+            <div class="thumb">{r.cover && <img src={r.cover.src} width={r.cover.w} height={r.cover.h} alt="" loading="lazy" decoding="async" />}<span class="num">{String(i + 1).padStart(2, '0')}</span></div>
+            <div class="body">
+              <p class="eyebrow">{r.continent}</p>
+              <h3>{r.name}</h3>
+              <p class="meta">{rubriquePeriod(r.slug)} · {r.articles.length} récit{r.articles.length > 1 ? 's' : ''}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Avant le départ</p>
+          <h2>Comment tout a commencé</h2>
+        </div>
+        <a href={urls.rubrique('le-projet')}>Toute la rubrique →</a>
+      </div>
+      <ol class="projet">
+        {projet.map((a) => (
+          <li><a href={urls.article(a.slug)}><strong>{a.title}</strong><span>{a.excerpt}</span><small>{a.readingMinutes} min de lecture</small></a></li>
+        ))}
+      </ol>
+      <div class="back-home">
+        <ArticleCard a={articleBySlug('retour')} showRubrique />
+        <div class="back-text">
+          <p class="eyebrow">Et après ?</p>
+          <h2>Le retour</h2>
+          <p>Le bilan, les classements de chacun (hôtels, villes, galères, merveilles) et les pays préférés de la famille.</p>
+          <a class="btn ghost" href={urls.article('retour')}>Lire la conclusion</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero { padding: clamp(2rem, 6vw, 4.5rem) 0 2rem; background:
+    radial-gradient(60rem 30rem at 85% 10%, rgb(226 115 63 / .16), transparent 60%),
+    radial-gradient(40rem 25rem at 0% 100%, rgb(237 219 147 / .45), transparent 60%); overflow: hidden; }
+  .hero-grid { display: grid; gap: 2.5rem; align-items: center; grid-template-columns: 1fr; }
+  @media (min-width: 900px) { .hero-grid { grid-template-columns: 1.05fr 1fr; } }
+  .hero h1 { font-size: clamp(2.6rem, 7.5vw, 5rem); line-height: 1; margin-bottom: 1.2rem; }
+  .hero h1 span { display: block; color: var(--terracotta); font-style: italic; font-weight: 500; }
+  .lead { font-size: clamp(1.05rem, 1.6vw, 1.2rem); color: var(--ink-soft); max-width: 34rem; }
+  .cta { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.5rem; }
+
+  .polaroids { position: relative; aspect-ratio: 5 / 4; max-width: 34rem; width: 100%; margin-inline: auto; }
+  .pol { position: absolute; margin: 0; background: #fff; padding: 2.2% 2.2% 7%; box-shadow: 0 12px 30px -12px rgb(40 20 10 / .45); width: 48%;
+    transition: transform .4s ease; }
+  .pol img { aspect-ratio: 4 / 3; object-fit: cover; width: 100%; }
+  .pol:hover { transform: rotate(0) scale(1.04) !important; z-index: 10; }
+  .p0 { left: 2%; top: 4%; transform: rotate(-6deg); z-index: 2; }
+  .p1 { right: 0; top: 0; transform: rotate(5deg); z-index: 1; }
+  .p2 { left: 26%; top: 30%; transform: rotate(-1.5deg); z-index: 4; width: 50%; }
+  .p3 { left: 0; bottom: 0; transform: rotate(4deg); z-index: 3; }
+  .p4 { right: 2%; bottom: 3%; transform: rotate(-4deg); z-index: 3; }
+
+  .stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: .5rem; margin-top: clamp(2rem, 5vw, 3.5rem); padding-top: 1.5rem; border-top: 1px solid var(--line); }
+  .stats div { display: flex; flex-direction: column-reverse; text-align: center; }
+  .stats dd { margin: 0; font-family: var(--serif); font-size: clamp(1.6rem, 4.5vw, 2.6rem); color: var(--bordeaux); line-height: 1.1; }
+  .stats dt { font-size: .78rem; text-transform: uppercase; letter-spacing: .1em; color: var(--ink-soft); }
+
+  .map-link { display: block; text-decoration: none; }
+  .map-note { margin-top: .6rem; }
+  .projet { list-style: none; counter-reset: p; margin: 0; padding: 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); }
+  .projet li { counter-increment: p; }
+  .projet a { display: flex; flex-direction: column; gap: .4rem; height: 100%; padding: 1.2rem 1.3rem; background: var(--card); border-radius: var(--radius); box-shadow: 0 0 0 1px var(--line); text-decoration: none; color: var(--ink); border-top: 4px solid var(--terracotta); transition: box-shadow .2s; }
+  .projet a:hover { box-shadow: 0 0 0 1px var(--line), 0 12px 28px -16px rgb(60 30 10 / .45); color: var(--ink); }
+  .projet a::before { content: counter(p, decimal-leading-zero); font-family: var(--serif); font-size: 1.8rem; color: var(--terracotta); line-height: 1; }
+  .projet strong { font-family: var(--serif); font-size: 1.25rem; color: var(--bordeaux); font-weight: 600; }
+  .projet span { font-size: .93rem; color: var(--ink-soft); display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+  .projet small { margin-top: auto; font-size: .8rem; color: var(--ink-soft); }
+  .country .thumb { position: relative; }
+  .num { position: absolute; top: .5rem; left: .6rem; font: 600 .78rem/1 var(--sans); color: #fff; background: rgb(43 34 29 / .55); padding: .3rem .45rem; border-radius: 4px; letter-spacing: .05em; }
+  .country .eyebrow { font-size: .68rem; margin: 0; }
+  @media (max-width: 520px) { .countries { grid-template-columns: 1fr 1fr; } .country .body { padding: .7rem .8rem .9rem; } .country h3 { font-size: 1.05rem; } }
+  .cont-title { font-family: var(--sans); font-size: .85rem; letter-spacing: .14em; text-transform: uppercase; color: var(--terracotta-ink); border-bottom: 1px solid var(--line); padding-bottom: .5rem; margin: 0 0 1rem; }
+  .countries { grid-template-columns: repeat(auto-fill, minmax(min(100%, 13.5rem), 1fr)); }
+  .country .thumb { aspect-ratio: 3 / 2; }
+  .country .meta { padding-top: 0; }
+  .back-home { display: grid; gap: 2rem; align-items: center; margin-top: 3.5rem; grid-template-columns: 1fr; }
+  @media (min-width: 760px) { .back-home { grid-template-columns: 1fr 1fr; } }
+</style>

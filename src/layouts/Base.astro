@@ -1,0 +1,193 @@
+---
+import '@fontsource-variable/fraunces';
+import '@fontsource-variable/inter';
+import '../styles/global.css';
+import { SITE, rubriques, urls } from '../lib/data';
+import families from '../data/families.json';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  jsonLd?: object;
+  noindex?: boolean;
+}
+const { title, description = SITE.description, image, type = 'website', jsonLd, noindex = false } = Astro.props;
+const fullTitle = title ? `${title} · ${SITE.title}` : `${SITE.title} — ${SITE.tagline}`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(image ?? '/og.jpg', Astro.site);
+const path = Astro.url.pathname;
+const active = (p: string) => (path.startsWith(p) ? 'page' : undefined);
+const groups: { label: string; items: typeof rubriques }[] = [];
+for (const r of rubriques) {
+  const label = r.continent ?? 'Le voyage';
+  let g = groups.find((x) => x.label === label);
+  if (!g) groups.push((g = { label, items: [] }));
+  g.items.push(r);
+}
+---
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta name="theme-color" content="#e2733f" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta property="og:site_name" content={SITE.title} />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={title ?? SITE.title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+  </head>
+  <body>
+    <a class="skip" href="#contenu">Aller au contenu</a>
+    <header class="site-header">
+      <div class="container bar">
+        <a class="brand" href="/" aria-label="Accueil — Tout autour de la terre…">
+          <svg class="globe" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" /><path d="M2 16h28M16 2c4 4 6 9 6 14s-2 10-6 14M16 2c-4 4-6 9-6 14s2 10 6 14" /></svg>
+          <span><strong>Tout autour de la terre…</strong><small>316 jours pour faire le tour du monde</small></span>
+        </a>
+        <details class="menu">
+          <summary aria-label="Menu"><span class="burger" aria-hidden="true"></span><span class="label">Menu</span></summary>
+          <nav aria-label="Navigation principale">
+            <details class="sub">
+              <summary aria-current={active('/pays/') ?? active('/recit/')}>Les récits</summary>
+              <div class="mega">
+                {groups.map((g) => (
+                  <div>
+                    <p class="eyebrow">{g.label}</p>
+                    <ul>
+                      {g.items.map((r) => (
+                        <li><a href={urls.rubrique(r.slug)}>{r.name}</a></li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </details>
+            <a href="/carte/" aria-current={active('/carte/')}>La carte</a>
+            <a href="/album/" aria-current={active('/album/')}>Album photos</a>
+            <a href="/contact/" aria-current={active('/contact/')}>Contact</a>
+          </nav>
+        </details>
+      </div>
+    </header>
+
+    <main id="contenu">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="container cols">
+        <div>
+          <p class="foot-title">Tout autour de la terre…</p>
+          <p>Le tour du monde de {SITE.family}, du 17 septembre 2007 au 29 juillet 2008.</p>
+          <p class="muted small">Ce site reprend le blog <em>tdma4</em>, publié pendant le voyage sur uniterre.com.</p>
+        </div>
+        <div>
+          <p class="foot-sub">D'autres familles autour du monde</p>
+          <ul>
+            {families.map((f) => (
+              <li><a href={f.url} rel="noopener" target="_blank">{f.name}</a>{!f.live && <span class="arch"> (archive)</span>}</li>
+            ))}
+          </ul>
+        </div>
+        <nav aria-label="Liens du pied de page">
+          <p class="foot-sub">Sur ce site</p>
+          <ul>
+            <li><a href={urls.rubrique('le-projet')}>Le projet</a></li>
+            <li><a href="/carte/">La carte de l'itinéraire</a></li>
+            <li><a href="/album/">L'album photos</a></li>
+            <li><a href={urls.rubrique('conclusion')}>Le retour</a></li>
+            <li><a href="/contact/">Nous écrire</a></li>
+          </ul>
+        </nav>
+      </div>
+      <p class="container copy small">© 2007–{new Date().getFullYear()} famille Touzé · Textes et photos ne peuvent être reproduits sans autorisation.</p>
+    </footer>
+
+    <script>
+      // Ferme les menus déroulants quand on clique ailleurs ou qu'on appuie sur Échap
+      const menus = document.querySelectorAll<HTMLDetailsElement>('.site-header details');
+      const main = document.querySelector<HTMLDetailsElement>('.site-header .menu');
+      const mq = window.matchMedia('(min-width: 860px)');
+      const closable = (d: HTMLDetailsElement) => !(d === main && mq.matches);
+      document.addEventListener('click', (e) => {
+        menus.forEach((d) => { if (d.open && closable(d) && !d.contains(e.target as Node)) d.open = false; });
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') menus.forEach((d) => { if (closable(d)) d.open = false; });
+      });
+      // Sur grand écran, le menu principal est toujours visible
+      const sync = () => { if (main) main.open = mq.matches; };
+      sync(); mq.addEventListener('change', sync);
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  .site-header {
+    position: sticky; top: 0; z-index: 50;
+    background: rgb(251 247 239 / .92);
+    backdrop-filter: saturate(1.4) blur(10px);
+    -webkit-backdrop-filter: saturate(1.4) blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .site-header .bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 4rem; }
+  .brand { display: flex; align-items: center; gap: .7rem; text-decoration: none; color: var(--bordeaux); }
+  .brand .globe { width: 2rem; height: 2rem; fill: var(--terracotta); stroke: #fff; stroke-width: 1.4; flex: none; }
+  .brand span { display: flex; flex-direction: column; line-height: 1.15; }
+  .brand strong { font-family: var(--serif); font-size: 1.2rem; font-weight: 600; }
+  .brand small { font-size: .74rem; color: var(--ink-soft); letter-spacing: .02em; }
+
+  .menu > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: .5rem; padding: .5rem .2rem; font-weight: 600; font-size: .9rem; }
+  .menu > summary::-webkit-details-marker, .sub > summary::-webkit-details-marker { display: none; }
+  .burger, .burger::before, .burger::after { display: block; width: 20px; height: 2px; background: var(--ink); border-radius: 2px; position: relative; transition: transform .2s; }
+  .burger::before, .burger::after { content: ''; position: absolute; left: 0; }
+  .burger::before { top: -6px; } .burger::after { top: 6px; }
+  .menu[open] .burger { background: transparent; }
+  .menu[open] .burger::before { transform: translateY(6px) rotate(45deg); }
+  .menu[open] .burger::after { transform: translateY(-6px) rotate(-45deg); }
+
+  .menu nav { position: absolute; left: 0; right: 0; top: 100%; background: var(--paper); border-bottom: 1px solid var(--line); padding: .5rem var(--gutter) 1.25rem; display: flex; flex-direction: column; max-height: calc(100vh - 4rem); overflow: auto; }
+  .menu nav > a, .sub > summary { display: block; padding: .8rem 0; border-bottom: 1px solid var(--line); text-decoration: none; color: var(--ink); font-weight: 600; cursor: pointer; list-style: none; }
+  .menu nav > a[aria-current], .sub > summary[aria-current] { color: var(--terracotta-ink); }
+  .sub > summary::after { content: '▾'; margin-left: .4rem; font-size: .8em; color: var(--terracotta); }
+  .mega { display: grid; grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr)); gap: .75rem 1.5rem; padding: 1rem 0; }
+  .mega ul { list-style: none; margin: 0; padding: 0; }
+  .mega a { display: block; padding: .25rem 0; color: var(--ink); text-decoration: none; }
+  .mega a:hover { color: var(--terracotta-ink); }
+  .mega .eyebrow { margin-bottom: .2rem; }
+
+  @media (min-width: 860px) {
+    .menu[open] > summary { display: none; }
+    .menu nav { position: static; flex-direction: row; align-items: center; gap: .25rem; background: none; border: 0; padding: 0; max-height: none; overflow: visible; }
+    .menu nav > a, .sub > summary { border: 0; padding: .5rem .85rem; border-radius: 999px; font-size: .95rem; }
+    .menu nav > a:hover, .sub > summary:hover { background: var(--sand-soft); }
+    .sub { position: relative; }
+    .mega { position: absolute; right: -8rem; top: calc(100% + .6rem); width: min(44rem, 90vw); background: var(--card); border-radius: var(--radius); padding: 1.25rem 1.5rem; box-shadow: 0 18px 50px -20px rgb(60 30 10 / .45), 0 0 0 1px var(--line); }
+  }
+
+  .site-footer { background: #2b221d; color: #e9dfd2; margin-top: 4rem; padding: 3rem 0 1.5rem; font-size: .95rem; }
+  .site-footer a { color: #f6c8ac; text-decoration: none; }
+  .site-footer a:hover { color: #fff; text-decoration: underline; }
+  .site-footer .cols { display: grid; gap: 2rem; grid-template-columns: 1fr; }
+  @media (min-width: 720px) { .site-footer .cols { grid-template-columns: 1.6fr 1fr 1fr; } }
+  .foot-sub { font-size: .75rem; text-transform: uppercase; letter-spacing: .12em; color: #b9aa9a; margin: .3rem 0 .8rem; }
+  .arch { color: #8f8174; font-size: .85em; }
+  .site-footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .45rem; }
+  .site-footer .muted { color: #b9aa9a; }
+  .foot-title { font-family: var(--serif); font-size: 1.5rem; color: #fff; margin: 0 0 .5rem; }
+  .site-footer .copy { border-top: 1px solid #4a3d35; margin-top: 2rem; padding-top: 1rem; color: #b9aa9a; }
+  .small { font-size: .85rem; }
+</style>

@@ -1,0 +1,62 @@
+---
+import Base from '../layouts/Base.astro';
+import RouteMap from '../components/RouteMap.astro';
+import { itinerary, formatShort, urls, articleBySlug } from '../lib/data';
+
+// Étapes regroupées par pays successifs
+const legs: { country: string; stops: typeof itinerary }[] = [];
+for (const s of itinerary) {
+  const last = legs[legs.length - 1];
+  if (last && last.country === s.country) last.stops.push(s);
+  else legs.push({ country: s.country, stops: [s] });
+}
+---
+<Base title="La carte de l'itinéraire" description="Carte animée de notre tour du monde en famille : 59 étapes de Paris à Paris, du 17 septembre 2007 au 29 juillet 2008, en projection Equal Earth.">
+  <div class="container head">
+    <nav class="crumbs" aria-label="Fil d'Ariane"><ol><li><a href="/">Accueil</a></li><li aria-current="page">La carte</li></ol></nav>
+    <p class="eyebrow">L'itinéraire</p>
+    <h1>316 jours autour de la terre</h1>
+    <p class="lead">Suivez le voyage étape par étape. Cliquez sur un point pour voir où nous étions, et lire le récit correspondant.</p>
+  </div>
+  <div class="container"><RouteMap /></div>
+  <p class="container muted small proj">
+    La carte utilise la projection <em>Equal Earth</em>, dont l'Assemblée générale des Nations unies a encouragé l'usage en 2026 :
+    contrairement à la projection de Mercator, elle respecte les surfaces réelles des continents.
+  </p>
+
+  <section class="container section">
+    <h2>Toutes les étapes</h2>
+    <ol class="timeline">
+      {legs.map((l) => (
+        <li>
+          <h3>{l.country}</h3>
+          <ul>
+            {l.stops.map((s) => (
+              <li>
+                <time datetime={s.date}>{s.dateApprox ? '~ ' : ''}{formatShort(s.date)}{s.date.slice(0, 4) === '2008' && s === l.stops[0] ? '' : ''}</time>
+                <span>
+                  {s.article ? <a href={urls.article(s.article)} title={`Lire « ${articleBySlug(s.article).title} »`}>{s.name}</a> : s.name}
+                  <small>{s.note}</small>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </li>
+      ))}
+    </ol>
+  </section>
+</Base>
+
+<style>
+  .head { padding-top: clamp(1.5rem, 4vw, 3rem); padding-bottom: 1rem; }
+  .lead { color: var(--ink-soft); max-width: 40rem; }
+  .proj { margin-top: 1rem; max-width: 52rem; }
+  .small { font-size: .88rem; }
+  .timeline { list-style: none; margin: 0; padding: 0; columns: 22rem; column-gap: 3rem; }
+  .timeline > li { break-inside: avoid; margin-bottom: 1.5rem; }
+  .timeline h3 { font-size: 1.15rem; margin: 0 0 .4rem; padding-bottom: .3rem; border-bottom: 1px solid var(--line); }
+  .timeline ul { list-style: none; margin: 0; padding: 0; }
+  .timeline ul li { display: grid; grid-template-columns: 4.6rem 1fr; gap: .6rem; padding: .3rem 0; font-size: .95rem; }
+  .timeline time { color: var(--terracotta-ink); font-variant-numeric: tabular-nums; font-size: .85rem; padding-top: .1rem; }
+  .timeline small { display: block; color: var(--ink-soft); font-size: .84rem; line-height: 1.4; }
+</style>

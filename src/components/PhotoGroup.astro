@@ -1,0 +1,51 @@
+---
+import { rows, type Photo } from '../lib/data';
+interface Props { photos: Photo[]; caption?: string; title: string; eager?: boolean; side?: 'left' | 'right' }
+const { photos, caption, title, eager = false, side } = Astro.props;
+const single = photos.length === 1;
+const portrait = single && photos[0].h > photos[0].w;
+const label = (p: Photo, i: number) => p.alt || caption || `${title} — photo ${i + 1}`;
+---
+<figure class:list={['photos', { single, portrait, multi: !single }, side && `float-${side}`]}>
+  {rows(photos).map((row) => (
+    <div class="row">
+      {row.map((p) => {
+        const i = photos.indexOf(p);
+        return (
+          <a class="ph" href={p.src} data-pswp-width={p.w} data-pswp-height={p.h} data-cap={caption ?? p.alt ?? ''}
+             style={`flex: ${(p.w / p.h).toFixed(4)} 1 0; aspect-ratio: ${p.w} / ${p.h};`}>
+            <img src={p.src} width={p.w} height={p.h} alt={label(p, i)} loading={eager ? 'eager' : 'lazy'} decoding="async" />
+          </a>
+        );
+      })}
+    </div>
+  ))}
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>
+
+<style>
+  .photos { margin: 2rem auto; width: min(100% - 2 * var(--gutter), var(--wide)); }
+  .photos.single { width: min(100% - 2 * var(--gutter), 40rem); }
+  .photos.portrait { width: min(100% - 2 * var(--gutter), 28rem); }
+  .photos { clear: both; }
+  @media (min-width: 1000px) {
+    /* une photo seule s'insère dans le texte, alternativement à gauche et à droite */
+    .photos.float-left, .photos.float-right { width: 25rem; margin-top: .35rem; margin-bottom: 1.2rem; }
+    .photos.float-left.portrait, .photos.float-right.portrait { width: 17rem; }
+    .photos.float-left { float: left; margin-left: max(var(--gutter), calc((100% - var(--wide)) / 2)); margin-right: 2rem; }
+    .photos.float-right { float: right; margin-right: max(var(--gutter), calc((100% - var(--wide)) / 2)); margin-left: 2rem; }
+    .float-left figcaption, .float-right figcaption { text-align: left; }
+  }
+  .row { display: flex; gap: clamp(.35rem, 1vw, .6rem); }
+  .row + .row { margin-top: clamp(.35rem, 1vw, .6rem); }
+  .ph { display: block; overflow: hidden; border-radius: 6px; background: var(--sand-soft); cursor: zoom-in; min-width: 0; }
+  .ph img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease, filter .3s; }
+  .ph:hover img { transform: scale(1.025); filter: brightness(1.04); }
+  figcaption { margin-top: .6rem; font-size: .9rem; color: var(--ink-soft); font-style: italic; text-align: center; }
+  @media (max-width: 520px) {
+    /* sur téléphone, au-delà de 2 photos côte à côte on passe à 2 par ligne */
+    .multi .row { flex-wrap: wrap; }
+    .multi .row:has(> :nth-child(3)) > .ph { flex-basis: calc(50% - .2rem) !important; aspect-ratio: 4 / 3 !important; }
+    .multi .row:has(> :nth-child(3)) > .ph:nth-child(3) { flex-basis: 100% !important; aspect-ratio: 16 / 9 !important; }
+  }
+</style>

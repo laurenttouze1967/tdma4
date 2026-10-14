@@ -1,0 +1,34 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+interface Props { file: string }
+const { file } = Astro.props;
+// Les films sont déposés dans public/films/ (convertis en MP4 H.264)
+const base = file.replace(/\.[a-z0-9]+$/i, '');
+const exists = fs.existsSync(path.join(process.cwd(), 'public', 'films', base + '.mp4'));
+const poster = fs.existsSync(path.join(process.cwd(), 'public', 'films', base + '.jpg')) ? `/films/${base}.jpg` : undefined;
+const src = `/films/${encodeURIComponent(base)}.mp4`;
+---
+<figure class="film">
+  {exists ? (
+    <video controls preload="none" playsinline poster={poster} src={src}>
+      <a href={src}>Télécharger le film</a>
+    </video>
+  ) : (
+    <div class="placeholder" role="img" aria-label={`Film à venir : ${base}`}>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+      <span>Film à venir</span>
+    </div>
+  )}
+  <figcaption>🎬 {base}</figcaption>
+</figure>
+
+<style>
+  .film { clear: both; width: min(100% - 2 * var(--gutter), 46rem); margin: 2rem auto; }
+  video, .placeholder { width: 100%; aspect-ratio: 16 / 9; border-radius: 8px; background: #1d1714; }
+  .placeholder { display: grid; place-content: center; justify-items: center; gap: .5rem; color: #f6c8ac;
+    background: repeating-linear-gradient(135deg, #2b221d 0 14px, #33281f 14px 28px); }
+  .placeholder svg { width: 3rem; height: 3rem; fill: currentColor; opacity: .8; }
+  .placeholder span { font-size: .85rem; letter-spacing: .1em; text-transform: uppercase; }
+  figcaption { margin-top: .5rem; font-size: .9rem; color: var(--ink-soft); text-align: center; }
+</style>
