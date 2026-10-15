@@ -34,6 +34,11 @@ python3 scripts/convert.py <dossier des .docx> . <dossier temporaire>
 Variables à déclarer dans l'hébergeur (jamais dans le code) :
 
 - `CONTACT_TO` : adresse qui reçoit les messages
-- `RESEND_API_KEY` : clé de l'API d'envoi d'e-mails
+- `BREVO_API_KEY` : clé API Brevo (envoi des e-mails)
 - `TURNSTILE_SECRET` : clé secrète anti-robots Cloudflare Turnstile
 - `PUBLIC_TURNSTILE_SITEKEY` : clé publique Turnstile (au moment du build)
+
+## Mise en ligne (Cloudflare Pages)
+
+- Build command : `npm run build` — Build output directory : `dist` — Variable `NODE_VERSION` = `22`
+- Domaine : `tdma4.fr` (zone DNS gérée par Cloudflare), `www.tdma4.fr` redirigé vers `tdma4.fr`

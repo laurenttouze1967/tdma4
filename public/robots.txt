@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://tdma4.pages.dev/sitemap-index.xml
+Sitemap: https://tdma4.fr/sitemap-index.xml
