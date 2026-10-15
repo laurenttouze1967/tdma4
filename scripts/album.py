@@ -21,6 +21,12 @@ PLACES = {
     "Hong_Kong": ("chine", "Hong Kong"), "Beijing": ("chine", "Pékin"), "Shanghai": ("chine", "Shanghai"),
     "Guilin": ("chine", "Guilin"), "Yangshuo": ("chine", "Yangshuo"),
     "Vientiane": ("laos", "Vientiane"), "Luang_Prabang": ("laos", "Luang Prabang"), "Hin_Boun": ("laos", "Hin Boun et la grotte de Kong Lo"),
+    "Cambodge": ("cambodge", "Angkor et le Tonlé Sap"), "Bali": ("bali", "Bali"),
+    "Sydney": ("australie", "Sydney"), "Ayers_Rock": ("australie", "Le Centre rouge"), "Queensland": ("australie", "Queensland"),
+    "NZ": ("nouvelle-zelande", "Nouvelle-Zélande"),
+    "Polyn_sie": ("polynesie", "Polynésie"), "Polynesie": ("polynesie", "Polynésie"), "Ile_de_Paques": ("ile-de-paques", "Rapa Nui"),
+    "Patagonie": ("patagonie", "Patagonie"), "patagonie": ("patagonie", "Patagonie"), "Chili": ("chili", "Chili"),
+    "Bolivie": ("bolivie", "Bolivie"), "Perou": ("perou", "Pérou"), "US": ("etats-unis", "États-Unis"),
     "Boloven": ("laos", "Plateau des Bolavens"), "Bolaven": ("laos", "Plateau des Bolavens"), "Done_Khon": ("laos", "Don Khon"), "Don_Khon": ("laos", "Don Khon"),
 }
 

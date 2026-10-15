@@ -41,9 +41,9 @@ const period = (from?: string | null, to?: string | null) => {
         <div class="justified">
           {g.photos.map((p, i) => (
             <a class="ph" href={p.full ?? p.src} data-pswp-width={p.fw ?? p.w} data-pswp-height={p.fh ?? p.h}
-               data-cap={`${g.title}${p.date ? ' · ' + formatDate(p.date.slice(0, 10)) : ''}`}
+               data-cap={`${p.caption ? p.caption + ' · ' : ''}${g.title}${p.date ? ' · ' + formatDate(p.date.slice(0, 10)) : ''}`}
                style={`--r: ${(p.w / p.h).toFixed(4)}`}>
-              <img src={p.src} width={p.w} height={p.h} alt={`${g.title}, photo ${i + 1}`} loading="lazy" decoding="async" />
+              <img src={p.src} width={p.w} height={p.h} alt={p.caption ?? `${g.title}, photo ${i + 1}`} title={p.caption} loading="lazy" decoding="async" />
             </a>
           ))}
           <span class="filler" aria-hidden="true"></span>

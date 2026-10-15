@@ -3,6 +3,8 @@ import Base from '../../layouts/Base.astro';
 import PhotoGroup from '../../components/PhotoGroup.astro';
 import Film from '../../components/Film.astro';
 import RouteMap from '../../components/RouteMap.astro';
+import Comments from '../../components/Comments.astro';
+import commentsJson from '../../data/comments.json';
 import { articles, articlesOf, rubriqueBySlug, formatDate, dayOfTrip, urls, SITE, type Article } from '../../lib/data';
 
 export function getStaticPaths() {
@@ -71,6 +73,8 @@ const jsonLd = {
     )}
   </article>
 
+  <Comments comments={(commentsJson as Record<string, any[]>)[a.slug] ?? []} />
+
   <aside class="measure after">
     {siblings.length > 1 && (
       <section class="siblings">
@@ -126,7 +130,8 @@ const jsonLd = {
 
 <style is:global>
   .prose { font-size: clamp(1.03rem, 1.2vw, 1.12rem); line-height: 1.75; }
-  .prose p { margin: 0 0 1.1em; hyphens: auto; -webkit-hyphens: auto; }
+  .prose p { margin: 0 0 1.1em; hyphens: auto; -webkit-hyphens: auto; overflow-wrap: anywhere; }
+  .prose hr { border: 0; height: 1px; background: var(--line); margin: 2.5em auto; width: 40%; }
   .prose h3 { margin: 2em 0 .6em; font-size: 1.35rem; }
   .prose ul, .prose ol { padding-left: 1.4em; margin: 0 0 1.2em; }
   .prose li { margin: .35em 0; }
@@ -134,6 +139,7 @@ const jsonLd = {
   .prose sup { line-height: 0; }
   .prose table { display: block; overflow-x: auto; border-collapse: collapse; margin: 1.5em 0 2em; font-size: .92rem; line-height: 1.4;
     width: min(100vw - 2 * var(--gutter), var(--wide)); max-width: none; position: relative; left: 50%; transform: translateX(-50%); }
+  @media (max-width: 1000px) { .prose table { width: 100%; left: auto; transform: none; } }
   .prose th, .prose td { padding: .55em .8em; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; min-width: 8.5em; }
   .prose thead th { background: var(--sand-soft); color: var(--bordeaux); font-family: var(--serif); font-size: 1.02rem; }
   .prose td:first-child { white-space: nowrap; min-width: 0; color: var(--bordeaux); }

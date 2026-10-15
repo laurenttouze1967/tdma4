@@ -217,6 +217,11 @@ def main():
         for s in soup.find_all(string=re.compile(r"[\w.+-]+@[\w-]+\.[\w.]+")):
             s.replace_with(re.sub(r"[\w.+-]+@[\w-]+\.[\w.]+", "[adresse retirée]", s))
 
+        # lignes de séparation (_____ ou -----) -> filet
+        for p in soup.find_all("p"):
+            if re.fullmatch(r"[\s_\-=*.]{8,}", p.get_text()) and not p.find("img"):
+                p.replace_with(soup.new_tag("hr"))
+
         # films à insérer (repères laissés dans les fichiers Word)
         FILM = re.compile(r"(?:à\s+)?ins[ée]rer\s*(?:le\s+)?(?:film)?\s*:?\s*(.+?\.(?:mp4|mov|avi|wmv|m4v))", re.I)
         for p in soup.find_all("p"):

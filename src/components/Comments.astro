@@ -1,0 +1,39 @@
+---
+interface Props { comments: { date: string; title: string; author: string; text: string }[] }
+const { comments } = Astro.props;
+const esc = (t: string) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const paras = (t: string) => t.split(/\n{2,}/).map((p) => esc(p).replace(/\n/g, '<br>'));
+---
+{comments.length > 0 && (
+  <section class="comments measure" aria-labelledby="comments-title">
+    <h2 id="comments-title">Vos commentaires de l'époque <span>{comments.length}</span></h2>
+    <p class="intro">Les messages laissés sous cet article sur le blog d'origine, en 2007–2008. Les commentaires sont aujourd'hui fermés.</p>
+    <ol>
+      {comments.map((c) => (
+        <li>
+          <header>
+            <strong>{c.author || 'Anonyme'}</strong>
+            {c.date && <time>{c.date}</time>}
+          </header>
+          {c.title && <p class="ctitle">{c.title}</p>}
+          <div class="ctext">{paras(c.text).map((h) => <p set:html={h} />)}</div>
+        </li>
+      ))}
+    </ol>
+  </section>
+)}
+
+<style>
+  .comments { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--line); }
+  h2 { font-size: 1.4rem; display: flex; align-items: center; gap: .6rem; }
+  h2 span { font: 600 .8rem/1 var(--sans); background: var(--terracotta); color: #fff; border-radius: 999px; padding: .3rem .55rem; }
+  .intro { color: var(--ink-soft); font-size: .92rem; margin-top: -.3rem; }
+  ol { list-style: none; padding: 0; margin: 1.2rem 0 0; display: grid; gap: 1rem; }
+  li { background: var(--card); border-radius: var(--radius); padding: 1rem 1.2rem; box-shadow: 0 0 0 1px var(--line); border-left: 3px solid var(--sand); }
+  header { display: flex; flex-wrap: wrap; gap: .2rem .8rem; align-items: baseline; }
+  header strong { color: var(--bordeaux); font-family: var(--serif); font-size: 1.05rem; }
+  time { font-size: .82rem; color: var(--ink-soft); }
+  .ctitle { margin: .25rem 0 0; font-weight: 600; font-size: .95rem; }
+  .ctext { font-size: .97rem; line-height: 1.6; }
+  .ctext p { margin: .5rem 0 0; }
+</style>

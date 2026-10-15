@@ -1,4 +1,588 @@
 {
+ "/photos/cambodge/le-royaume-dangkor-03.jpg": {
+  "src": "/album/cambodge/m/angkor-et-le-tonle-sap-2007-1123angkor0059.jpg",
+  "w": 1200,
+  "h": 800,
+  "full": "/album/cambodge/angkor-et-le-tonle-sap-2007-1123angkor0059.jpg",
+  "fw": 1600,
+  "fh": 1067
+ },
+ "/photos/cambodge/le-royaume-dangkor-11.jpg": {
+  "src": "/album/cambodge/m/angkor-et-le-tonle-sap-2007-1123angkor0099.jpg",
+  "w": 1200,
+  "h": 800,
+  "full": "/album/cambodge/angkor-et-le-tonle-sap-2007-1123angkor0099.jpg",
+  "fw": 1600,
+  "fh": 1067
+ },
+ "/photos/australie/le-desert-rouge-17.jpg": {
+  "src": "/album/australie/m/le-centre-rouge-2008-0108uluru0300-2.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/australie/le-centre-rouge-2008-0108uluru0300-2.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/australie/le-desert-rouge-18.jpg": {
+  "src": "/album/australie/m/le-centre-rouge-2008-0108uluru0301-2.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/australie/le-centre-rouge-2008-0108uluru0301-2.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/australie/le-desert-rouge-14.jpg": {
+  "src": "/album/australie/m/le-centre-rouge-2008-0108uluru0251.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/australie/le-centre-rouge-2008-0108uluru0251.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/australie/le-desert-rouge-15.jpg": {
+  "src": "/album/australie/m/le-centre-rouge-2008-0108uluru0268.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/australie/le-centre-rouge-2008-0108uluru0268.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/australie/le-desert-rouge-16.jpg": {
+  "src": "/album/australie/m/le-centre-rouge-2008-0108uluru0289.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/australie/le-centre-rouge-2008-0108uluru0289.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/australie/le-desert-rouge-02.jpg": {
+  "src": "/album/australie/m/le-centre-rouge-2008-0108uluru0009.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/australie/le-centre-rouge-2008-0108uluru0009.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/australie/le-desert-rouge-04.jpg": {
+  "src": "/album/australie/m/le-centre-rouge-2008-0108uluru0036.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/australie/le-centre-rouge-2008-0108uluru0036.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/australie/le-desert-rouge-05.jpg": {
+  "src": "/album/australie/m/le-centre-rouge-2008-0108uluru0044.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/australie/le-centre-rouge-2008-0108uluru0044.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/australie/le-desert-rouge-01.jpg": {
+  "src": "/album/australie/m/le-centre-rouge-2008-0108uluru0061.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/australie/le-centre-rouge-2008-0108uluru0061.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/bali/bali-opus-2-et-lascension-du-kawa-ijen-06.jpg": {
+  "src": "/album/bali/m/bali-2007-1215bali0162-2.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/bali/bali-2007-1215bali0162-2.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/nouvelle-zelande/camping-sur-la-terre-du-milieu-15.jpg": {
+  "src": "/album/nouvelle-zelande/m/nouvelle-zelande-2008-0209nz-south0111-2.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/nouvelle-zelande/nouvelle-zelande-2008-0209nz-south0111-2.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/nouvelle-zelande/le-jour-sans-fin-11.jpg": {
+  "src": "/album/nouvelle-zelande/m/nouvelle-zelande-2008-0222nz-south20128.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/nouvelle-zelande/nouvelle-zelande-2008-0222nz-south20128.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/nouvelle-zelande/le-jour-sans-fin-14.jpg": {
+  "src": "/album/nouvelle-zelande/m/nouvelle-zelande-2008-0222nz-south20146.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/nouvelle-zelande/nouvelle-zelande-2008-0222nz-south20146.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/nouvelle-zelande/le-jour-sans-fin-12.jpg": {
+  "src": "/album/nouvelle-zelande/m/nouvelle-zelande-2008-0222nz-south20193.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/nouvelle-zelande/nouvelle-zelande-2008-0222nz-south20193.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/australie/la-saison-des-pluies-05.jpg": {
+  "src": "/album/australie/m/queensland-2008-0116queensland0022-2.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/australie/queensland-2008-0116queensland0022-2.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/australie/whitsunday-escape-whitsunday-escape-this-is-kokomo-kokomo-08.jpg": {
+  "src": "/album/australie/m/queensland-2008-0127queensland0093-2.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/australie/queensland-2008-0127queensland0093-2.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/australie/la-saison-des-pluies-08.jpg": {
+  "src": "/album/australie/m/queensland-2008-0116queensland0099-2.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/australie/queensland-2008-0116queensland0099-2.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/australie/whitsunday-escape-whitsunday-escape-this-is-kokomo-kokomo-01.jpg": {
+  "src": "/album/australie/m/queensland-2008-0116queensland0126-2.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/australie/queensland-2008-0116queensland0126-2.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/australie/whitsunday-escape-whitsunday-escape-this-is-kokomo-kokomo-05.jpg": {
+  "src": "/album/australie/m/queensland-2008-0127queensland0042-2.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/australie/queensland-2008-0127queensland0042-2.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/australie/merry-christmas-and-happy-new-year-in-sydney-03.jpg": {
+  "src": "/album/australie/m/sydney-2008-0101sydney0016-2.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/australie/sydney-2008-0101sydney0016-2.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/australie/merry-christmas-and-happy-new-year-in-sydney-07.jpg": {
+  "src": "/album/australie/m/sydney-2008-0101sydney0107-2.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/australie/sydney-2008-0101sydney0107-2.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/australie/merry-christmas-and-happy-new-year-in-sydney-06.jpg": {
+  "src": "/album/australie/m/sydney-2008-0101sydney0160-2.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/australie/sydney-2008-0101sydney0160-2.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/australie/merry-christmas-and-happy-new-year-in-sydney-09.jpg": {
+  "src": "/album/australie/m/sydney-2008-0101sydney0222-2.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/australie/sydney-2008-0101sydney0222-2.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/bolivie/laltiplano-bolivien-12.jpg": {
+  "src": "/album/bolivie/m/bolivie-2008-0521bolivie0057.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/bolivie/bolivie-2008-0521bolivie0057.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/patagonie/cap-horn-16.jpg": {
+  "src": "/album/patagonie/m/patagonie-2008-0418patagonie-casio0055-2.jpg",
+  "w": 900,
+  "h": 1200,
+  "full": "/album/patagonie/patagonie-2008-0418patagonie-casio0055-2.jpg",
+  "fw": 1200,
+  "fh": 1600
+ },
+ "/photos/patagonie/cap-horn-25.jpg": {
+  "src": "/album/patagonie/m/patagonie-2008-0418patagonie-casio0141-2.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/patagonie/patagonie-2008-0418patagonie-casio0141-2.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/perou/sur-la-route-des-incas-07.jpg": {
+  "src": "/album/perou/m/perou-2008-0601perou0093.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/perou/perou-2008-0601perou0093.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/perou/sur-la-route-des-incas-09.jpg": {
+  "src": "/album/perou/m/perou-2008-0601perou0124.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/perou/perou-2008-0601perou0124.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/etats-unis/san-clemente-25-ans-plus-tard-20.jpg": {
+  "src": "/album/etats-unis/m/etats-unis-2008-0715usa0081-2.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/etats-unis/etats-unis-2008-0715usa0081-2.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/etats-unis/du-wyoming-a-loregon-01.jpg": {
+  "src": "/album/etats-unis/m/etats-unis-2008-0630usa0004.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/etats-unis/etats-unis-2008-0630usa0004.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/etats-unis/du-wyoming-a-loregon-04.jpg": {
+  "src": "/album/etats-unis/m/etats-unis-2008-0630usa0016.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/etats-unis/etats-unis-2008-0630usa0016.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/etats-unis/du-wyoming-a-loregon-10.jpg": {
+  "src": "/album/etats-unis/m/etats-unis-2008-0630usa0080.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/etats-unis/etats-unis-2008-0630usa0080.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/etats-unis/en-remontant-le-colorado-10.jpg": {
+  "src": "/album/etats-unis/m/etats-unis-2008-0617usa0188.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/etats-unis/etats-unis-2008-0617usa0188.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/etats-unis/en-remontant-le-colorado-08.jpg": {
+  "src": "/album/etats-unis/m/etats-unis-2008-0617usa0218.jpg",
+  "w": 900,
+  "h": 1200,
+  "full": "/album/etats-unis/etats-unis-2008-0617usa0218.jpg",
+  "fw": 1200,
+  "fh": 1600
+ },
+ "/photos/etats-unis/en-remontant-le-colorado-16.jpg": {
+  "src": "/album/etats-unis/m/etats-unis-2008-0620usa0053-2.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/etats-unis/etats-unis-2008-0620usa0053-2.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/etats-unis/en-remontant-le-colorado-17.jpg": {
+  "src": "/album/etats-unis/m/etats-unis-2008-0620usa0065-2.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/etats-unis/etats-unis-2008-0620usa0065-2.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/etats-unis/en-remontant-le-colorado-15.jpg": {
+  "src": "/album/etats-unis/m/etats-unis-2008-0620usa0079-2.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/etats-unis/etats-unis-2008-0620usa0079-2.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/etats-unis/en-remontant-le-colorado-14.jpg": {
+  "src": "/album/etats-unis/m/etats-unis-2008-0620usa0037-2.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/etats-unis/etats-unis-2008-0620usa0037-2.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/etats-unis/du-wyoming-a-loregon-12.jpg": {
+  "src": "/album/etats-unis/m/etats-unis-2008-0630usa0098-2.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/etats-unis/etats-unis-2008-0630usa0098-2.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/etats-unis/du-wyoming-a-loregon-13.jpg": {
+  "src": "/album/etats-unis/m/etats-unis-2008-0630usa0105-2.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/etats-unis/etats-unis-2008-0630usa0105-2.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/etats-unis/du-wyoming-a-loregon-14.jpg": {
+  "src": "/album/etats-unis/m/etats-unis-2008-0630usa0108-2.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/etats-unis/etats-unis-2008-0630usa0108-2.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/conclusion/retour-02.jpg": {
+  "src": "/album/etats-unis/m/etats-unis-2008-0728usanewyork0006-2.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/etats-unis/etats-unis-2008-0728usanewyork0006-2.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/conclusion/retour-03.jpg": {
+  "src": "/album/etats-unis/m/etats-unis-2008-0728usanewyork0030-2.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/etats-unis/etats-unis-2008-0728usanewyork0030-2.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/etats-unis/san-clemente-25-ans-plus-tard-04.jpg": {
+  "src": "/album/etats-unis/m/etats-unis-2008-0707usa0044.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/etats-unis/etats-unis-2008-0707usa0044.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/etats-unis/san-clemente-25-ans-plus-tard-05.jpg": {
+  "src": "/album/etats-unis/m/etats-unis-2008-0707usa0077.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/etats-unis/etats-unis-2008-0707usa0077.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/etats-unis/san-clemente-25-ans-plus-tard-06.jpg": {
+  "src": "/album/etats-unis/m/etats-unis-2008-0707usa0084.jpg",
+  "w": 900,
+  "h": 1200,
+  "full": "/album/etats-unis/etats-unis-2008-0707usa0084.jpg",
+  "fw": 1200,
+  "fh": 1600
+ },
+ "/photos/etats-unis/san-clemente-25-ans-plus-tard-01.jpg": {
+  "src": "/album/etats-unis/m/etats-unis-2008-0707usa0097.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/etats-unis/etats-unis-2008-0707usa0097.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/etats-unis/san-clemente-25-ans-plus-tard-07.jpg": {
+  "src": "/album/etats-unis/m/etats-unis-2008-0712usa0006.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/etats-unis/etats-unis-2008-0712usa0006.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/etats-unis/san-clemente-25-ans-plus-tard-08.jpg": {
+  "src": "/album/etats-unis/m/etats-unis-2008-0712usa0046.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/etats-unis/etats-unis-2008-0712usa0046.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/etats-unis/san-clemente-25-ans-plus-tard-09.jpg": {
+  "src": "/album/etats-unis/m/etats-unis-2008-0712usa0053.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/etats-unis/etats-unis-2008-0712usa0053.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/etats-unis/san-clemente-25-ans-plus-tard-11.jpg": {
+  "src": "/album/etats-unis/m/etats-unis-2008-0712usa0082.jpg",
+  "w": 900,
+  "h": 1200,
+  "full": "/album/etats-unis/etats-unis-2008-0712usa0082.jpg",
+  "fw": 1200,
+  "fh": 1600
+ },
+ "/photos/etats-unis/from-l-a-to-vegas-04.jpg": {
+  "src": "/album/etats-unis/m/etats-unis-2008-0611usa0026.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/etats-unis/etats-unis-2008-0611usa0026.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/etats-unis/from-l-a-to-vegas-06.jpg": {
+  "src": "/album/etats-unis/m/etats-unis-2008-0611usa0105.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/etats-unis/etats-unis-2008-0611usa0105.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/etats-unis/from-l-a-to-vegas-13.jpg": {
+  "src": "/album/etats-unis/m/etats-unis-2008-0611usa0114.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/etats-unis/etats-unis-2008-0611usa0114.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/etats-unis/from-l-a-to-vegas-10.jpg": {
+  "src": "/album/etats-unis/m/etats-unis-2008-0611usa0118.jpg",
+  "w": 900,
+  "h": 1200,
+  "full": "/album/etats-unis/etats-unis-2008-0611usa0118.jpg",
+  "fw": 1200,
+  "fh": 1600
+ },
+ "/photos/etats-unis/from-l-a-to-vegas-07.jpg": {
+  "src": "/album/etats-unis/m/etats-unis-2008-0611usa0123.jpg",
+  "w": 900,
+  "h": 1200,
+  "full": "/album/etats-unis/etats-unis-2008-0611usa0123.jpg",
+  "fw": 1200,
+  "fh": 1600
+ },
+ "/photos/etats-unis/from-l-a-to-vegas-11.jpg": {
+  "src": "/album/etats-unis/m/etats-unis-2008-0611usa0129.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/etats-unis/etats-unis-2008-0611usa0129.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/etats-unis/derniere-etape-03.jpg": {
+  "src": "/album/etats-unis/m/etats-unis-2008-0723usa0003-2.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/etats-unis/etats-unis-2008-0723usa0003-2.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/etats-unis/derniere-etape-04.jpg": {
+  "src": "/album/etats-unis/m/etats-unis-2008-0723usa0037-2.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/etats-unis/etats-unis-2008-0723usa0037-2.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/etats-unis/derniere-etape-01.jpg": {
+  "src": "/album/etats-unis/m/etats-unis-2008-0723usa0050-2.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/etats-unis/etats-unis-2008-0723usa0050-2.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/etats-unis/derniere-etape-07.jpg": {
+  "src": "/album/etats-unis/m/etats-unis-2008-0723usa0107.jpg",
+  "w": 900,
+  "h": 1200,
+  "full": "/album/etats-unis/etats-unis-2008-0723usa0107.jpg",
+  "fw": 1200,
+  "fh": 1600
+ },
+ "/photos/etats-unis/derniere-etape-09.jpg": {
+  "src": "/album/etats-unis/m/etats-unis-2008-0723usa0136.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/etats-unis/etats-unis-2008-0723usa0136.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/etats-unis/derniere-etape-11.jpg": {
+  "src": "/album/etats-unis/m/etats-unis-2008-0725usanewyork0019.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/etats-unis/etats-unis-2008-0725usanewyork0019.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/etats-unis/derniere-etape-16.jpg": {
+  "src": "/album/etats-unis/m/etats-unis-2008-0725usanewyork0027.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/etats-unis/etats-unis-2008-0725usanewyork0027.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/etats-unis/derniere-etape-13.jpg": {
+  "src": "/album/etats-unis/m/etats-unis-2008-0725usanewyork0040.jpg",
+  "w": 900,
+  "h": 1200,
+  "full": "/album/etats-unis/etats-unis-2008-0725usanewyork0040.jpg",
+  "fw": 1200,
+  "fh": 1600
+ },
+ "/photos/etats-unis/derniere-etape-15.jpg": {
+  "src": "/album/etats-unis/m/etats-unis-2008-0725usanewyork0041.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/etats-unis/etats-unis-2008-0725usanewyork0041.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/etats-unis/derniere-etape-17.jpg": {
+  "src": "/album/etats-unis/m/etats-unis-2008-0725usanewyork0044.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/etats-unis/etats-unis-2008-0725usanewyork0044.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/etats-unis/derniere-etape-19.jpg": {
+  "src": "/album/etats-unis/m/etats-unis-2008-0727usanewyork0025.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/etats-unis/etats-unis-2008-0727usanewyork0025.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/etats-unis/derniere-etape-20.jpg": {
+  "src": "/album/etats-unis/m/etats-unis-2008-0727usanewyork0038.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/etats-unis/etats-unis-2008-0727usanewyork0038.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/etats-unis/en-remontant-le-colorado-02.jpg": {
+  "src": "/album/etats-unis/m/etats-unis-2008-0617usa0011-2.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/etats-unis/etats-unis-2008-0617usa0011-2.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/etats-unis/en-remontant-le-colorado-04.jpg": {
+  "src": "/album/etats-unis/m/etats-unis-2008-0617usa0047-2.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/etats-unis/etats-unis-2008-0617usa0047-2.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
  "/photos/laos/en-descendant-le-mekong-20.jpg": {
   "src": "/album/laos/m/plateau-des-bolavens-2007-1111sud-laos0228-2.jpg",
   "w": 900,
@@ -39,6 +623,30 @@
   "fw": 1600,
   "fh": 1200
  },
+ "/photos/bali/bali-04.jpg": {
+  "src": "/album/bali/m/bali-01-134-2.jpg",
+  "w": 1200,
+  "h": 798,
+  "full": "/album/bali/bali-01-134-2.jpg",
+  "fw": 1600,
+  "fh": 1064
+ },
+ "/photos/bali/bali-05.jpg": {
+  "src": "/album/bali/m/bali-01-152-2.jpg",
+  "w": 1200,
+  "h": 798,
+  "full": "/album/bali/bali-01-152-2.jpg",
+  "fw": 1600,
+  "fh": 1064
+ },
+ "/photos/bali/bali-06.jpg": {
+  "src": "/album/bali/m/bali-01-199-2.jpg",
+  "w": 1200,
+  "h": 798,
+  "full": "/album/bali/bali-01-199-2.jpg",
+  "fw": 1600,
+  "fh": 1064
+ },
  "/photos/tanzanie/zanzibar-08.jpg": {
   "src": "/album/tanzanie/m/zanzibar-2007-1001zanzibar0033-2.jpg",
   "w": 1200,
@@ -62,5 +670,85 @@
   "full": "/album/le-projet/le-depart-2007-0919tanzanie0077-2.jpg",
   "fw": 1600,
   "fh": 1200
+ },
+ "/photos/cambodge/le-royaume-dangkor-08.jpg": {
+  "src": "/album/cambodge/m/angkor-et-le-tonle-sap-2007-1120angkor-camera0029.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/cambodge/angkor-et-le-tonle-sap-2007-1120angkor-camera0029.jpg",
+  "fw": 1280,
+  "fh": 960
+ },
+ "/photos/cambodge/le-royaume-dangkor-05.jpg": {
+  "src": "/album/cambodge/m/angkor-et-le-tonle-sap-2007-1120angkor-camera0040.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/cambodge/angkor-et-le-tonle-sap-2007-1120angkor-camera0040.jpg",
+  "fw": 1280,
+  "fh": 960
+ },
+ "/photos/cambodge/le-royaume-dangkor-13.jpg": {
+  "src": "/album/cambodge/m/angkor-et-le-tonle-sap-2007-1120angkor-camera0138.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/cambodge/angkor-et-le-tonle-sap-2007-1120angkor-camera0138.jpg",
+  "fw": 1280,
+  "fh": 960
+ },
+ "/photos/polynesie/les-iles-sous-le-vent-et-larchipel-des-tuamotu-06.jpg": {
+  "src": "/album/polynesie/m/polynesie-2008-0320huahine0084-2.jpg",
+  "w": 1024,
+  "h": 768,
+  "full": "/album/polynesie/polynesie-2008-0320huahine0084-2.jpg",
+  "fw": 1024,
+  "fh": 768
+ },
+ "/photos/polynesie/les-iles-sous-le-vent-et-larchipel-des-tuamotu-03.jpg": {
+  "src": "/album/polynesie/m/polynesie-2008-0320huahine0085-2.jpg",
+  "w": 1024,
+  "h": 768,
+  "full": "/album/polynesie/polynesie-2008-0320huahine0085-2.jpg",
+  "fw": 1024,
+  "fh": 768
+ },
+ "/photos/polynesie/les-iles-sous-le-vent-et-larchipel-des-tuamotu-05.jpg": {
+  "src": "/album/polynesie/m/polynesie-2008-0320huahine0091-2.jpg",
+  "w": 768,
+  "h": 1024,
+  "full": "/album/polynesie/polynesie-2008-0320huahine0091-2.jpg",
+  "fw": 768,
+  "fh": 1024
+ },
+ "/photos/polynesie/les-iles-sous-le-vent-et-larchipel-des-tuamotu-16.jpg": {
+  "src": "/album/polynesie/m/polynesie-2008-0328rangiroa0054-2.jpg",
+  "w": 768,
+  "h": 1024,
+  "full": "/album/polynesie/polynesie-2008-0328rangiroa0054-2.jpg",
+  "fw": 768,
+  "fh": 1024
+ },
+ "/photos/polynesie/les-iles-sous-le-vent-et-larchipel-des-tuamotu-10.jpg": {
+  "src": "/album/polynesie/m/polynesie-2008-0320huahine0124-2.jpg",
+  "w": 1024,
+  "h": 768,
+  "full": "/album/polynesie/polynesie-2008-0320huahine0124-2.jpg",
+  "fw": 1024,
+  "fh": 768
+ },
+ "/photos/polynesie/les-iles-sous-le-vent-et-larchipel-des-tuamotu-01.jpg": {
+  "src": "/album/polynesie/m/polynesie-2008-0320huahine0075-2.jpg",
+  "w": 1024,
+  "h": 768,
+  "full": "/album/polynesie/polynesie-2008-0320huahine0075-2.jpg",
+  "fw": 1024,
+  "fh": 768
+ },
+ "/photos/polynesie/moorea-04.jpg": {
+  "src": "/album/polynesie/m/polynesie-2008-0307moorea0030-2.jpg",
+  "w": 640,
+  "h": 480,
+  "full": "/album/polynesie/polynesie-2008-0307moorea0030-2.jpg",
+  "fw": 640,
+  "fh": 480
  }
 }

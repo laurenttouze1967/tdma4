@@ -1,0 +1,22 @@
+[
+ {
+  "slug": "mon-blog",
+  "title": "Mon blog",
+  "rubrique": "blog-de-garance",
+  "rubriqueName": "Le blog de Garance",
+  "continent": null,
+  "order": 195,
+  "date": "2007-10-08",
+  "place": null,
+  "excerpt": "J'ai créé cette rubrique pour que vous puissiez me poser des questions ou me dire des choses.",
+  "words": 60,
+  "readingMinutes": 1,
+  "photos": [],
+  "body": [
+   {
+    "type": "html",
+    "html": "<p>Bonjour à tous,</p>\n<p>J'ai créé cette rubrique pour que vous puissiez me poser des questions ou me dire des choses.</p>\n<p>Si je le peux, je vous répondrai le plus vite possible.</p>\n<p>Je vais aussi me servir de cette rubrique pour raconter ce que je retiens du voyage.</p>\n<p>Maintenant, j'attends vos commentaires&nbsp;!</p>\n<p><em>Garance</em></p>"
+   }
+  ]
+ }
+]
