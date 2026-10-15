@@ -1,0 +1,66 @@
+{
+ "/photos/laos/en-descendant-le-mekong-20.jpg": {
+  "src": "/album/laos/m/plateau-des-bolavens-2007-1111sud-laos0228-2.jpg",
+  "w": 900,
+  "h": 1200,
+  "full": "/album/laos/plateau-des-bolavens-2007-1111sud-laos0228-2.jpg",
+  "fw": 1200,
+  "fh": 1600
+ },
+ "/photos/laos/en-descendant-le-mekong-21.jpg": {
+  "src": "/album/laos/m/plateau-des-bolavens-2007-1111sud-laos0288-2.jpg",
+  "w": 900,
+  "h": 1200,
+  "full": "/album/laos/plateau-des-bolavens-2007-1111sud-laos0288-2.jpg",
+  "fw": 1200,
+  "fh": 1600
+ },
+ "/photos/chine/chine-suite-et-fin-06.jpg": {
+  "src": "/album/chine/m/guilin-2007-1024shanghai-yangshuo0160-2.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/chine/guilin-2007-1024shanghai-yangshuo0160-2.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/chine/chine-suite-et-fin-03.jpg": {
+  "src": "/album/chine/m/shanghai-2007-1024shanghai-yangshuo0035-2.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/chine/shanghai-2007-1024shanghai-yangshuo0035-2.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/chine/chine-suite-et-fin-02.jpg": {
+  "src": "/album/chine/m/shanghai-2007-1024shanghai-yangshuo0011-2.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/chine/shanghai-2007-1024shanghai-yangshuo0011-2.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/tanzanie/zanzibar-08.jpg": {
+  "src": "/album/tanzanie/m/zanzibar-2007-1001zanzibar0033-2.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/tanzanie/zanzibar-2007-1001zanzibar0033-2.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/tanzanie/safari-01.jpg": {
+  "src": "/album/le-projet/m/le-depart-2007-0919tanzanie0070-2.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/le-projet/le-depart-2007-0919tanzanie0070-2.jpg",
+  "fw": 1600,
+  "fh": 1200
+ },
+ "/photos/tanzanie/safari-02.jpg": {
+  "src": "/album/le-projet/m/le-depart-2007-0919tanzanie0077-2.jpg",
+  "w": 1200,
+  "h": 900,
+  "full": "/album/le-projet/le-depart-2007-0919tanzanie0077-2.jpg",
+  "fw": 1600,
+  "fh": 1200
+ }
+}

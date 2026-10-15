@@ -5,7 +5,7 @@ import ArticleCard from '../components/ArticleCard.astro';
 import { SITE, articles, rubriques, countryRubriques, articlesOf, itinerary, rubriquePeriod, urls, articleBySlug } from '../lib/data';
 import hero from '../data/hero.json';
 
-const totalPhotos = articles.reduce((n, a) => n + a.photos.length, 0);
+const totalPhotos = rubriques.reduce((n, r) => n + r.photoCount, 0);
 const countries = new Set(itinerary.map((s) => s.country)).size - 1; // sans la France
 const projet = articlesOf('le-projet');
 const first = articles.find((a) => a.rubrique === 'tanzanie')!;

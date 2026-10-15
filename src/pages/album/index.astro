@@ -1,8 +1,8 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { countryRubriques, articles, urls, rubriquePeriod } from '../../lib/data';
-const albums = countryRubriques.filter((r) => r.photoCount > 0);
-const total = articles.reduce((n, a) => n + a.photos.length, 0);
+import { rubriques, urls, rubriquePeriod } from '../../lib/data';
+const albums = rubriques.filter((r) => r.photoCount > 0);
+const total = albums.reduce((n, r) => n + r.photoCount, 0);
 ---
 <Base title="Album photos" description={`L'album photo de notre tour du monde : ${total} photos, pays par pays.`}>
   <div class="container head">
@@ -14,7 +14,7 @@ const total = articles.reduce((n, a) => n + a.photos.length, 0);
     {albums.map((r) => (
       <a class="album" href={urls.album(r.slug)}>
         {r.cover && <img src={r.cover.src} width={r.cover.w} height={r.cover.h} alt="" loading="lazy" decoding="async" />}
-        <span class="label"><strong>{r.name}</strong><small>{r.photoCount} photos · {rubriquePeriod(r.slug)}</small></span>
+        <span class="label"><strong>{r.name}</strong><small>{r.photoCount} photos{rubriquePeriod(r.slug) ? ` · ${rubriquePeriod(r.slug)}` : ''}</small></span>
       </a>
     ))}
   </div>

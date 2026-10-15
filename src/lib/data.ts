@@ -2,8 +2,11 @@ import articlesJson from '../data/articles.json';
 import rubriquesJson from '../data/rubriques.json';
 import itineraryJson from '../data/itinerary.json';
 import coversJson from '../data/covers.json';
+import albumJson from '../data/album.json';
+import hdJson from '../data/hd.json';
+import albumIndex from '../data/album-index.json';
 
-export type Photo = { src: string; w: number; h: number; alt: string };
+export type Photo = { src: string; w: number; h: number; alt: string; full?: string; fw?: number; fh?: number; orig?: string; date?: string | null };
 export type BodyPart =
   | { type: 'html'; html: string }
   | { type: 'photos'; items: number[]; caption?: string }
@@ -22,12 +25,45 @@ export type Stop = {
   mode: 'avion' | 'bateau' | 'route' | 'train' | null; article: string | null; note: string;
 };
 
-export const articles = (articlesJson as Article[]).slice().sort((a, b) => a.order - b.order);
-const allPhotos = (articlesJson as Article[]).flatMap((a) => a.photos);
+// Photos des récits : on remplace par une meilleure définition quand l'album en contient une
+type HD = { src: string; w: number; h: number; full: string; fw: number; fh: number };
+const hd = hdJson as Record<string, HD>;
+const upgrade = (p: Photo): Photo => {
+  const h = hd[p.src];
+  return h ? { ...p, orig: p.src, src: h.src, w: h.w, h: h.h, full: h.full, fw: h.fw, fh: h.fh } : { ...p, orig: p.src };
+};
+export const articles = (articlesJson as Article[])
+  .map((a) => ({ ...a, photos: a.photos.map(upgrade) }))
+  .sort((a, b) => a.order - b.order);
+const allPhotos = articles.flatMap((a) => a.photos);
+
+// ---- Album : sections par lieu (dossiers envoyés), puis photos des récits absentes de ces dossiers
+type AlbumPhoto = { id: string; src: string; full: string; w: number; h: number; date: string | null; article: string | null };
+type AlbumSection = { place: string; from: string | null; to: string | null; photos: AlbumPhoto[] };
+const albumData = albumJson as Record<string, AlbumSection[]>;
+export type AlbumGroup = { title: string; from?: string | null; to?: string | null; link?: { href: string; label: string }; photos: Photo[] };
+// photos de récits déjà présentes dans les dossiers de l'album (correspondance faite par album.py)
+const inAlbum = new Set(albumIndex as string[]);
+export function albumGroups(rubrique: string): AlbumGroup[] {
+  const secs = albumData[rubrique] ?? [];
+  const groups: AlbumGroup[] = secs.map((s) => ({
+    title: s.place, from: s.from, to: s.to,
+    photos: s.photos.map((p) => ({ src: p.src, w: p.w, h: p.h, full: p.full, fw: p.w, fh: p.h, alt: s.place, date: p.date })),
+  }));
+  for (const a of articles.filter((x) => x.rubrique === rubrique)) {
+    const rest = a.photos.filter((p) => !inAlbum.has(p.orig ?? p.src));
+    if (rest.length) groups.push({ title: a.title, link: { href: `/recit/${a.slug}/`, label: 'Lire le récit' }, photos: rest });
+  }
+  return groups;
+}
+export const albumCount = (r: string) => albumGroups(r).reduce((n, g) => n + g.photos.length, 0);
+
 export const rubriques = (rubriquesJson as Rubrique[]).map((r) => {
   const src = (coversJson as Record<string, string>)[r.slug];
-  const cover = src ? allPhotos.find((p) => p.src === src) : undefined;
-  return cover ? { ...r, cover } : r;
+  const cover = src ? allPhotos.find((p) => p.orig === src) : undefined;
+  const fallback = r.cover ?? albumGroups(r.slug)[0]?.photos[0] ?? null;
+  const base = { ...r, cover: cover ?? fallback };
+  return { ...base, photoCount: albumCount(r.slug) };
 });
 export const itinerary = itineraryJson as Stop[];
 

@@ -12,7 +12,7 @@ const label = (p: Photo, i: number) => p.alt || caption || `${title} — photo $
       {row.map((p) => {
         const i = photos.indexOf(p);
         return (
-          <a class="ph" href={p.src} data-pswp-width={p.w} data-pswp-height={p.h} data-cap={caption ?? p.alt ?? ''}
+          <a class="ph" href={p.full ?? p.src} data-pswp-width={p.fw ?? p.w} data-pswp-height={p.fh ?? p.h} data-cap={caption ?? p.alt ?? ''}
              style={`flex: ${(p.w / p.h).toFixed(4)} 1 0; aspect-ratio: ${p.w} / ${p.h};`}>
             <img src={p.src} width={p.w} height={p.h} alt={label(p, i)} loading={eager ? 'eager' : 'lazy'} decoding="async" />
           </a>
