@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import RouteMap from '../components/RouteMap.astro';
 import { itinerary, formatShort, urls, articleBySlug } from '../lib/data';
 
+const nbStops = itinerary.filter((s) => !s.transit).length - 2;
 // Étapes regroupées par pays successifs
 const legs: { country: string; stops: typeof itinerary }[] = [];
 for (const s of itinerary) {
@@ -11,7 +12,7 @@ for (const s of itinerary) {
   else legs.push({ country: s.country, stops: [s] });
 }
 ---
-<Base title="La carte de l'itinéraire" description="Carte animée de notre tour du monde en famille : 59 étapes de Paris à Paris, du 17 septembre 2007 au 29 juillet 2008, en projection Equal Earth.">
+<Base title="La carte de l'itinéraire" description={`Carte animée de notre tour du monde en famille : ${nbStops} étapes, du 17 septembre 2007 au 29 juillet 2008, en projection Equal Earth.`}>
   <div class="container head">
     <nav class="crumbs" aria-label="Fil d'Ariane"><ol><li><a href="/">Accueil</a></li><li aria-current="page">La carte</li></ol></nav>
     <p class="eyebrow">L'itinéraire</p>
@@ -32,11 +33,11 @@ for (const s of itinerary) {
           <h3>{l.country}</h3>
           <ul>
             {l.stops.map((s) => (
-              <li>
+              <li class:list={{ transit: s.transit }}>
                 <time datetime={s.date}>{s.dateApprox ? '~ ' : ''}{formatShort(s.date)}{s.date.slice(0, 4) === '2008' && s === l.stops[0] ? '' : ''}</time>
                 <span>
                   {s.article ? <a href={urls.article(s.article)} title={`Lire « ${articleBySlug(s.article).title} »`}>{s.name}</a> : s.name}
-                  <small>{s.note}</small>
+                  {s.transit ? <small>Escale</small> : s.note && <small>{s.note}</small>}
                 </span>
               </li>
             ))}
@@ -58,5 +59,6 @@ for (const s of itinerary) {
   .timeline ul { list-style: none; margin: 0; padding: 0; }
   .timeline ul li { display: grid; grid-template-columns: 4.6rem 1fr; gap: .6rem; padding: .3rem 0; font-size: .95rem; }
   .timeline time { color: var(--terracotta-ink); font-variant-numeric: tabular-nums; font-size: .85rem; padding-top: .1rem; }
+  .timeline li.transit { opacity: .6; font-size: .88rem; }
   .timeline small { display: block; color: var(--ink-soft); font-size: .84rem; line-height: 1.4; }
 </style>

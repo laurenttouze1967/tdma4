@@ -6,7 +6,9 @@ import { SITE, articles, rubriques, countryRubriques, articlesOf, itinerary, rub
 import hero from '../data/hero.json';
 
 const totalPhotos = rubriques.reduce((n, r) => n + r.photoCount, 0);
-const countries = new Set(itinerary.map((s) => s.country)).size - 1; // sans la France
+const real = itinerary.filter((s) => !s.transit);
+const countries = new Set(real.map((s) => s.country).filter((c) => c !== 'France')).size;
+const stopCount = real.length - 2; // sans le départ et le retour à Colombes
 const projet = articlesOf('le-projet');
 const first = articles.find((a) => a.rubrique === 'tanzanie')!;
 const heroPhotos = hero.map((src: string) => articles.flatMap((a) => a.photos).find((p) => p.src === src)!).filter(Boolean);
@@ -32,7 +34,7 @@ const heroPhotos = hero.map((src: string) => articles.flatMap((a) => a.photos).f
     <dl class="container stats">
       <div><dt>jours</dt><dd>316</dd></div>
       <div><dt>pays</dt><dd>{countries}</dd></div>
-      <div><dt>étapes</dt><dd>{itinerary.length - 2}</dd></div>
+      <div><dt>étapes</dt><dd>{stopCount}</dd></div>
       <div><dt>récits</dt><dd>{articles.length}</dd></div>
       <div><dt>photos</dt><dd>{totalPhotos}</dd></div>
     </dl>

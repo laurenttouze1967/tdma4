@@ -29,7 +29,7 @@ const round = (n: number) => Math.round(n * 10) / 10;
 export const legs = itinerary.slice(1).map((stop, i) => {
   const from = itinerary[i];
   const line = { type: 'LineString', coordinates: densify([from.lon, from.lat], [stop.lon, stop.lat]) } as any;
-  return { d: path(line) ?? '', mode: stop.mode ?? 'route', index: i + 1 };
+  return { d: path(line) ?? '', mode: stop.mode === 'bus' ? 'route' : (stop.mode ?? 'route'), index: i + 1 };
 });
 
 function densify(a: [number, number], b: [number, number]) {

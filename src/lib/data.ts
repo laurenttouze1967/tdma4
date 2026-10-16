@@ -24,8 +24,8 @@ export type Rubrique = {
   articles: string[]; photoCount: number;
 };
 export type Stop = {
-  name: string; country: string; lat: number; lon: number; date: string; dateApprox: boolean;
-  mode: 'avion' | 'bateau' | 'route' | 'train' | null; article: string | null; note: string;
+  name: string; country: string; lat: number; lon: number; date: string; until?: string; dateApprox: boolean;
+  mode: 'avion' | 'bateau' | 'route' | 'bus' | 'train' | null; transit?: boolean; article: string | null; note: string;
 };
 
 // Photos des récits : on remplace par une meilleure définition quand l'album en contient une
@@ -63,7 +63,7 @@ export function albumGroups(rubrique: string): AlbumGroup[] {
 function splitByStop(secs: AlbumSection[], rubrique: string): AlbumSection[] {
   const mine = new Set((articlesJson as Article[]).filter((a) => a.rubrique === rubrique).map((a) => a.slug));
   const all = (itineraryJson as Stop[]).slice().sort((a, b) => a.date.localeCompare(b.date));
-  const own = all.filter((st) => st.article && mine.has(st.article));
+  const own = all.filter((st) => !st.transit && st.article && mine.has(st.article));
   const stops = own.length ? own : all;
   const out: AlbumSection[] = [];
   for (const s of secs) {
@@ -72,7 +72,9 @@ function splitByStop(secs: AlbumSection[], rubrique: string): AlbumSection[] {
     for (const p of s.photos) {
       const d = (p.date ?? '').slice(0, 10);
       const stop = [...stops].reverse().find((st) => st.date <= d) ?? stops[0];
-      const name = stop.name.replace(/ \(2nd visit\)| \(seconde visite\)/i, '');
+      // plusieurs étapes le même jour : on les nomme toutes (ex. lagunes du Sud Lípez)
+      const sameDay = [...new Set(stops.filter((st) => st.date === stop.date).map((st) => st.name))];
+      const name = sameDay.length > 3 ? `${sameDay.slice(0, 3).join(', ')}…` : sameDay.join(', ');
       if (!cur || cur.place !== name) { cur = { place: name, from: p.date, to: p.date, photos: [] }; out.push(cur); }
       cur.photos.push(p); cur.to = p.date;
     }

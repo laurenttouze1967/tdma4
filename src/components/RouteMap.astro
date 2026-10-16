@@ -5,17 +5,23 @@ import { formatDate, dayOfTrip, urls, articleBySlug } from '../lib/data';
 interface Props { compact?: boolean }
 const { compact = false } = Astro.props;
 const PAD = 8;
+const fmtRange = (a: string, b?: string) => {
+  if (!b || b <= a) return formatDate(a);
+  const [ya, ma] = [a.slice(0, 4), a.slice(5, 7)];
+  const da = new Intl.DateTimeFormat('fr-FR', { day: 'numeric', ...(ma !== b.slice(5, 7) || ya !== b.slice(0, 4) ? { month: 'long' } : {}), ...(ya !== b.slice(0, 4) ? { year: 'numeric' } : {}), timeZone: 'UTC' }).format(new Date(a + 'T00:00:00Z'));
+  return `du ${da} au ${formatDate(b)}`;
+};
 const data = points.map((p) => ({
-  name: p.name, country: p.country, date: formatDate(p.date), approx: p.dateApprox, day: dayOfTrip(p.date),
+  name: p.name, country: p.country, date: fmtRange(p.date, p.until), approx: p.dateApprox, day: dayOfTrip(p.date), transit: !!p.transit,
   mode: p.mode, note: p.note, x: p.x, y: p.y,
   article: p.article ? { url: urls.article(p.article), title: articleBySlug(p.article).title } : null,
 }));
-const modeLabel = { avion: 'en avion', bateau: 'en bateau', route: 'par la route', train: 'en train' } as const;
+const modeLabel = { avion: 'en avion', bateau: 'en bateau', route: 'par la route', bus: 'en bus', train: 'en train' } as const;
 ---
 <div class:list={['routemap', { compact }]} data-routemap>
   <div class="map-scroll">
     <svg viewBox={`${-PAD} ${-PAD} ${WIDTH + 2 * PAD} ${HEIGHT + 2 * PAD}`} role="img"
-         aria-label="Carte du monde en projection Equal Earth montrant l'itinéraire du tour du monde, de Paris à Paris en passant par 61 étapes.">
+         aria-label="Carte du monde en projection Equal Earth montrant l'itinéraire du tour du monde, de Paris à Paris en passant par plus de 150 étapes.">
       <defs>
         <clipPath id="sphere-clip"><path d={sphere} /></clipPath>
       </defs>
@@ -31,10 +37,10 @@ const modeLabel = { avion: 'en avion', bateau: 'en bateau', route: 'par la route
       <path class="outline" d={sphere} />
       <g class="stops">
         {points.map((p, i) => (
-          <g class:list={['stop', { home: i === 0 || i === points.length - 1 }]} data-i={i} transform={`translate(${p.x} ${p.y})`}
+          <g class:list={['stop', { home: i === 0 || i === points.length - 1, transit: p.transit }]} data-i={i} transform={`translate(${p.x} ${p.y})`}
              tabindex={compact ? undefined : 0} role={compact ? undefined : 'button'} aria-label={compact ? undefined : `${p.name}, ${data[i].date}`}>
             <circle class="hit" r="11" />
-            <circle class="dot" r={i === 0 ? 5.5 : 3.6} />
+            <circle class="dot" r={i === 0 ? 5.5 : p.transit ? 2 : 3.2} />
           </g>
         ))}
       </g>
@@ -62,7 +68,8 @@ const modeLabel = { avion: 'en avion', bateau: 'en bateau', route: 'par la route
       </div>
       <ul class="legend" aria-label="Légende">
         <li><i class="l avion"></i>avion</li>
-        <li><i class="l route"></i>route ou train</li>
+        <li><i class="l route"></i>route, bus ou train</li>
+        <li><i class="l escale"></i>escale</li>
         <li><i class="l bateau"></i>bateau</li>
       </ul>
     </div>
@@ -85,10 +92,11 @@ const modeLabel = { avion: 'en avion', bateau: 'en bateau', route: 'par la route
   .leg.avion { stroke-dasharray: 5 4; stroke-width: 1.4; }
   .leg.bateau { stroke: #1f6f8b; stroke-dasharray: 1 3.5; stroke-width: 2.2; }
   .stop .hit { fill: transparent; }
-  .stop .dot { fill: #fff; stroke: var(--bordeaux); stroke-width: 1.8; transition: r .25s, fill .25s; }
+  .stop .dot { fill: #fff; stroke: var(--bordeaux); stroke-width: 1.5; transition: r .25s, fill .25s; }
   .stop.home .dot { fill: var(--bordeaux); stroke: #fff; }
   .routemap:not(.compact) .stop { cursor: pointer; outline: none; }
   .stop:hover .dot, .stop:focus-visible .dot { fill: var(--terracotta); }
+  .stop.transit .dot { fill: #fff; stroke: #9a8a80; stroke-width: 1.2; }
   .stop.current .dot { fill: var(--terracotta); stroke: var(--bordeaux); r: 7; }
   .stop.future { opacity: 0; }
   .leg.future { opacity: 0; }
@@ -113,10 +121,11 @@ const modeLabel = { avion: 'en avion', bateau: 'en bateau', route: 'par la route
   .legend .l { display: inline-block; width: 2rem; height: 0; border-top: 2px solid var(--bordeaux); vertical-align: middle; margin-right: .4rem; }
   .legend .l.avion { border-top-style: dashed; }
   .legend .l.bateau { border-top: 3px dotted #1f6f8b; }
+  .legend .l.escale { width: .55rem; height: .55rem; border: 1.2px solid #9a8a80; border-radius: 50%; }
 </style>
 
 <script>
-  type StopData = { name: string; country: string; date: string; approx: boolean; day: number; mode: string | null;
+  type StopData = { name: string; country: string; date: string; approx: boolean; day: number; mode: string | null; transit: boolean;
     note: string; x: number; y: number; article: { url: string; title: string } | null };
 
   document.querySelectorAll<HTMLElement>('[data-routemap]').forEach((root) => {
@@ -149,10 +158,11 @@ const modeLabel = { avion: 'en avion', bateau: 'en bateau', route: 'par la route
         s.classList.toggle('current', k === i);
       });
       const d = data[i];
-      $('[data-step]').textContent = `Étape ${i + 1} / ${data.length}${d.mode ? ' · ' + modeLabel[d.mode] : ''}`;
+      $('[data-step]').textContent = `Étape ${i + 1} / ${data.length}${d.mode ? ' · ' + modeLabel[d.mode] : ''}${d.transit ? ' · escale' : ''}`;
       $('[data-name]').textContent = d.name + (d.country && d.name !== d.country ? ` — ${d.country}` : '');
       $('[data-when]').textContent = `${d.approx ? 'vers le ' : ''}${d.date} · jour ${d.day}`;
       $('[data-note]').textContent = d.note;
+      $('[data-note]').hidden = !d.note;
       const link = $('[data-link]') as HTMLAnchorElement;
       if (d.article) { link.hidden = false; link.href = d.article.url; $('[data-link-title]').textContent = ` « ${d.article.title} »`; }
       else link.hidden = true;
@@ -179,7 +189,7 @@ const modeLabel = { avion: 'en avion', bateau: 'en bateau', route: 'par la route
       leg.classList.remove('future');
       // on trace le tronçon progressivement, puis on remet son style (pointillés pour l'avion)
       leg.style.strokeDasharray = `${len} ${len}`;
-      const dur = Math.min(1400, Math.max(450, len * 4));
+      const dur = Math.min(1100, Math.max(220, len * 3));
       const anim = leg.animate([{ strokeDashoffset: len }, { strokeDashoffset: 0 }], { duration: dur, easing: 'ease-in-out' });
       await anim.finished.catch(() => {});
       if (my !== token) return;
@@ -195,7 +205,7 @@ const modeLabel = { avion: 'en avion', bateau: 'en bateau', route: 'par la route
         if (i > 0) { stops[i].classList.remove('future'); await drawLeg(i, my); }
         if (my !== token) return;
         render(i);
-        await wait(i === 0 ? 900 : 650);
+        await wait(i === 0 ? 800 : data[i].transit ? 60 : 320);
         if (my !== token) return;
       }
       stop('Rejouer le voyage');
