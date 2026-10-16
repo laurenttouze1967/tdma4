@@ -1,5 +1,5 @@
 ---
-import { WIDTH, HEIGHT, sphere, graticule, land, borderPath, legs, points } from '../lib/map';
+import { WIDTH, HEIGHT, VIEW_H, sphere, graticule, land, borderPath, legs, points, regionViews, regionOf } from '../lib/map';
 import { formatDate, dayOfTrip, urls, articleBySlug } from '../lib/data';
 
 interface Props { compact?: boolean }
@@ -13,15 +13,36 @@ const fmtRange = (a: string, b?: string) => {
 };
 const data = points.map((p) => ({
   name: p.name, country: p.country, date: fmtRange(p.date, p.until), approx: p.dateApprox, day: dayOfTrip(p.date), transit: !!p.transit,
-  mode: p.mode, note: p.note, x: p.x, y: p.y,
+  mode: p.mode, note: p.note, x: p.x, y: p.y, region: p.transit || p.country === 'France' ? 'monde' : regionOf(p.country),
   article: p.article ? { url: urls.article(p.article), title: articleBySlug(p.article).title } : null,
 }));
+// étiquettes des vues régionales : un nom par lieu, sans chevauchement
+const labelsFor = (v: (typeof regionViews)[number]) => {
+  const placed: { x: number; y: number }[] = [];
+  const seen = new Set<string>();
+  const out: { x: number; y: number; name: string; i: number; anchor: string }[] = [];
+  v.points.forEach((pt, i) => {
+    const st = points[i];
+    if (!pt.inside || st.transit || seen.has(st.name) || st.name === 'Colombes') return;
+    if (placed.some((q) => Math.abs(q.x - pt.x) < 70 && Math.abs(q.y - pt.y) < 15)) return;
+    seen.add(st.name); placed.push(pt);
+    const anchor = pt.x > WIDTH - 140 ? 'end' : 'start';
+    out.push({ x: pt.x + (anchor === 'end' ? -8 : 8), y: pt.y + 4, name: st.name.replace(/ \(.*\)$/, ''), i, anchor });
+  });
+  return out;
+};
 const modeLabel = { avion: 'en avion', bateau: 'en bateau', route: 'par la route', bus: 'en bus', train: 'en train' } as const;
 ---
 <div class:list={['routemap', { compact }]} data-routemap>
+  {!compact && (
+    <div class="views-tabs" role="toolbar" aria-label="Zoom sur un continent">
+      <button type="button" data-view-btn="monde" aria-pressed="true">Monde</button>
+      {regionViews.map((v) => <button type="button" data-view-btn={v.key} aria-pressed="false">{v.label}</button>)}
+    </div>
+  )}
   <div class="map-scroll">
-    <svg viewBox={`${-PAD} ${-PAD} ${WIDTH + 2 * PAD} ${HEIGHT + 2 * PAD}`} role="img"
-         aria-label="Carte du monde en projection Equal Earth montrant l'itinéraire du tour du monde, de Paris à Paris en passant par plus de 150 étapes.">
+    <svg class="view world" data-view="monde" viewBox={`${-PAD} ${-PAD} ${WIDTH + 2 * PAD} ${HEIGHT + 2 * PAD}`} role="img"
+         aria-label="Carte du monde en projection Equal Earth montrant l'itinéraire du tour du monde, de Colombes à Colombes en passant par plus de 150 étapes.">
       <defs>
         <clipPath id="sphere-clip"><path d={sphere} /></clipPath>
       </defs>
@@ -45,6 +66,30 @@ const modeLabel = { avion: 'en avion', bateau: 'en bateau', route: 'par la route
         ))}
       </g>
     </svg>
+    {!compact && regionViews.map((v) => (
+      <svg class="view region" data-view={v.key} viewBox={`0 0 ${WIDTH} ${VIEW_H}`} role="img" hidden
+           aria-label={`Carte détaillée : ${v.label}, avec les étapes du voyage.`}>
+        <rect class="sea" width={WIDTH} height={VIEW_H} />
+        <path class="grat" d={v.graticule} />
+        {v.land.map((c: any) => <path class:list={['land', { visited: c.visited }]} d={c.d} />)}
+        <path class="borders" d={v.borders} />
+        <g class="legs">
+          {v.legs.map((l) => <path class={`leg ${l.mode}`} d={l.d} data-i={l.index} />)}
+        </g>
+        <g class="labels" aria-hidden="true">
+          {labelsFor(v).map((l) => <text class="lbl" data-i={l.i} x={l.x} y={l.y} text-anchor={l.anchor}>{l.name}</text>)}
+        </g>
+        <g class="stops">
+          {v.points.map((pt, i) => pt.inside && (
+            <g class:list={['stop', { home: i === 0 || i === points.length - 1, transit: points[i].transit }]} data-i={i} transform={`translate(${pt.x} ${pt.y})`}
+               tabindex="0" role="button" aria-label={`${points[i].name}, ${data[i].date}`}>
+              <circle class="hit" r="11" />
+              <circle class="dot" r={points[i].transit ? 2.5 : 4.2} />
+            </g>
+          ))}
+        </g>
+      </svg>
+    ))}
   </div>
 
   {!compact && (
@@ -80,7 +125,8 @@ const modeLabel = { avion: 'en avion', bateau: 'en bateau', route: 'par la route
 <style>
   .routemap { --leg: var(--terracotta); }
   .map-scroll { border-radius: var(--radius); overflow-x: auto; overscroll-behavior-x: contain; -webkit-overflow-scrolling: touch; background: var(--sea); scrollbar-width: thin; }
-  .routemap:not(.compact) .map-scroll svg { min-width: 760px; }
+  .routemap:not(.compact) .map-scroll svg.world { min-width: 760px; }
+  .view[hidden] { display: none; }
   .map-scroll svg { width: 100%; }
   .sea { fill: #dfe8ec; }
   .outline { fill: none; stroke: #b9c8cf; stroke-width: 1; }
@@ -92,6 +138,15 @@ const modeLabel = { avion: 'en avion', bateau: 'en bateau', route: 'par la route
   .leg.avion { stroke-dasharray: 5 4; stroke-width: 1.4; }
   .leg.bateau { stroke: #1f6f8b; stroke-dasharray: 1 3.5; stroke-width: 2.2; }
   .stop .hit { fill: transparent; }
+  .lbl { font: 600 12.5px/1 var(--sans); fill: #3a2c24; paint-order: stroke; stroke: rgb(255 255 255 / .85); stroke-width: 3px; stroke-linejoin: round; pointer-events: none; }
+  .lbl.future { opacity: 0; }
+  .region .leg { stroke-width: 2.2; }
+  .region .leg.avion { stroke-width: 1.6; }
+  .views-tabs { display: flex; flex-wrap: wrap; gap: .4rem; margin-bottom: .7rem; }
+  .views-tabs button { font: 600 .88rem/1 var(--sans); padding: .55rem .9rem; border-radius: 999px; border: 0; cursor: pointer;
+    background: var(--card); color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--line); transition: background .2s, color .2s; }
+  .views-tabs button:hover { box-shadow: inset 0 0 0 1.5px var(--terracotta); }
+  .views-tabs button[aria-pressed='true'] { background: var(--bordeaux); color: #fff; box-shadow: none; }
   .stop .dot { fill: #fff; stroke: var(--bordeaux); stroke-width: 1.5; transition: r .25s, fill .25s; }
   .stop.home .dot { fill: var(--bordeaux); stroke: #fff; }
   .routemap:not(.compact) .stop { cursor: pointer; outline: none; }
@@ -126,16 +181,18 @@ const modeLabel = { avion: 'en avion', bateau: 'en bateau', route: 'par la route
 
 <script>
   type StopData = { name: string; country: string; date: string; approx: boolean; day: number; mode: string | null; transit: boolean;
-    note: string; x: number; y: number; article: { url: string; title: string } | null };
+    note: string; x: number; y: number; region: string; article: { url: string; title: string } | null };
 
   document.querySelectorAll<HTMLElement>('[data-routemap]').forEach((root) => {
     if (root.classList.contains('compact')) return;
     const { data, modeLabel } = JSON.parse(root.querySelector('[data-stops]')!.textContent!) as
       { data: StopData[]; modeLabel: Record<string, string> };
-    const legs = [...root.querySelectorAll<SVGPathElement>('.leg')];
-    const stops = [...root.querySelectorAll<SVGGElement>('.stop')];
+    const views = [...root.querySelectorAll<SVGSVGElement>('svg.view')];
+    const tabs = [...root.querySelectorAll<HTMLButtonElement>('[data-view-btn]')];
+    const allLegs = [...root.querySelectorAll<SVGPathElement>('.leg')];
+    const allStops = [...root.querySelectorAll<SVGGElement>('.stop')];
+    const allLabels = [...root.querySelectorAll<SVGTextElement>('.lbl')];
     const scroller = root.querySelector<HTMLElement>('.map-scroll')!;
-    const svg = root.querySelector('svg')!;
     const $ = (s: string) => root.querySelector<HTMLElement>(s)!;
     const playBtn = $('[data-play]');
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -143,21 +200,31 @@ const modeLabel = { avion: 'en avion', bateau: 'en bateau', route: 'par la route
     let current = data.length - 1;
     let playing = false;
     let token = 0;
+    let follow = true;          // la carte suit le voyage d'un continent à l'autre
+    let view = 'monde';
 
-    const lengths = legs.map((l) => l.getTotalLength());
+    const idx = (el: Element) => Number((el as HTMLElement).dataset.i);
+    const visible = () => views.find((v) => v.dataset.view === view)!;
+
+    function setView(key: string) {
+      if (key === view) return;
+      view = key;
+      views.forEach((v) => v.toggleAttribute("hidden", v.dataset.view !== key));
+      tabs.forEach((t) => t.setAttribute('aria-pressed', String(t.dataset.viewBtn === key)));
+    }
+    tabs.forEach((t) => t.addEventListener('click', () => { follow = false; setView(t.dataset.viewBtn!); scrollTo(data[current]); }));
 
     function render(i: number, drawnUpTo = i) {
       current = i;
-      legs.forEach((l, k) => {
-        const idx = k + 1;
-        l.classList.toggle('future', idx > drawnUpTo);
-        if (idx <= drawnUpTo) { l.style.strokeDashoffset = ''; l.style.removeProperty('stroke-dasharray'); }
+      allLegs.forEach((l) => {
+        const k = idx(l);
+        l.classList.toggle('future', k > drawnUpTo);
+        if (k <= drawnUpTo) l.style.removeProperty('stroke-dasharray');
       });
-      stops.forEach((s, k) => {
-        s.classList.toggle('future', k > i);
-        s.classList.toggle('current', k === i);
-      });
+      allStops.forEach((s) => { const k = idx(s); s.classList.toggle('future', k > drawnUpTo); s.classList.toggle('current', k === i); });
+      allLabels.forEach((t) => t.classList.toggle('future', idx(t) > drawnUpTo));
       const d = data[i];
+      if (follow) setView(d.region);
       $('[data-step]').textContent = `Étape ${i + 1} / ${data.length}${d.mode ? ' · ' + modeLabel[d.mode] : ''}${d.transit ? ' · escale' : ''}`;
       $('[data-name]').textContent = d.name + (d.country && d.name !== d.country ? ` — ${d.country}` : '');
       $('[data-when]').textContent = `${d.approx ? 'vers le ' : ''}${d.date} · jour ${d.day}`;
@@ -168,41 +235,47 @@ const modeLabel = { avion: 'en avion', bateau: 'en bateau', route: 'par la route
       else link.hidden = true;
       $('[data-bar]').style.width = `${(d.day / lastDay) * 100}%`;
       $('[data-day]').textContent = `Jour ${d.day} / ${lastDay}`;
-      follow(d);
+      scrollTo(d);
     }
 
-    function follow(d: StopData) {
-      if (scroller.scrollWidth <= scroller.clientWidth) return;
+    // sur petit écran, la carte du monde défile pour garder l'étape au centre
+    function scrollTo(d: StopData) {
+      if (view !== 'monde' || scroller.scrollWidth <= scroller.clientWidth) return;
+      const svg = visible();
       const vb = svg.viewBox.baseVal;
       const scale = svg.getBoundingClientRect().width / vb.width;
-      const x = (d.x - vb.x) * scale - scroller.clientWidth / 2;
-      scroller.scrollTo({ left: x, behavior: reduce ? 'auto' : 'smooth' });
+      scroller.scrollTo({ left: (d.x - vb.x) * scale - scroller.clientWidth / 2, behavior: reduce ? 'auto' : 'smooth' });
     }
 
     const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
     async function drawLeg(k: number, my: number) {
-      const leg = legs[k - 1];
+      root.querySelectorAll<SVGPathElement>(`.leg[data-i="${k}"]`).forEach((l) => l.classList.remove('future'));
+      const leg = visible().querySelector<SVGPathElement>(`.leg[data-i="${k}"]`);
       if (!leg) return;
-      const len = lengths[k - 1] || 1;
-      const dash = getComputedStyle(leg).strokeDasharray;
-      leg.classList.remove('future');
+      const len = leg.getTotalLength() || 1;
+      if (len < 2) return;
       // on trace le tronçon progressivement, puis on remet son style (pointillés pour l'avion)
       leg.style.strokeDasharray = `${len} ${len}`;
-      const dur = Math.min(1100, Math.max(220, len * 3));
+      const dur = Math.min(1100, Math.max(220, len * (view === 'monde' ? 3 : 1.6)));
       const anim = leg.animate([{ strokeDashoffset: len }, { strokeDashoffset: 0 }], { duration: dur, easing: 'ease-in-out' });
       await anim.finished.catch(() => {});
       if (my !== token) return;
       leg.style.removeProperty('stroke-dasharray');
-      void dash;
     }
 
     async function play(from = 0) {
       const my = ++token;
+      follow = true;
       playing = true; root.classList.add('playing'); playBtn.querySelector('span')!.textContent = 'Pause';
       if (from === 0) render(0, 0);
       for (let i = from; i < data.length; i++) {
-        if (i > 0) { stops[i].classList.remove('future'); await drawLeg(i, my); }
+        if (i > 0) {
+          // changement de continent : le long trajet se suit sur la carte du monde
+          if (data[i].region !== data[i - 1].region || data[i].region === 'monde') setView(data[i].region === view && view !== 'monde' ? view : 'monde');
+          root.querySelectorAll(`.stop[data-i="${i}"], .lbl[data-i="${i}"]`).forEach((e) => e.classList.remove('future'));
+          await drawLeg(i, my);
+        }
         if (my !== token) return;
         render(i);
         await wait(i === 0 ? 800 : data[i].transit ? 60 : 320);
@@ -216,30 +289,32 @@ const modeLabel = { avion: 'en avion', bateau: 'en bateau', route: 'par la route
       playBtn.querySelector('span')!.textContent = label;
     }
 
+    const step = (to: number) => { stop(); follow = true; render(Math.max(0, Math.min(data.length - 1, to)), data.length); };
     playBtn.addEventListener('click', () => {
       if (playing) return stop();
       play(current >= data.length - 1 ? 0 : current + 1);
     });
-    $('[data-prev]').addEventListener('click', () => { stop(); render(Math.max(0, current - 1)); });
-    $('[data-next]').addEventListener('click', () => { stop(); render(Math.min(data.length - 1, current + 1)); });
-    stops.forEach((s, i) => {
-      const go = () => { stop(); render(i, data.length); stops.forEach((x, k) => x.classList.remove('future')); };
+    $('[data-prev]').addEventListener('click', () => step(current - 1));
+    $('[data-next]').addEventListener('click', () => step(current + 1));
+    allStops.forEach((s) => {
+      const go = () => { stop(); follow = false; render(idx(s), data.length); };
       s.addEventListener('click', go);
       s.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
     });
     root.addEventListener('keydown', (e) => {
-      if ((e.target as HTMLElement).closest('input,textarea')) return;
-      if (e.key === 'ArrowRight') { stop(); render(Math.min(data.length - 1, current + 1)); }
-      if (e.key === 'ArrowLeft') { stop(); render(Math.max(0, current - 1)); }
+      if ((e.target as HTMLElement).closest('input,textarea,button')) return;
+      if (e.key === 'ArrowRight') step(current + 1);
+      if (e.key === 'ArrowLeft') step(current - 1);
     });
 
+    follow = false;
     render(data.length - 1);
     // L'animation démarre d'elle-même la première fois que la carte apparaît à l'écran
     if (!reduce && 'IntersectionObserver' in window) {
       const io = new IntersectionObserver((entries) => {
         if (entries.some((e) => e.isIntersecting)) { io.disconnect(); play(0); }
       }, { threshold: 0.35 });
-      io.observe(svg);
+      io.observe(scroller);
     }
   });
 </script>
