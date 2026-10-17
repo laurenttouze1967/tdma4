@@ -6331,6 +6331,86 @@
      "m": "/album/polynesie/m/papeete-moorea-cimg0424.jpg",
      "mw": 1200,
      "mh": 900
+    },
+    {
+     "src": "/album/polynesie/polynesie-photo06-3a.jpg",
+     "w": 448,
+     "h": 299,
+     "full": "/album/polynesie/polynesie-photo06-3a.jpg",
+     "fw": 448,
+     "fh": 299,
+     "alt": "Papeete, Moorea",
+     "date": null,
+     "stem": "Photo06_3A",
+     "m": "/album/polynesie/m/polynesie-photo06-3a.jpg",
+     "mw": 448,
+     "mh": 299
+    },
+    {
+     "src": "/album/polynesie/polynesie-photo08-5a.jpg",
+     "w": 448,
+     "h": 299,
+     "full": "/album/polynesie/polynesie-photo08-5a.jpg",
+     "fw": 448,
+     "fh": 299,
+     "alt": "Papeete, Moorea",
+     "date": null,
+     "stem": "Photo08_5A"
+    },
+    {
+     "src": "/album/polynesie/polynesie-photo17-14a.jpg",
+     "w": 448,
+     "h": 299,
+     "full": "/album/polynesie/polynesie-photo17-14a.jpg",
+     "fw": 448,
+     "fh": 299,
+     "alt": "Papeete, Moorea",
+     "date": null,
+     "stem": "Photo17_14A"
+    },
+    {
+     "src": "/album/polynesie/polynesie-photo20-17a.jpg",
+     "w": 448,
+     "h": 299,
+     "full": "/album/polynesie/polynesie-photo20-17a.jpg",
+     "fw": 448,
+     "fh": 299,
+     "alt": "Papeete, Moorea",
+     "date": null,
+     "stem": "Photo20_17A"
+    },
+    {
+     "src": "/album/polynesie/polynesie-photo21-18a.jpg",
+     "w": 448,
+     "h": 299,
+     "full": "/album/polynesie/polynesie-photo21-18a.jpg",
+     "fw": 448,
+     "fh": 299,
+     "alt": "Papeete, Moorea",
+     "date": null,
+     "stem": "Photo21_18A"
+    },
+    {
+     "src": "/album/polynesie/polynesie-photo23-20a.jpg",
+     "w": 448,
+     "h": 299,
+     "full": "/album/polynesie/polynesie-photo23-20a.jpg",
+     "fw": 448,
+     "fh": 299,
+     "alt": "Papeete, Moorea",
+     "date": null,
+     "stem": "Photo23_20A"
+    },
+    {
+     "src": "/album/polynesie/polynesie-photo24-21a.jpg",
+     "w": 448,
+     "h": 299,
+     "full": "/album/polynesie/polynesie-photo24-21a.jpg",
+     "fw": 448,
+     "fh": 299,
+     "alt": "Papeete, Moorea",
+     "date": null,
+     "stem": "Photo24_21A"
     }
    ]
   },
@@ -6825,93 +6905,6 @@
      "alt": "Rangiroa",
      "date": "2008-03-29T21:19:30",
      "stem": "2008_0328Rangiroa0054 2"
-    }
-   ]
-  },
-  {
-   "title": "Papeete, Moorea",
-   "from": null,
-   "to": null,
-   "photos": [
-    {
-     "src": "/album/polynesie/polynesie-photo06-3a.jpg",
-     "w": 448,
-     "h": 299,
-     "full": "/album/polynesie/polynesie-photo06-3a.jpg",
-     "fw": 448,
-     "fh": 299,
-     "alt": "Papeete, Moorea",
-     "date": null,
-     "stem": "Photo06_3A",
-     "m": "/album/polynesie/m/polynesie-photo06-3a.jpg",
-     "mw": 448,
-     "mh": 299
-    },
-    {
-     "src": "/album/polynesie/polynesie-photo08-5a.jpg",
-     "w": 448,
-     "h": 299,
-     "full": "/album/polynesie/polynesie-photo08-5a.jpg",
-     "fw": 448,
-     "fh": 299,
-     "alt": "Papeete, Moorea",
-     "date": null,
-     "stem": "Photo08_5A"
-    },
-    {
-     "src": "/album/polynesie/polynesie-photo17-14a.jpg",
-     "w": 448,
-     "h": 299,
-     "full": "/album/polynesie/polynesie-photo17-14a.jpg",
-     "fw": 448,
-     "fh": 299,
-     "alt": "Papeete, Moorea",
-     "date": null,
-     "stem": "Photo17_14A"
-    },
-    {
-     "src": "/album/polynesie/polynesie-photo20-17a.jpg",
-     "w": 448,
-     "h": 299,
-     "full": "/album/polynesie/polynesie-photo20-17a.jpg",
-     "fw": 448,
-     "fh": 299,
-     "alt": "Papeete, Moorea",
-     "date": null,
-     "stem": "Photo20_17A"
-    },
-    {
-     "src": "/album/polynesie/polynesie-photo21-18a.jpg",
-     "w": 448,
-     "h": 299,
-     "full": "/album/polynesie/polynesie-photo21-18a.jpg",
-     "fw": 448,
-     "fh": 299,
-     "alt": "Papeete, Moorea",
-     "date": null,
-     "stem": "Photo21_18A"
-    },
-    {
-     "src": "/album/polynesie/polynesie-photo23-20a.jpg",
-     "w": 448,
-     "h": 299,
-     "full": "/album/polynesie/polynesie-photo23-20a.jpg",
-     "fw": 448,
-     "fh": 299,
-     "alt": "Papeete, Moorea",
-     "date": null,
-     "stem": "Photo23_20A"
-    },
-    {
-     "src": "/album/polynesie/polynesie-photo24-21a.jpg",
-     "w": 448,
-     "h": 299,
-     "full": "/album/polynesie/polynesie-photo24-21a.jpg",
-     "fw": 448,
-     "fh": 299,
-     "alt": "Papeete, Moorea",
-     "date": null,
-     "stem": "Photo24_21A"
     }
    ]
   }

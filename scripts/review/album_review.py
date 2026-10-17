@@ -155,6 +155,10 @@ NEW = [('2cf35650', 'laos', 'Luang Prabang', '2007_1102LuangPrabang0111'),
 for up, rub, title, stem in NEW:
     sec(rub, title)['photos'].append(make(rub, title, stem, os.path.join(UP, up + '-image.jpg')))
 
+# 17 oct. : les deux sections « Papeete, Moorea » de la Polynésie n'en font qu'une
+pm1, pm2 = sec('polynesie', 'Papeete, Moorea'), sec('polynesie', 'Papeete, Moorea', 1)
+pm1['photos'].extend(pm2['photos']); pm1['to'] = pm2.get('to') or pm1.get('to'); pm2['photos'] = []
+
 # renommages
 RENAME = {
     ('laos', 'Plateau des Bolavens'): 'Plateau des Bolovens',
