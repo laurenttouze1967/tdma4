@@ -38,7 +38,10 @@ Variables à déclarer dans l'hébergeur (jamais dans le code) :
 - `TURNSTILE_SECRET` : clé secrète anti-robots Cloudflare Turnstile
 - `PUBLIC_TURNSTILE_SITEKEY` : clé publique Turnstile (au moment du build)
 
-## Mise en ligne (Cloudflare Pages)
+## Mise en ligne (Cloudflare Workers)
 
-- Build command : `npm run build` — Build output directory : `dist` — Variable `NODE_VERSION` = `22`
-- Domaine : `tdma4.fr` (zone DNS gérée par Cloudflare), `www.tdma4.fr` redirigé vers `tdma4.fr`
+- Projet Worker `tdma4` relié au dépôt GitHub (Workers Builds) : commande de build `npm run build`, commande de déploiement `npx wrangler deploy`.
+- `wrangler.jsonc` : le site statique (`dist`) est servi tel quel ; `worker/index.js` ne traite que `/api/contact` et `/api/visites` (code dans `functions/api/`).
+- Base D1 `tdma4-compteur` (liaison `DB`) pour le compteur de visites, créée automatiquement au premier déploiement.
+- Variable de build : `PUBLIC_TURNSTILE_SITEKEY`. Secrets d'exécution : `CONTACT_TO`, `BREVO_API_KEY`, `TURNSTILE_SECRET`.
+- Domaine : `tdma4.fr` (zone DNS gérée par Cloudflare), `www.tdma4.fr` redirigé vers `tdma4.fr`.

@@ -1,0 +1,18 @@
+{
+  // Site tdma4.fr sur Cloudflare Workers (déployé automatiquement à chaque modification sur GitHub)
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "tdma4",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    "run_worker_first": ["/api/*"]
+  },
+  // Compteur de visites : base D1 créée automatiquement au premier déploiement
+  "d1_databases": [{ "binding": "DB", "database_name": "tdma4-compteur" }],
+  // Les variables et secrets saisis dans le tableau de bord sont conservés
+  "keep_vars": true,
+  "observability": { "enabled": true }
+}
