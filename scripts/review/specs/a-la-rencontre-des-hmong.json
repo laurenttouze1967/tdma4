@@ -1,0 +1,9 @@
+[
+ {"op": "beside", "photo": 3, "para": "La journée a surement été une des plus belles"},
+ {"op": "beside", "photo": 4, "para": "Après la visite du village"},
+ {"op": "beside", "photo": 5, "para": "Ce que notre guide (le beau-frère)"},
+ {"op": "beside", "photo": 6, "para": "3 heures et quelques pauses"},
+ {"op": "beside", "photo": 7, "para": "Après le déjeuner, c'est reparti"},
+ {"op": "after", "photos": [9, 10], "para": "belotte et internet"},
+ {"op": "merge", "para": "belotte et internet"}
+]

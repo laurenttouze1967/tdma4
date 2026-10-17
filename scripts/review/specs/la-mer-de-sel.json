@@ -1,0 +1,7 @@
+[
+ {"op": "para_before_photo", "para": "puis le désert de Silesi", "photo": 4},
+ {"op": "merge", "para": "puis le désert de Silesi"},
+ {"op": "beside", "photo": 14, "para": "En repartant le lendemain matin, nous demandons"},
+ {"op": "para_before_photo", "para": "Sur la route qui nous emmène à Uyuni", "photo": 15},
+ {"op": "group", "photo": 15, "float": "none"}
+]

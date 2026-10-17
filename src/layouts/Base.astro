@@ -21,7 +21,7 @@ const path = Astro.url.pathname;
 const active = (p: string) => (path.startsWith(p) ? 'page' : undefined);
 const groups: { label: string; items: typeof rubriques }[] = [];
 for (const r of rubriques) {
-  const label = r.continent ?? 'Le voyage';
+  const label = r.slug === 'blog-de-garance' ? 'Le blog de Garance' : r.continent ?? 'Le voyage';
   let g = groups.find((x) => x.label === label);
   if (!g) groups.push((g = { label, items: [] }));
   g.items.push(r);
@@ -113,10 +113,26 @@ for (const r of rubriques) {
           </ul>
         </nav>
       </div>
+      <p class="container visits small" id="visites" hidden><span></span> visites depuis la mise en ligne du site</p>
       <p class="container copy small">© 2007–{new Date().getFullYear()} famille Touzé · Textes et photos ne peuvent être reproduits sans autorisation.</p>
     </footer>
 
     <script>
+      // Compteur de visites : une visite = une session de navigation (pas de cookie)
+      (async () => {
+        const box = document.getElementById('visites');
+        if (!box || location.protocol === 'file:') return;
+        let first = true;
+        try { first = !sessionStorage.getItem('tdma4-visite'); sessionStorage.setItem('tdma4-visite', '1'); } catch {}
+        try {
+          const r = await fetch('/api/visites', { method: first ? 'POST' : 'GET' });
+          if (!r.ok) return;
+          const { visites } = await r.json();
+          if (typeof visites !== 'number' || visites < 1) return;
+          box.querySelector('span')!.textContent = visites.toLocaleString('fr-FR');
+          box.hidden = false;
+        } catch {}
+      })();
       // Ferme les menus déroulants quand on clique ailleurs ou qu'on appuie sur Échap
       const menus = document.querySelectorAll<HTMLDetailsElement>('.site-header details');
       const main = document.querySelector<HTMLDetailsElement>('.site-header .menu');
@@ -178,6 +194,8 @@ for (const r of rubriques) {
     .mega { position: absolute; right: -8rem; top: calc(100% + .6rem); width: min(44rem, 90vw); background: var(--card); border-radius: var(--radius); padding: 1.25rem 1.5rem; box-shadow: 0 18px 50px -20px rgb(60 30 10 / .45), 0 0 0 1px var(--line); }
   }
 
+  .visits { margin-top: 1.5rem; color: #cbbfb0; text-align: center; }
+  .visits span { font-family: var(--serif); font-size: 1.15rem; color: #f6c8ac; }
   .site-footer { background: #2b221d; color: #e9dfd2; margin-top: 4rem; padding: 3rem 0 1.5rem; font-size: .95rem; }
   .site-footer a { color: #f6c8ac; text-decoration: none; }
   .site-footer a:hover { color: #fff; text-decoration: underline; }

@@ -1,0 +1,16 @@
+[
+ {"op": "add", "stem": "2008_0108Uluru0007"},
+ {"op": "add", "stem": "2008_0108Uluru0054"},
+ {"op": "add", "stem": "2008_0108Uluru0196"},
+ {"op": "replace", "old": "ci-dessus", "new": "à droite"},
+ {"op": "beside", "photo": 1, "para": "En arrivant, nous nous lançons", "side": "right"},
+ {"op": "group", "photo": 2, "order": [2, "2008_0108Uluru0007"]},
+ {"op": "beside", "photo": 3, "para": "Après cette entrée en matière"},
+ {"op": "beside", "photo": 4, "para": "Le lendemain matin, réveil à 5h30"},
+ {"op": "group", "photo": 5, "order": [5, "2008_0108Uluru0054"]},
+ {"op": "beside", "photo": 6, "para": "En fin de matinée, nous prenons"},
+ {"op": "beside", "photo": 8, "para": "Il est à peine 10h"},
+ {"op": "beside", "photo": 9, "para": "Antoine en profite pour faire"},
+ {"op": "group", "photo": 10, "order": [10, "2008_0108Uluru0196"]},
+ {"op": "beside", "photo": 11, "para": "A l’hôtel, nous aurons droit"}
+]

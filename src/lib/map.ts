@@ -25,11 +25,33 @@ export const borderPath = path(borders)!;
 
 const round = (n: number) => Math.round(n * 10) / 10;
 
-/** Un tronçon entre deux étapes : arc de grand cercle, découpé au besoin à l'antiméridien */
+/** Tracé d'un tronçon : arc de grand cercle (découpé au besoin à l'antiméridien).
+ *  Les vols sont en plus bombés sur le côté (à droite du sens de la marche) : un aller-retour
+ *  en avion dessine ainsi deux arcs distincts au lieu de se superposer comme une route. */
+function legPath(proj: any, a: [number, number], b: [number, number], mode: string | null, pathGen: any) {
+  const coords = densify(a, b);
+  const line = { type: 'LineString', coordinates: coords } as any;
+  if (mode !== 'avion') return pathGen(line) ?? '';
+  const pts = coords.map((c) => proj(c) as [number, number] | null);
+  if (pts.some((p) => !p) || pts.some((p, k) => k && Math.hypot(p![0] - pts[k - 1]![0], p![1] - pts[k - 1]![1]) > WIDTH / 3)) {
+    return pathGen(line) ?? '';
+  }
+  const [x0, y0] = pts[0]!, [x1, y1] = pts[pts.length - 1]!;
+  const L = Math.hypot(x1 - x0, y1 - y0);
+  if (L < 1) return pathGen(line) ?? '';
+  const nx = -(y1 - y0) / L, ny = (x1 - x0) / L;
+  const h = Math.min(0.14 * L, 70);
+  const n = pts.length - 1;
+  return 'M' + pts.map((p, k) => {
+    const f = 4 * (k / n) * (1 - k / n) * h;
+    return `${round(p![0] + nx * f)},${round(p![1] + ny * f)}`;
+  }).join('L');
+}
+const legMode = (m: string | null | undefined) => (m === 'bus' ? 'route' : (m ?? 'route'));
+
 export const legs = itinerary.slice(1).map((stop, i) => {
   const from = itinerary[i];
-  const line = { type: 'LineString', coordinates: densify([from.lon, from.lat], [stop.lon, stop.lat]) } as any;
-  return { d: path(line) ?? '', mode: stop.mode === 'bus' ? 'route' : (stop.mode ?? 'route'), index: i + 1 };
+  return { d: legPath(projection, [from.lon, from.lat], [stop.lon, stop.lat], stop.mode, path), mode: legMode(stop.mode), index: i + 1 };
 });
 
 function densify(a: [number, number], b: [number, number]) {
@@ -83,8 +105,7 @@ export const regionViews = REGIONS.map((r) => {
     .filter((c: any) => c.d);
   const legsR = itinerary.slice(1).map((stop, i) => {
     const from = itinerary[i];
-    const line = { type: 'LineString', coordinates: densify([from.lon, from.lat], [stop.lon, stop.lat]) } as any;
-    return { d: p(line) ?? '', mode: stop.mode === 'bus' ? 'route' : (stop.mode ?? 'route'), index: i + 1 };
+    return { d: legPath(proj, [from.lon, from.lat], [stop.lon, stop.lat], stop.mode, p), mode: legMode(stop.mode), index: i + 1 };
   });
   const ptsR = itinerary.map((s, i) => {
     const xy = proj([s.lon, s.lat]);

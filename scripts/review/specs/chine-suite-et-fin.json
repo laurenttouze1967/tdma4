@@ -1,0 +1,10 @@
+[
+ {"op": "beside", "photo": 1, "para": "L’arrivée à Shanghai"},
+ {"op": "replace", "old": "Pour exemple, la photo ci-dessous montre", "new": "Par exemple, la photo à gauche montre"},
+ {"op": "beside", "photo": 2, "para": "Notre hôtel à Shanghai était situé", "side": "left"},
+ {"op": "beside", "photo": 3, "para": "Le premier jour, nous avons limité"},
+ {"op": "beside", "photo": 4, "para": "La romantique croisière"},
+ {"op": "beside", "photo": 5, "para": "Mais la beauté des paysages"},
+ {"op": "beside", "photo": 8, "para": "Au programme : farniente"},
+ {"op": "beside", "photo": 11, "para": "C’est super mais, mine de rien"}
+]

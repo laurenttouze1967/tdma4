@@ -1,0 +1,8 @@
+[
+ {"op": "add", "stem": "2008_0116Queensland0005 2"},
+ {"op": "add", "stem": "2008_0116Queensland0020 2"},
+ {"op": "beside", "photo": 2, "para": "Le soir, nous décidons de nous arrêter"},
+ {"op": "after", "photos": [3, 4, "2008_0116Queensland0005 2", "2008_0116Queensland0020 2"], "para": "On y accède par un ferry"},
+ {"op": "beside", "photo": 5, "para": "Finalement, nous nous sommes décidés"},
+ {"op": "beside", "photo": 6, "para": "Pour le snorkeling"}
+]

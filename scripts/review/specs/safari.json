@@ -1,0 +1,10 @@
+[
+ {"op": "beside", "photo": 1, "para": "Après les derniers « au revoir »"},
+ {"op": "beside", "photo": 6, "para": "Dès notre première entrée dans un parc"},
+ {"op": "beside", "photo": 7, "para": "Une de nos grandes surprises"},
+ {"op": "beside", "photo": 8, "para": "Nous avons aussi fait un petit safari à pied"},
+ {"op": "beside", "photo": 9, "para": "Un dernier mot sur les lodges"},
+ {"op": "para_before_photo", "para": "Mardi, c’était le départ pour Zanzibar", "photo": 10},
+ {"op": "group", "photo": 10, "float": "none"},
+ {"op": "insert", "html": "<p>P.S. : les connexions sont super lentes ici, alors vous devrez attendre un peu pour qu’on alimente les albums photos.</p>"}
+]

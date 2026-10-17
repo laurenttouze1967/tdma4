@@ -1,0 +1,10 @@
+[
+ {"op": "add", "stem": "Photo06_3A"},
+ {"op": "add", "stem": "2008_0307Moorea0022"},
+ {"op": "add", "stem": "2008_0310Moorea0081"},
+ {"op": "add", "stem": "CIMG0424"},
+ {"op": "after", "photos": [2, "Photo06_3A"], "para": "Le dimanche, nous partons au Lagoonarium"},
+ {"op": "after", "photos": [3, "2008_0307Moorea0022"], "para": "Le mercredi 5 mars est un jour férié"},
+ {"op": "beside", "photo": 4, "para": "Vendredi 7, nous partons"},
+ {"op": "after", "photos": [5, "2008_0310Moorea0081", "CIMG0424"], "para": "Le lendemain, ils arrivent à Moorea"}
+]

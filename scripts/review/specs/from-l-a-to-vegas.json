@@ -1,0 +1,6 @@
+[
+ {"op": "group", "photo": 2, "wide": true, "float": "none"},
+ {"op": "delete", "para": "Au cours de quelle guerre"},
+ {"op": "group", "photo": 3, "wide": true, "float": "none", "caption": "Au cours de quelle guerre – contre de méchants extra-terrestres – est tombé cet avion, juste sur la maison de Tom Cruise ?"},
+ {"op": "beside", "photo": 4, "para": "Nous continuons ensuite la visite des différents quartiers"}
+]

@@ -27,7 +27,7 @@ PLACES = {
     "Polyn_sie": ("polynesie", "Polynésie"), "Polynesie": ("polynesie", "Polynésie"), "Ile_de_Paques": ("ile-de-paques", "Rapa Nui"),
     "Patagonie": ("patagonie", "Patagonie"), "patagonie": ("patagonie", "Patagonie"), "Chili": ("chili", "Chili"),
     "Bolivie": ("bolivie", "Bolivie"), "Perou": ("perou", "Pérou"), "US": ("etats-unis", "États-Unis"),
-    "Boloven": ("laos", "Plateau des Bolavens"), "Bolaven": ("laos", "Plateau des Bolavens"), "Done_Khon": ("laos", "Don Khon"), "Don_Khon": ("laos", "Don Khon"),
+    "Boloven": ("laos", "Plateau des Bolovens"), "Bolaven": ("laos", "Plateau des Bolovens"), "Done_Khon": ("laos", "Don Khon"), "Don_Khon": ("laos", "Don Khon"),
 }
 
 def place_of(folder):

@@ -1,0 +1,9 @@
+[
+ {"op": "add", "stem": "CIMG0229"},
+ {"op": "add", "stem": "IMG_1978"},
+ {"op": "add", "stem": "IMG_2007 2"},
+ {"op": "group", "photo": 1, "order": [1, 2, 3, "CIMG0229"]},
+ {"op": "group", "photo": 6, "order": [6, 7, "IMG_1978", "IMG_2007 2"]},
+ {"op": "beside", "photo": 11, "para": "Au fil des ans, le souffre"},
+ {"op": "beside", "photo": 12, "para": "Nous avons ainsi croisé « Guino »"}
+]

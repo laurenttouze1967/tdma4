@@ -17,17 +17,26 @@ const filmCount = a.body.filter((p) => p.type === 'film').length;
 const siblings = articlesOf(a.rubrique);
 const travelling = a.date >= '2007-09-17' && a.date <= '2008-07-29';
 const cover = a.photos[0]?.src;
-// côté de chaque photo seule (la première du récit reste en grand)
+// Photos à côté du texte : alternativement à gauche et à droite.
+// float = true | 'left' | 'right' (imposé par la relecture), 'none' (jamais à côté) ; sinon règle automatique
+// pour une photo seule suivie d'un texte assez long (la première photo du récit reste en grand).
 let flip = false;
 const sides = a.body.map((part, i) => {
-  if (part.type !== 'photos' || part.items.length !== 1) return undefined;
-  if (a.body.findIndex((p) => p.type === 'photos') === i) return undefined;
+  if (part.type !== 'photos') return undefined;
   const next = a.body[i + 1];
-  const textAfter = next && next.type === 'html' ? next.html.replace(/<[^>]+>/g, '').length : 0;
-  if (textAfter < 120) return undefined; // pas de texte à côté : la photo reste centrée
+  if (!next || next.type !== 'html') return undefined;
+  const f = part.float;
+  if (f === 'none' || part.wide) return undefined;
+  if (f === 'left' || f === 'right') { flip = f === 'right'; return f; }
+  if (!f) {
+    if (part.items.length !== 1) return undefined;
+    if (a.body.findIndex((p) => p.type === 'photos') === i) return undefined;
+    if (next.html.replace(/<[^>]+>/g, '').length < 120) return undefined; // pas de texte à côté : la photo reste centrée
+  }
   flip = !flip;
   return flip ? 'right' : 'left';
 });
+const photoCount = (a as any).photoCount ?? a.photos.length;
 const jsonLd = {
   '@context': 'https://schema.org', '@type': 'BlogPosting', headline: a.title, inLanguage: 'fr-FR',
   datePublished: a.date, author: { '@type': 'Person', name: 'Famille Touzé' },
@@ -47,7 +56,7 @@ const jsonLd = {
         {a.place && <span>📍 {a.place}</span>}
         <time datetime={a.date}>{a.dateApprox ? 'vers le ' : ''}{formatDate(a.date)}</time>
         <span>{a.readingMinutes} min de lecture</span>
-        {a.photos.length > 0 && <span>{a.photos.length} photos</span>}
+        {photoCount > 0 && <span>{photoCount} photo{photoCount > 1 ? 's' : ''}</span>}
         {filmCount > 0 && <span>{filmCount} film{filmCount > 1 ? 's' : ''}</span>}
       </p>
     </header>
@@ -57,7 +66,7 @@ const jsonLd = {
         if (i > 0 && sides[i - 1]) return null; // déjà rendu avec la photo qui le précède
         if (part.type === 'html') return <div class="prose measure" set:html={part.html} />;
         if (part.type === 'film') return <Film file={part.file} />;
-        const group = <PhotoGroup photos={part.items.map((k) => a.photos[k])} caption={part.caption} title={a.title} eager={i < 2} side={sides[i] as 'left' | 'right' | undefined} />;
+        const group = <PhotoGroup photos={part.items.map((k) => a.photos[k])} caption={part.caption} title={a.title} eager={i < 2} side={sides[i] as 'left' | 'right' | undefined} wide={part.wide} />;
         if (!sides[i]) return group;
         const text = a.body[i + 1] as { html: string };
         // la photo et le texte qui la suit forment un bloc : le texte habille la photo
@@ -140,11 +149,14 @@ const jsonLd = {
   .prose table { display: block; overflow-x: auto; border-collapse: collapse; margin: 1.5em 0 2em; font-size: .92rem; line-height: 1.4;
     width: min(100vw - 2 * var(--gutter), var(--wide)); max-width: none; position: relative; left: 50%; transform: translateX(-50%); }
   @media (max-width: 1000px) { .prose table { width: 100%; left: auto; transform: none; } }
+  .prose table.compact { display: table; width: auto; min-width: 18rem; left: auto; transform: none; margin: 1em 0 2em; font-size: .95rem; }
+  .prose table.compact td, .prose table.compact th { min-width: 0; padding: .35em .9em; }
   .prose th, .prose td { padding: .55em .8em; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; min-width: 8.5em; }
   .prose thead th { background: var(--sand-soft); color: var(--bordeaux); font-family: var(--serif); font-size: 1.02rem; }
   .prose td:first-child { white-space: nowrap; min-width: 0; color: var(--bordeaux); }
   .prose tbody tr:nth-child(even) { background: rgb(255 255 255 / .6); }
   .prose em strong, .prose strong em { font-style: normal; }
+  .prose-flow > .prose:first-child > p:first-child + * { clear: left; }
   .prose-flow > .prose:first-child > p:first-child::first-letter {
     float: left; font-family: var(--serif); font-size: 3.6em; line-height: .85; padding: .08em .1em 0 0; color: var(--terracotta);
   }

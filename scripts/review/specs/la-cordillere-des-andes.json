@@ -1,0 +1,6 @@
+[
+ {"op": "beside", "photo": 2, "para": "Le mercredi, nous louons une voiture"},
+ {"op": "beside", "photo": 6, "para": "Le lendemain, avant de rentrer"},
+ {"op": "replace", "old": "<p><em>La vallée de la Luna, d’où on vient voir des couchers de soleil magnifiques sur la Cordillère des Andes.</em></p>", "new": "<p>La vallée de la Luna, où on vient voir des couchers de soleil magnifiques sur la Cordillère des Andes.</p>"},
+ {"op": "beside", "photo": 15, "para": "Nous avons la chance que Pablo"}
+]

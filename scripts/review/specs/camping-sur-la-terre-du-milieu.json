@@ -1,0 +1,11 @@
+[
+ {"op": "beside", "photo": 1, "para": "Le lendemain à 8h, nous prenons le Ferry"},
+ {"op": "beside", "photo": 2, "para": "Arrivé de l’autre côté du détroit"},
+ {"op": "group", "photo": 5, "float": "none", "wide": true},
+ {"op": "after", "photos": [6, 7], "para": "Après notre déconvenue relative aux dauphins", "caption": null},
+ {"op": "photo_caption", "photo": 6, "text": "Le lac Tekapo"},
+ {"op": "photo_caption", "photo": 7, "text": "Le lac Pukaki et, au fond, le mont Cook, le plus haut sommet de NZ (3754 mètres)"},
+ {"op": "beside", "photo": 8, "para": "Nous poursuivons la route vers le sud"},
+ {"op": "beside", "photo": 9, "para": "Un peu plus loin, nous atteignons Slope point"},
+ {"op": "after", "photos": [16, 17], "para": "Ici, même les chevaux sont des stars", "caption": null}
+]

@@ -19,7 +19,7 @@ RENAME = {
     'Aéroport international du Kilimandjaro': 'Arusha (aéroport du Kilimandjaro)',
     'Manyara': 'Lac Manyara', 'Mara': 'Serengeti', 'Ngorongoro': 'Cratère du Ngorongoro',
     'Viangchan': 'Vientiane', 'Louang Prabang': 'Luang Prabang', 'Na Hin': 'Na Hin (grotte de Kong Lo)',
-    'Savannakhét': 'Savannakhet', 'Plateau des Bolovens': 'Plateau des Bolavens', 'Paksé': 'Paksé',
+    'Savannakhét': 'Savannakhet', 'Paksé': 'Paksé',
     'Siem Reap': 'Siem Reap (Angkor)', 'Xian de Yangshuo': 'Yangshuo', 'Pékin': 'Pékin',
     'Denpasar': 'Bali (Umalas)', 'Aéroport international de Denpasar (DPS)': 'Denpasar',
     'Kawah Ijen': 'Volcan Kawah Ijen (Java)',

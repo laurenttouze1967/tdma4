@@ -10,7 +10,7 @@
   "mode": null,
   "transit": false,
   "article": "depart",
-  "note": ""
+  "note": "Départ pour 316 jours de tour du monde."
  },
  {
   "name": "Londres",
@@ -49,7 +49,7 @@
   "mode": "avion",
   "transit": true,
   "article": "safari",
-  "note": "Trois jours à Stone Town, puis une semaine de plage à Paje."
+  "note": ""
  },
  {
   "name": "Arusha (aéroport du Kilimandjaro)",
@@ -78,17 +78,17 @@
   "note": ""
  },
  {
-  "name": "Cratère du Ngorongoro",
+  "name": "Gibb's Farm",
   "country": "Tanzanie",
-  "lat": -3.2415,
-  "lon": 35.4878,
+  "lat": -3.33,
+  "lon": 35.69,
   "date": "2007-09-20",
   "until": "2007-09-21",
   "dateApprox": false,
   "mode": "route",
   "transit": false,
   "article": "safari",
-  "note": "Safari au fond du cratère et marche avec un ranger sur ses versants."
+  "note": "Marche sur le versant de l'ancien volcan Ngorongoro."
  },
  {
   "name": "Serengeti",
@@ -101,7 +101,7 @@
   "mode": "route",
   "transit": false,
   "article": "safari",
-  "note": "Safari en 4x4 après Arusha et le lac Manyara : lions, guépards, léopards."
+  "note": "Poursuite du safari en 4x4. Lions, guépards et léopards."
  },
  {
   "name": "Cratère du Ngorongoro",
@@ -114,7 +114,7 @@
   "mode": "route",
   "transit": false,
   "article": "safari",
-  "note": "Safari au fond du cratère et marche avec un ranger sur ses versants."
+  "note": "Safari au fond du cratère, véritable arche de Noé."
  },
  {
   "name": "Parc national de Tarangire",
@@ -153,7 +153,7 @@
   "mode": "avion",
   "transit": false,
   "article": "zanzibar",
-  "note": "Trois jours à Stone Town, puis une semaine de plage à Paje."
+  "note": "Trois jours à Stone Town, capitale de Zanzibar."
  },
  {
   "name": "Paje",
@@ -166,20 +166,7 @@
   "mode": "route",
   "transit": false,
   "article": "zanzibar",
-  "note": ""
- },
- {
-  "name": "Stone Town",
-  "country": "Tanzanie",
-  "lat": -6.1622,
-  "lon": 39.1921,
-  "date": "2007-10-04",
-  "until": "2007-10-04",
-  "dateApprox": false,
-  "mode": "route",
-  "transit": false,
-  "article": "zanzibar",
-  "note": "Trois jours à Stone Town, puis une semaine de plage à Paje."
+  "note": "1 semaine de plage et de repos."
  },
  {
   "name": "Nairobi",
@@ -244,7 +231,7 @@
   "mode": "route",
   "transit": false,
   "article": "une-star-est-nee",
-  "note": ""
+  "note": "Ancienne ville d'été impériale, au nord de la Grande Muraille."
  },
  {
   "name": "Pékin",
@@ -257,7 +244,7 @@
   "mode": "train",
   "transit": false,
   "article": "une-star-est-nee",
-  "note": "Hutong, Cité interdite, Tiananmen, Grande Muraille et excursion à Chengde."
+  "note": "Poursuite de la découverte de la ville et de sa gare !"
  },
  {
   "name": "Shanghai",
@@ -270,7 +257,7 @@
   "mode": "train",
   "transit": false,
   "article": "chine-suite-et-fin",
-  "note": "Concession française, croisière sur la Huangpu et pandas du zoo."
+  "note": "Ancienne concession française, croisière sur la Huangpu et visite du zoo."
  },
  {
   "name": "Guilin",
@@ -283,7 +270,7 @@
   "mode": "avion",
   "transit": false,
   "article": "chine-suite-et-fin",
-  "note": "Billets achetés avec un calligraphe et spectacle des minorités."
+  "note": "Ville-étape pour préparer la logistique de la prochaine semaine et assister à un spectacle sur les minorités."
  },
  {
   "name": "Yangshuo",
@@ -309,7 +296,7 @@
   "mode": "bus",
   "transit": false,
   "article": "chine-suite-et-fin",
-  "note": "Billets achetés avec un calligraphe et spectacle des minorités."
+  "note": "Arrivée en bus depuis Yangshuo et départ direct pour 24h de train vers Kunming."
  },
  {
   "name": "Kunming",
@@ -322,7 +309,7 @@
   "mode": "train",
   "transit": false,
   "article": "chine-suite-et-fin",
-  "note": ""
+  "note": "Étape de 24h dans la capitale du Yunnan."
  },
  {
   "name": "Vientiane",
@@ -335,7 +322,7 @@
   "mode": "avion",
   "transit": false,
   "article": "le-royaume-au-million-delephants",
-  "note": "Patuxai, Pha That Luang et retour des baguettes et croissants."
+  "note": "Patuxai, Pha That Luang, baguettes et croissants."
  },
  {
   "name": "Luang Prabang",
@@ -361,7 +348,7 @@
   "mode": "avion",
   "transit": false,
   "article": "a-la-rencontre-des-hmong",
-  "note": "Patuxai, Pha That Luang et retour des baguettes et croissants."
+  "note": "24h pour retrouver un guide Lonely Planet et départ en bus vers le sud."
  },
  {
   "name": "Na Hin (grotte de Kong Lo)",
@@ -390,7 +377,7 @@
   "note": ""
  },
  {
-  "name": "Plateau des Bolavens",
+  "name": "Plateau des Bolovens",
   "country": "Laos",
   "lat": 15,
   "lon": 106,
@@ -429,7 +416,7 @@
   "note": ""
  },
  {
-  "name": "Siem Reap (Angkor)",
+  "name": "Angkor (Siem Reap)",
   "country": "Cambodge",
   "lat": 13.3333,
   "lon": 103.8333,
@@ -439,7 +426,7 @@
   "mode": "avion",
   "transit": false,
   "article": "le-royaume-dangkor",
-  "note": "Trois jours dans les temples d'Angkor et villages flottants du Tonlé Sap."
+  "note": "6 jours dans les temples d'Angkor et sur le lac Tonlé Sap."
  },
  {
   "name": "Kuala Lumpur",
@@ -465,7 +452,7 @@
   "mode": "avion",
   "transit": false,
   "article": "bali",
-  "note": "Villa louée un mois : surf, plongée à Tulamben, visite de l'île."
+  "note": "Sédentaires pendant 1 mois dans une villa à Umalas : surf, plongée et visite de l'île."
  },
  {
   "name": "Volcan Kawah Ijen (Java)",
@@ -489,9 +476,9 @@
   "until": "2007-12-23",
   "dateApprox": false,
   "mode": "route",
-  "transit": true,
+  "transit": false,
   "article": "bali-opus-2-et-lascension-du-kawa-ijen",
-  "note": ""
+  "note": "Départ vers l'Australie."
  },
  {
   "name": "Sydney",
@@ -569,7 +556,7 @@
   "mode": "avion",
   "transit": false,
   "article": "la-saison-des-pluies",
-  "note": "Sous la pluie : Port Douglas, forêt de Daintree et plongée vers Townsville."
+  "note": "Retour en climat tropical sous la pluie."
  },
  {
   "name": "Port Douglas",
@@ -608,7 +595,7 @@
   "mode": "route",
   "transit": false,
   "article": "whitsunday-escape-whitsunday-escape-this-is-kokomo-kokomo",
-  "note": "Cinq jours de navigation sur le Kokomo, sous la pluie et parmi les méduses."
+  "note": "Porte d'entrée des Whitsunday Islands."
  },
  {
   "name": "Îles Whitsunday",
@@ -634,7 +621,7 @@
   "mode": "bateau",
   "transit": false,
   "article": "whitsunday-escape-whitsunday-escape-this-is-kokomo-kokomo",
-  "note": "Cinq jours de navigation sur le Kokomo, sous la pluie et parmi les méduses."
+  "note": "Retour du Kokomo à son propriétaire et départ immédiat vers le sud."
  },
  {
   "name": "Gladstone",
@@ -751,7 +738,7 @@
   "mode": "train",
   "transit": false,
   "article": "camping-sur-la-terre-du-milieu",
-  "note": "Arrivée par ferry et train TranzCoastal, puis prise du camping-car."
+  "note": "Arrivée par ferry et train TranzCoastal avant la récupération de notre camping-car."
  },
  {
   "name": "Akaroa",
@@ -832,7 +819,7 @@
   "note": ""
  },
  {
-  "name": "Milford Sound",
+  "name": "Fiordland",
   "country": "Nouvelle-Zélande",
   "lat": -44.6414,
   "lon": 167.8974,
@@ -842,7 +829,7 @@
   "mode": "route",
   "transit": false,
   "article": "camping-sur-la-terre-du-milieu",
-  "note": "Hydravion sur Doubtful Sound depuis Te Anau, puis croisière à Milford."
+  "note": "Hydravion au-dessus de Doubtful Sound depuis Te Anau, puis bateau dans Milford Sound."
  },
  {
   "name": "Glenorchy",
@@ -855,7 +842,7 @@
   "mode": "route",
   "transit": false,
   "article": "camping-sur-la-terre-du-milieu",
-  "note": ""
+  "note": "Sur les traces du Seigneur des anneaux, à cheval."
  },
  {
   "name": "Queenstown",
@@ -881,7 +868,7 @@
   "mode": "route",
   "transit": false,
   "article": "camping-sur-la-terre-du-milieu",
-  "note": "Randonnée de trois heures sur le glacier, après Glenorchy à cheval."
+  "note": "Randonnée de trois heures sur le glacier."
  },
  {
   "name": "Murchison",
@@ -907,7 +894,7 @@
   "mode": "route",
   "transit": false,
   "article": "camping-sur-la-terre-du-milieu",
-  "note": ""
+  "note": "3 jours de repos et de bains dans les sources d'eaux chaudes."
  },
  {
   "name": "Kaikoura",
@@ -920,7 +907,7 @@
   "mode": "route",
   "transit": false,
   "article": "camping-sur-la-terre-du-milieu",
-  "note": ""
+  "note": "Rendez-vous manqué avec les baleines."
  },
  {
   "name": "Christchurch",
@@ -933,7 +920,7 @@
   "mode": "route",
   "transit": false,
   "article": "camping-sur-la-terre-du-milieu",
-  "note": ""
+  "note": "Fin de notre première expérience de camping-car."
  },
  {
   "name": "Napier",
@@ -1024,7 +1011,7 @@
   "mode": "avion",
   "transit": false,
   "article": "moorea",
-  "note": "Maison avec barque à Maroe, cheval et anguilles aux yeux bleus."
+  "note": "Une semaine dans une belle maison à Maroe, avec voiture et barque à moteur. Tour de l'île et rencontre des anguilles aux yeux bleus."
  },
  {
   "name": "Bora-Bora",
@@ -1037,7 +1024,7 @@
   "mode": "avion",
   "transit": false,
   "article": "les-iles-sous-le-vent-et-larchipel-des-tuamotu",
-  "note": ""
+  "note": "24h de luxe au milieu du voyage."
  },
  {
   "name": "Fakarava",
@@ -1050,7 +1037,7 @@
   "mode": "avion",
   "transit": false,
   "article": "les-iles-sous-le-vent-et-larchipel-des-tuamotu",
-  "note": "Plongées, perles gagnées par les enfants et lagon vert."
+  "note": "Atoll, plongées, perles et lagon vert."
  },
  {
   "name": "Rangiroa",
@@ -1128,7 +1115,7 @@
   "mode": "bus",
   "transit": false,
   "article": "cap-horn",
-  "note": "Base pour le parc Torres del Paine, découvert sous la neige."
+  "note": "Base pour le parc Torres del Paine."
  },
  {
   "name": "Torres del Paine",
@@ -1154,7 +1141,7 @@
   "mode": "route",
   "transit": false,
   "article": "cap-horn",
-  "note": "Base pour le parc Torres del Paine, découvert sous la neige."
+  "note": "Retour à l'hôtel Francis Drake, départ en bus pour l'Argentine sous la neige."
  },
  {
   "name": "El Calafate",
@@ -1167,7 +1154,7 @@
   "mode": "bus",
   "transit": false,
   "article": "cap-horn",
-  "note": "Chalet en ville et excursion au glacier Perito Moreno."
+  "note": "Chalet et découverte de la Patagonie argentine."
  },
  {
   "name": "Glacier Perito Moreno",
@@ -1193,7 +1180,7 @@
   "mode": "route",
   "transit": false,
   "article": "cap-horn",
-  "note": "Chalet en ville et excursion au glacier Perito Moreno."
+  "note": "Retour au chalet avant le vol pour la Terre de Feu."
  },
  {
   "name": "Ushuaïa",
@@ -1219,7 +1206,7 @@
   "mode": "bateau",
   "transit": false,
   "article": "cap-horn",
-  "note": "Débarquement en zodiac à l'aube au pied du monument albatros."
+  "note": "Débarquement en zodiac à l'aube sur l'île mythique."
  },
  {
   "name": "Punta Arenas",
@@ -1232,7 +1219,7 @@
   "mode": "bateau",
   "transit": false,
   "article": "cap-horn",
-  "note": ""
+  "note": "Fin de la croisière."
  },
  {
   "name": "Santiago du Chili",
@@ -1245,7 +1232,7 @@
   "mode": "avion",
   "transit": false,
   "article": "la-cordillere-des-andes",
-  "note": "Cerro San Cristobal, Cajón del Maipo et escapade à Valparaíso."
+  "note": "Cerro San Cristobal, Cajón del Maipo et beaucoup de temps à la Poste centrale."
  },
  {
   "name": "Valparaíso",
@@ -1284,7 +1271,7 @@
   "mode": "route",
   "transit": false,
   "article": "la-cordillere-des-andes",
-  "note": "Cerro San Cristobal, Cajón del Maipo et escapade à Valparaíso."
+  "note": "Retour dans la capitale pour prendre un vol vers le nord du pays."
  },
  {
   "name": "Calama",
@@ -1349,7 +1336,7 @@
   "mode": "route",
   "transit": false,
   "article": "la-mer-de-sel",
-  "note": "Laguna Verde, geysers Sol de Mañana et laguna Colorada en 4x4."
+  "note": "Poursuite du périple dans le Sud Lipez."
  },
  {
   "name": "San Juan",
@@ -1388,7 +1375,7 @@
   "mode": "route",
   "transit": false,
   "article": "la-mer-de-sel",
-  "note": "Traversée de la mer de sel et nuit à l'hôtel de sel."
+  "note": "Étape chez José avant de quitter le Sud Lipez."
  },
  {
   "name": "Tupiza",
@@ -1427,7 +1414,7 @@
   "mode": "route",
   "transit": false,
   "article": "la-mer-de-sel",
-  "note": "Ville coloniale après Tupiza à cheval et Potosí ; CNED et Alliance Française."
+  "note": "Capitale administrative, belle ville coloniale, CNED et Alliance française."
  },
  {
   "name": "Cochabamba",
@@ -1479,7 +1466,7 @@
   "mode": "bus",
   "transit": false,
   "article": "laltiplano-bolivien",
-  "note": "Quatre jours de CNED, visites des quartiers et achats de tissus."
+  "note": "Quatre jours pour reprendre les cours du CNED, visiter les différents quartiers et faire du shopping à presque 4 000 m d'altitude."
  },
  {
   "name": "Copacabana",
@@ -1492,7 +1479,7 @@
   "mode": "bus",
   "transit": false,
   "article": "laltiplano-bolivien",
-  "note": ""
+  "note": "Port d'accès au lac Titicaca côté bolivien."
  },
  {
   "name": "Isla del Sol",
@@ -1661,7 +1648,7 @@
   "mode": "route",
   "transit": false,
   "article": "sur-la-route-des-incas",
-  "note": "Cinq nuits à San Blas, églises, musées et ruelles en pente."
+  "note": "Retour chez Antoine avant de s'envoler vers Lima, puis Los Angeles."
  },
  {
   "name": "Lima",
@@ -1700,7 +1687,7 @@
   "mode": "route",
   "transit": false,
   "article": "from-l-a-to-vegas",
-  "note": ""
+  "note": "Pause sur la route 66 entre Los Angeles et Las Vegas."
  },
  {
   "name": "Las Vegas",
@@ -1713,7 +1700,7 @@
   "mode": "route",
   "transit": false,
   "article": "from-l-a-to-vegas",
-  "note": "Déjeuner au Bagdad Café sur la route 66, puis hôtels du Strip."
+  "note": "2 jours sur le Strip à fréquenter hôtels démesurés et casinos."
  },
  {
   "name": "Kingman",
@@ -1947,7 +1934,7 @@
   "mode": "route",
   "transit": false,
   "article": "san-clemente-25-ans-plus-tard",
-  "note": "Ville fantôme de Bodie, Lembert Dome et séquoias géants."
+  "note": "Lembert Dome et séquoias géants."
  },
  {
   "name": "Fresno",
@@ -1999,7 +1986,7 @@
   "mode": "route",
   "transit": false,
   "article": "san-clemente-25-ans-plus-tard",
-  "note": "Surf à Pacific Beach et Sea World, après Santa Barbara et San Clemente."
+  "note": "Surf à Pacific Beach et visite de Sea World."
  },
  {
   "name": "Los Angeles",

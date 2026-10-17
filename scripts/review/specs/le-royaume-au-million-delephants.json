@@ -1,0 +1,7 @@
+[
+ {"op": "replace", "old": "en arrière-plan sur la photo ci-dessus", "new": "en arrière-plan sur la photo à gauche"},
+ {"op": "beside", "photo": 2, "para": "Au-delà des tuk-tuk", "side": "left"},
+ {"op": "beside", "photo": 1, "para": "Les taxis locaux sont beaucoup plus pittoresques", "paras": 0},
+ {"op": "merge", "para": "mais bizarrement, une course coûte"},
+ {"op": "beside", "photo": 8, "para": "Vientiane restera aussi pour nous"}
+]

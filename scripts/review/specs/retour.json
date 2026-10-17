@@ -1,0 +1,255 @@
+[
+ {
+  "op": "replace",
+  "old": "7560 photos, dont 1048 sur le blog",
+  "new": "7560 photos, dont 1069 sur le blog"
+ },
+ {
+  "op": "merge",
+  "para": "39 avions",
+  "br": true
+ },
+ {
+  "op": "merge",
+  "para": "10 voitures louées",
+  "br": true
+ },
+ {
+  "op": "merge",
+  "para": "6 trains",
+  "br": true
+ },
+ {
+  "op": "merge",
+  "para": "2 camping-cars",
+  "br": true
+ },
+ {
+  "op": "merge",
+  "para": "Beaucoup de bus",
+  "br": true
+ },
+ {
+  "op": "merge",
+  "para": "45 nuits dans des locations",
+  "br": true
+ },
+ {
+  "op": "merge",
+  "para": "39 nuits dans un camping-car",
+  "br": true
+ },
+ {
+  "op": "merge",
+  "para": "8 nuits sur un bateau",
+  "br": true
+ },
+ {
+  "op": "merge",
+  "para": "7 nuits dans les avions",
+  "br": true
+ },
+ {
+  "op": "merge",
+  "para": "2 nuits dans le train",
+  "br": true
+ },
+ {
+  "op": "merge",
+  "para": "1 nuit dans un bus",
+  "br": true
+ },
+ {
+  "op": "delete",
+  "para": "1er (de loin)"
+ },
+ {
+  "op": "delete",
+  "para": "2ème (ex aequo)"
+ },
+ {
+  "op": "delete",
+  "para": "4ème : Tanzanie"
+ },
+ {
+  "op": "delete",
+  "para": "5ème : Australie"
+ },
+ {
+  "op": "delete",
+  "para": "6ème : Laos"
+ },
+ {
+  "op": "delete",
+  "para": "7ème (ex aequo)"
+ },
+ {
+  "op": "delete",
+  "para": "9ème : Nouvelle"
+ },
+ {
+  "op": "delete",
+  "para": "10ème : Chine"
+ },
+ {
+  "op": "delete",
+  "para": "11ème : Patagonie"
+ },
+ {
+  "op": "delete",
+  "para": "12ème : Bolivie"
+ },
+ {
+  "op": "delete",
+  "para": "13ème : Pérou"
+ },
+ {
+  "op": "delete",
+  "para": "14ème (ex aequo)"
+ },
+ {
+  "op": "insert",
+  "para": "Si on additionne les scores",
+  "html": "<table class=\"compact\"><thead><tr><th>Rang</th><th>Pays</th></tr></thead><tbody><tr><td>1<sup>er</sup> (de loin)</td><td>Bali</td></tr><tr><td>2<sup>e</sup> (ex aequo)</td><td>Chili et États-Unis</td></tr><tr><td>4<sup>e</sup></td><td>Tanzanie</td></tr><tr><td>5<sup>e</sup></td><td>Australie</td></tr><tr><td>6<sup>e</sup></td><td>Laos</td></tr><tr><td>7<sup>e</sup> (ex aequo)</td><td>Polynésie et île de Pâques</td></tr><tr><td>9<sup>e</sup></td><td>Nouvelle-Zélande</td></tr><tr><td>10<sup>e</sup></td><td>Chine</td></tr><tr><td>11<sup>e</sup></td><td>Patagonie</td></tr><tr><td>12<sup>e</sup></td><td>Bolivie</td></tr><tr><td>13<sup>e</sup></td><td>Pérou</td></tr><tr><td>14<sup>e</sup> (ex aequo)</td><td>Cambodge et Zanzibar</td></tr></tbody></table>"
+ },
+ {
+  "op": "delete",
+  "para": "Départ à l’aéroport CDG, Paris"
+ },
+ {
+  "op": "photo_caption",
+  "photo": 5,
+  "text": "Départ à l’aéroport CDG, Paris"
+ },
+ {
+  "op": "photo_caption",
+  "photo": 6,
+  "text": "Fin du safari en Tanzanie"
+ },
+ {
+  "op": "delete",
+  "para": "Zanzibar"
+ },
+ {
+  "op": "photo_caption",
+  "photo": 7,
+  "text": "Zanzibar"
+ },
+ {
+  "op": "photo_caption",
+  "photo": 8,
+  "text": "Voyage en ballon à Yangshuo (Chine)"
+ },
+ {
+  "op": "delete",
+  "para": "Près de Luang prabang (Laos)"
+ },
+ {
+  "op": "photo_caption",
+  "photo": 9,
+  "text": "Près de Luang prabang (Laos)"
+ },
+ {
+  "op": "photo_caption",
+  "photo": 10,
+  "text": "Angkor (Cambodge)"
+ },
+ {
+  "op": "delete",
+  "para": "Plage de Seminyak (Bali)"
+ },
+ {
+  "op": "photo_caption",
+  "photo": 11,
+  "text": "Plage de Seminyak (Bali)"
+ },
+ {
+  "op": "photo_caption",
+  "photo": 12,
+  "text": "En haut du Kawa Ijen (Java, Indonésie)"
+ },
+ {
+  "op": "delete",
+  "para": "Uluru (Australie)"
+ },
+ {
+  "op": "photo_caption",
+  "photo": 13,
+  "text": "Uluru (Australie)"
+ },
+ {
+  "op": "photo_caption",
+  "photo": 14,
+  "text": "Glenorchie (Nouvelle Zélande)"
+ },
+ {
+  "op": "delete",
+  "para": "Atoll de Fakarava (Tuamotu, Polynésie)"
+ },
+ {
+  "op": "photo_caption",
+  "photo": 15,
+  "text": "Atoll de Fakarava (Tuamotu, Polynésie)"
+ },
+ {
+  "op": "photo_caption",
+  "photo": 16,
+  "text": "Ile de Pâques"
+ },
+ {
+  "op": "delete",
+  "para": "Frontière Chili-Argentine, en Patagonie"
+ },
+ {
+  "op": "photo_caption",
+  "photo": 17,
+  "text": "Frontière Chili-Argentine, en Patagonie"
+ },
+ {
+  "op": "photo_caption",
+  "photo": 18,
+  "text": "Glacier Perito Moreno (Argentine)"
+ },
+ {
+  "op": "delete",
+  "para": "Au sud de la terre de feu (Chili)"
+ },
+ {
+  "op": "photo_caption",
+  "photo": 19,
+  "text": "Au sud de la terre de feu (Chili)"
+ },
+ {
+  "op": "photo_caption",
+  "photo": 20,
+  "text": "San Pedro de Atacama (Chili)"
+ },
+ {
+  "op": "delete",
+  "para": "Désert de Dali, dans le Sud Lipez (Bolivie)"
+ },
+ {
+  "op": "photo_caption",
+  "photo": 21,
+  "text": "Désert de Dali, dans le Sud Lipez (Bolivie)"
+ },
+ {
+  "op": "photo_caption",
+  "photo": 22,
+  "text": "Camping à Florence (Oregon, USA)"
+ },
+ {
+  "op": "delete",
+  "para": "San Francisco, face à Alcatraz (USA)"
+ },
+ {
+  "op": "photo_caption",
+  "photo": 23,
+  "text": "San Francisco, face à Alcatraz (USA)"
+ },
+ {
+  "op": "photo_caption",
+  "photo": 24,
+  "text": "Retour à l’aéroport CDG, Paris"
+ }
+]

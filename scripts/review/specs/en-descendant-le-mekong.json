@@ -1,0 +1,8 @@
+[
+ {"op": "beside", "photo": 1, "para": "La nationale 8 s'enfonce"},
+ {"op": "group", "photo": 8, "wide": true, "float": "none"},
+ {"op": "after", "photos": [11, 12], "para": "et la traversée qui dure une heure"},
+ {"op": "merge", "para": "et la traversée qui dure une heure"},
+ {"op": "beside", "photo": 13, "para": "De retour à l'auberge"},
+ {"op": "beside", "photo": 16, "para": "Le lendemain, nous avons continué la route vers Paksé"}
+]

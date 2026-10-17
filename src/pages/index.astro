@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import RouteMap from '../components/RouteMap.astro';
 import ArticleCard from '../components/ArticleCard.astro';
-import { SITE, articles, rubriques, countryRubriques, articlesOf, itinerary, rubriquePeriod, urls, articleBySlug } from '../lib/data';
+import { SITE, photoByRef, articles, rubriques, countryRubriques, articlesOf, itinerary, rubriquePeriod, urls, articleBySlug } from '../lib/data';
 import hero from '../data/hero.json';
 
 const totalPhotos = rubriques.reduce((n, r) => n + r.photoCount, 0);
@@ -11,7 +11,7 @@ const countries = new Set(real.map((s) => s.country).filter((c) => c !== 'France
 const stopCount = real.length - 2; // sans le départ et le retour à Colombes
 const projet = articlesOf('le-projet');
 const first = articles.find((a) => a.rubrique === 'tanzanie')!;
-const heroPhotos = hero.map((src: string) => articles.flatMap((a) => a.photos).find((p) => p.src === src)!).filter(Boolean);
+const heroPhotos = hero.map((ref: string) => photoByRef(ref)!).filter(Boolean);
 ---
 <Base>
   <section class="hero">
@@ -35,7 +35,7 @@ const heroPhotos = hero.map((src: string) => articles.flatMap((a) => a.photos).f
       <div><dt>jours</dt><dd>316</dd></div>
       <div><dt>pays</dt><dd>{countries}</dd></div>
       <div><dt>étapes</dt><dd>{stopCount}</dd></div>
-      <div><dt>récits</dt><dd>{articles.length}</dd></div>
+      <div><dt>récits</dt><dd>{articles.filter((a) => a.rubrique !== 'blog-de-garance').length}</dd></div>
       <div><dt>photos</dt><dd>{totalPhotos}</dd></div>
     </dl>
   </section>
@@ -115,16 +115,16 @@ const heroPhotos = hero.map((src: string) => articles.flatMap((a) => a.photos).f
   .lead { font-size: clamp(1.05rem, 1.6vw, 1.2rem); color: var(--ink-soft); max-width: 34rem; }
   .cta { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.5rem; }
 
-  .polaroids { position: relative; aspect-ratio: 5 / 4; max-width: 34rem; width: 100%; margin-inline: auto; }
+  .polaroids { position: relative; aspect-ratio: 10 / 9; max-width: 34rem; width: 100%; margin-inline: auto; }
   .pol { position: absolute; margin: 0; background: #fff; padding: 2.2% 2.2% 7%; box-shadow: 0 12px 30px -12px rgb(40 20 10 / .45); width: 48%;
     transition: transform .4s ease; }
   .pol img { aspect-ratio: 4 / 3; object-fit: cover; width: 100%; }
   .pol:hover { transform: rotate(0) scale(1.04) !important; z-index: 10; }
-  .p0 { left: 2%; top: 4%; transform: rotate(-6deg); z-index: 2; }
-  .p1 { right: 0; top: 0; transform: rotate(5deg); z-index: 1; }
-  .p2 { left: 26%; top: 30%; transform: rotate(-1.5deg); z-index: 4; width: 50%; }
-  .p3 { left: 0; bottom: 0; transform: rotate(4deg); z-index: 3; }
-  .p4 { right: 2%; bottom: 3%; transform: rotate(-4deg); z-index: 3; }
+  /* Afrique, Amérique (Licancabur), Asie, Océanie */
+  .p0 { left: 1%; top: 3%; transform: rotate(-5deg); z-index: 2; }
+  .p1 { right: 0; top: 0; transform: rotate(4deg); z-index: 1; }
+  .p2 { left: 3%; bottom: 1%; transform: rotate(3deg); z-index: 3; }
+  .p3 { right: 2%; bottom: 3%; transform: rotate(-3.5deg); z-index: 4; }
 
   .stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: .5rem; margin-top: clamp(2rem, 5vw, 3.5rem); padding-top: 1.5rem; border-top: 1px solid var(--line); }
   .stats div { display: flex; flex-direction: column-reverse; text-align: center; }

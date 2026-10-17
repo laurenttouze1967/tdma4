@@ -1,0 +1,9 @@
+[
+ {"op": "para_before_photo", "para": "C’est donc parti pour notre seconde aventure", "photo": 0},
+ {"op": "para_before_photo", "para": "Le samedi après-midi, nous partons pour un baptême", "photo": 2},
+ {"op": "after", "photos": [9, 10], "para": "Nous avons un peu hésité à louer un bateau"},
+ {"op": "before", "photos": [6, 7, 8], "para": "Nous avons un peu hésité à louer un bateau"},
+ {"op": "group", "photo": 5, "wide": true, "float": "none"},
+ {"op": "para_before_photo", "para": "Nous prenons une journée pour visiter Arches Park", "photo": 15},
+ {"op": "beside", "photo": 17, "para": "Nous commençons la première journée de route"}
+]
