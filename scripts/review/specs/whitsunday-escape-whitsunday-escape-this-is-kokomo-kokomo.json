@@ -1,3 +1,18 @@
 [
- {"op": "beside", "photo": 10, "para": "Mardi 20, nous continuons", "paras": 2}
+ {
+  "op": "beside",
+  "photo": 10,
+  "para": "Mardi 20, nous continuons",
+  "paras": 2
+ },
+ {
+  "op": "replace",
+  "old": "Mardi 20,",
+  "new": "Mardi 22,"
+ },
+ {
+  "op": "replace",
+  "old": "Jeudi 21,",
+  "new": "Jeudi 24,"
+ }
 ]
