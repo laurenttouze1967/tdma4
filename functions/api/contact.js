@@ -42,7 +42,8 @@ export async function onRequestPost({ request, env }) {
     if (!check.success) return fail('La vérification anti-robots a échoué. Rechargez la page et réessayez.', 403);
   }
 
-  if (!env.BREVO_API_KEY || !env.CONTACT_TO) return fail("Le formulaire n'est pas encore configuré.", 503);
+  const missing = ['BREVO_API_KEY', 'CONTACT_TO'].filter((k) => !env[k]);
+  if (missing.length) return fail(`Le formulaire n'est pas encore configuré (manque : ${missing.join(', ')}).`, 503);
 
   const html = `<p><strong>${esc(name)}</strong> &lt;${esc(email)}&gt; a écrit depuis le site tdma4.fr :</p>
 <p><em>${esc(subject || '(sans sujet)')}</em></p>
