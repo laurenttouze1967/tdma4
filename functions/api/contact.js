@@ -39,7 +39,11 @@ export async function onRequestPost({ request, env }) {
     body.append('remoteip', request.headers.get('CF-Connecting-IP') || '');
     const check = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', { method: 'POST', body })
       .then((r) => r.json()).catch(() => ({ success: false }));
-    if (!check.success) return fail('La vérification anti-robots a échoué. Rechargez la page et réessayez.', 403);
+    if (!check.success) {
+      // codes Turnstile (ex. missing-input-response, invalid-input-secret) : utiles au diagnostic, sans rien révéler
+      const codes = (check['error-codes'] || []).join(', ');
+      return fail(`La vérification anti-robots a échoué. Rechargez la page et réessayez.${codes ? ' (' + codes + ')' : ''}`, 403);
+    }
   }
 
   const missing = ['BREVO_API_KEY', 'CONTACT_TO'].filter((k) => !env[k]);
